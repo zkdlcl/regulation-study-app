@@ -9,6 +9,9 @@ const lawArticles = law => D.articles.filter(a => a.type === 'a' && a.law === la
 const BYEOL_NO = /^(서?)(\d+)(?:의(\d+))?$/;
 const byeolLabel = no => { const m = BYEOL_NO.exec(no); return m ? (m[1] ? '인사서식' : '별표') + ' 제' + m[2] + '호' + (m[3] ? '의' + m[3] : '') : '별표 ' + no; };
 const byeolIdOf = (law, head) => { const m = /^\[(별표|인사서식)(?:\s*제(\d+)호(?:의(\d+))?)?\]/.exec(head); return m ? 'byeol-' + law + '-' + (m[1] === '인사서식' ? '서' : '') + (m[2] || 1) + (m[3] ? '의' + m[3] : '') : ''; };
+/* 회독 기록 키: 조문과 같은 S.reads 에 '규정:별표5의2'·'규정:인사서식25' 로 넣는다 (기출 근거 DB·복습 카드의 조문 키와 같은 모양) */
+const byeolReadKey = (law, no) => law + ':' + (no.startsWith('서') ? '인사서식' + no.slice(1) : '별표' + no);
+const byeolDomKey = id => { const [, law, no] = id.split('-'); return byeolReadKey(law, no); };
 /* 별표·인사서식 참조 (뒤의 '의N' 은 '제5호의 6'처럼 띄어 써도 읽고, '의 구분' 같은 뒷말은 건드리지 않는다) */
 const XRE2 = /(인사서식|별표)(?:\s*(?:제\s*)?(\d+)\s*호?(?:\s*의\s*(\d+)(?=[에와과의을를이가는은도로,.)\s]|$))?)?|제\s*(\d+)\s*조(?:\s*의\s*(\d+))?|제\s*(\d+)\s*호(?:\s*의\s*(\d+)(?=[에와과의을를이가는은도로,.)\s]|$))?/g;
 /* 원문 글자와 실제 서식이 다른 참조: 제3조의2 '별표 제25호의 선임증' 은 인사서식 제25호 */
@@ -116,8 +119,9 @@ async function renderPeek(){
   if (kind === 'b'){
     try { await loadLaw(law); } catch (e) { /* 아래에서 '찾지 못했습니다' 표시 */ }
     ti.innerHTML = `<span class="badge">${esc(law)}</span> <b>${esc(byeolLabel(no))}</b>`;
-    tools.innerHTML = '<div class="pk-bar">' + modeSeg + amendBtn + '</div>';
-    root.innerHTML = byeolHtml(law, no) || '<p class="mute">별표를 찾지 못했습니다.</p>';
+    const rk = byeolReadKey(law, no), rn = S.reads[rk] || 0, bh = byeolHtml(law, no);
+    tools.innerHTML = '<div class="pk-bar">' + modeSeg + amendBtn + '<span class="pk-sp"></span>' + (bh ? ib(`data-pkread="${esc(rk)}"`, rn ? '✓' + rn : '＋1', '회독 +1 (지금 ' + rn + '회독)', rn > 0) : '') + '</div>';
+    root.innerHTML = bh || '<p class="mute">별표를 찾지 못했습니다.</p>';
     linkifyNodes($$('.ln, td', root), () => law);
   } else {
     const a = await artLookup(law, no);
@@ -225,7 +229,7 @@ function syncAppendixJump(){
   headings.forEach(h => {
     const kind = h.textContent.startsWith('[인사서식') ? '인사서식' : '별표';
     if (!groups[kind]){ groups[kind] = document.createElement('optgroup'); groups[kind].label = kind; groups[kind].dataset.appendices = '1'; }
-    const label = h.cloneNode(true); $$('.amend', label).forEach(a => a.remove());
+    const label = h.cloneNode(true); $$('.amend, .chap-rc', label).forEach(a => a.remove());
     let title = label.textContent.trim();
     if (title.endsWith(']') && h.nextElementSibling?.matches('.ln')) title += ' ' + h.nextElementSibling.textContent.trim();
     const option = document.createElement('option'); option.value = h.id; option.textContent = title; groups[kind].appendChild(option);
@@ -245,7 +249,7 @@ function syncToc(){
   }
   const jump = $('#r-jump'); let h = '';
   const navigable = o => o.value.startsWith('a-') || o.value.startsWith('byeol-');
-  const item = o => { const id = o.value.slice(2), n = o.value.startsWith('a-') ? S.reads[id] || 0 : 0; return `<button class="toc-a" data-tj="${esc(o.value)}" data-id="${esc(id)}"><span class="ck">${n > 1 ? n : n ? '✓' : ''}</span><span>${esc(o.textContent.trim())}</span></button>`; };
+  const item = o => { const id = o.value.slice(2), n = S.reads[o.value.startsWith('a-') ? id : byeolDomKey(o.value)] || 0; return `<button class="toc-a" data-tj="${esc(o.value)}" data-id="${esc(id)}"><span class="ck">${n > 1 ? n : n ? '✓' : ''}</span><span>${esc(o.textContent.trim())}</span></button>`; };
   [...jump.children].forEach(c => {
     if (c.tagName === 'OPTION' && navigable(c)) h += item(c);
     if (c.tagName === 'OPTGROUP'){
@@ -284,9 +288,24 @@ todayEnhance = function(){ _todayEnh2(); try { todayCols(); } catch(e){ console.
 
 /* 회독 본문의 참조 링크도 같은 규칙으로 만든다 (다른 규정으로의 링크 포함) */
 linkRefs = function(){
-  $$('#r-body .chap').forEach(c => { const id = byeolIdOf(R.law, c.textContent); if (id) c.id = id; });
+  let bAll = 0, bRead = 0;
+  $$('#r-body .chap').forEach(c => {
+    const id = byeolIdOf(R.law, c.textContent); if (!id) return;
+    c.id = id;
+    const key = byeolDomKey(id), k = esc(key), n = S.reads[key] || 0;
+    bAll++; if (n) bRead++;
+    c.classList.toggle('read', n > 0);
+    c.insertAdjacentHTML('beforeend', `<span class="chap-rc">${n ? `<button class="rc minus" data-brc="${k}" data-d="-" aria-label="회독 1 줄이기">➖</button>` : ''}<button class="rc ${n ? 'has' : ''}" data-brc="${k}">${n ? '✅ ' + n + '회독 +1' : '회독 +1'}</button></span>`);
+  });
+  const pg = $('#r-prog'); if (pg && bAll) pg.textContent = pg.textContent.replace(/(1회독 이상 \d+\/\d+조)/, `$1 · 별표 ${bRead}/${bAll}`);
   linkifyNodes($$('#r-body .ln, #r-body td'), () => R.law);
 };
+/* 별표 회독 버튼: '이어 읽기' 위치(setLast)는 조문 기준이므로 건드리지 않는다 */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-brc]'); if (!b) return;
+  const k = b.dataset.brc, d = b.dataset.d === '-' || e.shiftKey ? -1 : 1;
+  S.reads[k] = Math.max(0, (S.reads[k] || 0) + d); saveRd(); drawRead(true);
+});
 /* 아직 불러오지 않은 규정으로 이동할 때는 불러온 뒤에 이동 */
 const _goRef = goRef;
 goRef = async function(x){

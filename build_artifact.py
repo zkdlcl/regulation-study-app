@@ -75,6 +75,10 @@ def _cell_blanks(m):
     return m.group(1) + ''.join(x if x.startswith('<') else _blanks(_H.unescape(x), True) for x in seg) + '</td>'
 for _k, _v in D['extra'].items():
     D['extra'][_k] = re.sub(r'(<td[^>]*>)(.*?)</td>', _cell_blanks, _v, flags=re.S)
+# 게시 도구가 HTML 한 파일만 받으므로, 게시된 data/laws 파일을 바꿀 수 없다. 별표가 바뀐 규정은 페이지에 넣어 파일 내용보다 우선한다
+EXTRA_INLINE = ['보수운영규정']
+D['extraFix'] = {x['law']: json.load(open(P(os.path.join('site', x['file'])), encoding='utf8'))['extra'] for x in D['lawIndex'] if x['law'] in EXTRA_INLINE}
+assert set(D['extraFix']) == set(EXTRA_INLINE), EXTRA_INLINE
 newdata = json.dumps(D, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 body = body[:m.start(2)] + newdata + body[m.end(2):]
 

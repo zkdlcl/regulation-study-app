@@ -1,3 +1,8 @@
+/* 별표 머리글의 회독 버튼 */
+.chap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.chap-rc{margin-left:auto;display:inline-flex;gap:6px;font-weight:400}
+.chap.read{border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}
+
 /* ═════ 참조 패널 ═════ */
 .pk-ov{position:fixed;inset:0;z-index:95}
 .pk-scrim{position:absolute;inset:0;background:rgba(0,0,0,.38)}

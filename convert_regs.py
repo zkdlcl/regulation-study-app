@@ -146,6 +146,17 @@ def parse_table(t):
     return t if isinstance(t, dict) and (t.get('rows') or t.get('headers')) else None
 
 
+def split_row(r):
+    """칸마다 같은 수의 줄이 든 행(대상 8줄 ↔ 금액 8줄)을 줄마다 한 행으로 나눈다.
+    칸 하나에 몰아 두면 긴 줄이 접힐 때 대상과 금액이 어긋나 보인다. 줄 수가 다른 칸이 있으면 대응이 불확실하므로 그대로 둔다."""
+    cells = ['' if c is None else str(c) for c in r]
+    lines = [c.split('\n') if c.strip() else [] for c in cells]
+    filled = {len(x) for x in lines if x}
+    if sum(1 for x in lines if x) < 2 or len(filled) != 1 or min(filled) < 2:
+        return [r]
+    return [[x[i] if x else '' for x in lines] for i in range(min(filled))]
+
+
 def table_html(t):
     t = parse_table(t)
     if not t:
@@ -157,7 +168,8 @@ def table_html(t):
     if t.get('headers'):
         h += '<tr>' + ''.join(f'<th>{cell(c)}</th>' for c in t['headers']) + '</tr>'
     for r in t.get('rows') or []:
-        h += '<tr>' + ''.join(f'<td>{bcell(c)}</td>' for c in r) + '</tr>'
+        for row in split_row(r):
+            h += '<tr>' + ''.join(f'<td>{bcell(c)}</td>' for c in row) + '</tr>'
     return f'<div class="tw"><table>{h}</table></div>'
 
 

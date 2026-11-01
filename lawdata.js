@@ -12,7 +12,7 @@ function loadLaw(law){
   if (!ix) return Promise.reject(new Error('알 수 없는 규정: ' + law));
   const p = fetch(ix.file).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(j => {
     j.articles.forEach(a => { a.law = law; D.articles.push(a); });
-    D.extra = D.extra || {}; if (j.extra) D.extra[law] = j.extra;
+    D.extra = D.extra || {}; if (j.extra) D.extra[law] = (D.extraFix && D.extraFix[law]) || j.extra;
     LAW_STATE[law] = 'loaded';
     try { _amendItems = null; } catch (e) { /* 개정 탭이 아직 정의되기 전 */ }
     try { F.idx = null; } catch (e) { /* 검색이 아직 정의되기 전 */ }

@@ -28,6 +28,7 @@ for t in tests/*-test.mjs; do node $t | grep -v ^PASS; done   # 저장소 루트
 2. Artifact 도구는 작업 폴더·scratchpad 밖 파일을 받지 않으므로 scratchpad 에 `orgmaster.html` 과 바뀐 `data/...` 파일을 복사.
 3. `Artifact publish` (url 지정, root = 그 폴더, files = **바뀐** 데이터 파일만). capabilities 는 생략(기존 `db` 유지).
 4. U+FFFD(깨진 글자)가 있으면 거부되므로 미리 검사.
+5. 도구에 `root`·`files` 입력이 없으면(v62 현재) data 파일은 못 올린다. 별표가 바뀐 규정은 `build_artifact.py` `EXTRA_INLINE` 에 추가해 페이지에 넣는다.
 
 ## 4. 학습 기록 백업 (읽기만)
 `ArtifactData get` (collection `state`, doc `progress`) → `backup/progress.json` 에 그대로 저장. **절대 set/update 하지 않는다.**
