@@ -112,10 +112,15 @@ rep("} catch(e){ setSync(''); applySeeds(); }", "} catch(e){ DBR = null; setSync
 # ux8: 진행 중인 뻥뚫·기출 화면도 다른 기기 기록이 들어올 때 다시 그리지 않는다 (입력이 날아가지 않게)
 rep("if (!(cur === 'quiz' && Q.sess)) { if (renderers[cur]) renderers[cur](); }",
     "if (!((cur === 'quiz' && Q.sess) || (cur === 'bt' && BT.sess) || (cur === 'exam' && X.sess))) { if (renderers[cur]) renderers[cur](); }")
+# ux4: ✕ 로 회독에서 뺀 조문(S.rskip)은 이어 읽기·진도 분모에서 제외한다
+rep("function candArts(){ const l = lawArts(); return l.filter(a => inTopic(a, R.topic)); }",
+    "function rdSkip(k){ return !!(S.rskip && S.rskip[k]); }\nfunction candArts(){ const l = lawArts(); return l.filter(a => inTopic(a, R.topic) && !rdSkip(artId(a))); }")
+rep("const arts = list.filter(a => a.type === 'a');", "const arts = list.filter(a => a.type === 'a' && !rdSkip(artId(a)));")
 # ux8: 회독 진도는 '지금 회독'(범위 최소 회독 + 1) 기준 — 1회독 뒤에도 2·3회독으로 이어진다 (readRound 는 ux8.js)
 rep("if (as.length) hInfo[i] = {as, read: as.filter(a => S.reads[artId(a)] > 0).length};",
-    "if (as.length){ const rn = readRound(as); hInfo[i] = {as, rn, read: as.filter(a => (S.reads[artId(a)] || 0) >= rn).length}; }")
-rep("· 1회독 ${f.read}/${f.as.length}`", "· ${f.rn}회독 ${f.read}/${f.as.length}`")
+    "if (as.length){ const on = as.filter(a => !rdSkip(artId(a))), rn = readRound(on); hInfo[i] = {as, on, rn, read: on.filter(a => (S.reads[artId(a)] || 0) >= rn).length}; }")
+rep("${f.as.length}개 조 · 1회독 ${f.read}/${f.as.length}`", "${f.on.length}개 조 · ${f.rn}회독 ${f.read}/${f.on.length}`")
+rep("pct(f.read, f.as.length)", "pct(f.read, f.on.length)")
 rep("$('#r-prog').textContent = `1회독 이상 ${read}/${arts.length}조 (${pct(read, arts.length)}%) · ",
     "const ca = candArts(), rr = readRound(ca), rd2 = ca.filter(a => (S.reads[artId(a)] || 0) >= rr).length;\n  $('#r-prog').textContent = `${rr}회독 진행 ${rd2}/${ca.length}조 (${pct(rd2, ca.length)}%) · 1회독 이상 ${read}/${arts.length}조 · ")
 rep("lbl = rt ? `▶ 이어 읽기 · ${nl(rt.no)}` : '✅ 1회독 완료';", "lbl = rt ? `▶ ${rr}회독 · ${nl(rt.no)}` : '▶ 이어 읽기';")

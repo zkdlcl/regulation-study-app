@@ -2,6 +2,17 @@
 .chap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
 .chap-rc{margin-left:auto;display:inline-flex;gap:6px;font-weight:400}
 .chap.read{border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}
+/* 회독 제외: 작은 ✕, 제외한 조문·별표는 머리글만 남기고 접는다 */
+.rc-x{flex:none;width:32px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:none;color:var(--mute);font:inherit;font-size:.8rem;line-height:1;cursor:pointer}
+.rc-x:hover{background:var(--soft);color:var(--ink)}
+.rc-x:focus-visible{outline:2px solid var(--red);outline-offset:1px}
+.art.skip,.chap.skip{opacity:.6}
+.art.skip>:not(.art-h){display:none}
+.art.skip .art-h{margin-bottom:0}
+.art.skip .tt,.chap.skip{text-decoration:line-through}
+.rd-hide{display:none}
+#r-toc .toc-a.off{opacity:.55;text-decoration:line-through}
+#r-toc .toc-a.off .ck{color:var(--mute);font-weight:400;display:inline-block;text-decoration:none}
 
 /* ═════ 참조 패널 ═════ */
 .pk-ov{position:fixed;inset:0;z-index:95}

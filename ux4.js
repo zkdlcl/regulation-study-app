@@ -249,7 +249,7 @@ function syncToc(){
   }
   const jump = $('#r-jump'); let h = '';
   const navigable = o => o.value.startsWith('a-') || o.value.startsWith('byeol-');
-  const item = o => { const id = o.value.slice(2), n = S.reads[o.value.startsWith('a-') ? id : byeolDomKey(o.value)] || 0; return `<button class="toc-a" data-tj="${esc(o.value)}" data-id="${esc(id)}"><span class="ck">${n > 1 ? n : n ? '✓' : ''}</span><span>${esc(o.textContent.trim())}</span></button>`; };
+  const item = o => { const id = o.value.slice(2), k = o.value.startsWith('a-') ? id : byeolDomKey(o.value), n = S.reads[k] || 0, off = rdSkip(k); return `<button class="toc-a${off ? ' off' : ''}" data-tj="${esc(o.value)}" data-id="${esc(id)}"><span class="ck">${off ? '✕' : n > 1 ? n : n ? '✓' : ''}</span><span>${esc(o.textContent.trim())}</span></button>`; };
   [...jump.children].forEach(c => {
     if (c.tagName === 'OPTION' && navigable(c)) h += item(c);
     if (c.tagName === 'OPTGROUP'){
@@ -287,17 +287,33 @@ const _todayEnh2 = todayEnhance;
 todayEnhance = function(){ _todayEnh2(); try { todayCols(); } catch(e){ console.warn(e); } };
 
 /* 회독 본문의 참조 링크도 같은 규칙으로 만든다 (다른 규정으로의 링크 포함) */
+const rcX = (k, off) => `<button class="rc-x" data-rskip="${esc(k)}" aria-pressed="${off}" aria-label="${off ? '회독 제외 해제' : '회독에서 제외'}" title="${off ? '회독 제외 해제' : '회독에서 제외'}">${off ? '↩' : '✕'}</button>`;
 linkRefs = function(){
   let bAll = 0, bRead = 0;
+  /* 조문: 회독 버튼 앞에 ✕. 제외하면 본문을 접고(CSS) 회독 버튼을 ↩ 하나로 바꾼다 */
+  $$('#r-body .art[id^="a-"]').forEach(el => {
+    const h = $('.art-h', el), key = el.id.slice(2), off = rdSkip(key); if (!h) return;
+    el.classList.toggle('skip', off);
+    if (off){ el.classList.remove('read'); $$('.rc', h).forEach(b => b.remove()); h.insertAdjacentHTML('beforeend', rcX(key, true)); }
+    else { const b = $('.rc', h); if (b) b.insertAdjacentHTML('beforebegin', rcX(key, false)); }
+  });
   $$('#r-body .chap').forEach(c => {
     const id = byeolIdOf(R.law, c.textContent); if (!id) return;
     c.id = id;
     const key = byeolDomKey(id), k = esc(key), n = S.reads[key] || 0;
+    const off = rdSkip(key);
+    c.classList.toggle('skip', off);
+    if (off){
+      for (let x = c.nextElementSibling; x && !x.matches('.chap, .art, .ch-h, .sc-h'); x = x.nextElementSibling) x.classList.add('rd-hide');
+      c.insertAdjacentHTML('beforeend', `<span class="chap-rc">${rcX(key, true)}</span>`);
+      return;
+    }
     bAll++; if (n) bRead++;
     c.classList.toggle('read', n > 0);
-    c.insertAdjacentHTML('beforeend', `<span class="chap-rc">${n ? `<button class="rc minus" data-brc="${k}" data-d="-" aria-label="회독 1 줄이기">➖</button>` : ''}<button class="rc ${n ? 'has' : ''}" data-brc="${k}">${n ? '✅ ' + n + '회독 +1' : '회독 +1'}</button></span>`);
+    c.insertAdjacentHTML('beforeend', `<span class="chap-rc">${rcX(key, false)}${n ? `<button class="rc minus" data-brc="${k}" data-d="-" aria-label="회독 1 줄이기">➖</button>` : ''}<button class="rc ${n ? 'has' : ''}" data-brc="${k}">${n ? '✅ ' + n + '회독 +1' : '회독 +1'}</button></span>`);
   });
-  const pg = $('#r-prog'); if (pg && bAll) pg.textContent = pg.textContent.replace(/(1회독 이상 \d+\/\d+조)/, `$1 · 별표 ${bRead}/${bAll}`);
+  const nOff = Object.keys(S.rskip || {}).filter(k => k.startsWith(R.law + ':')).length;
+  const pg = $('#r-prog'); if (pg && (bAll || nOff)) pg.textContent = pg.textContent.replace(/(1회독 이상 \d+\/\d+조)/, `$1${bAll ? ` · 별표 ${bRead}/${bAll}` : ''}${nOff ? ` · 제외 ${nOff}` : ''}`);
   linkifyNodes($$('#r-body .ln, #r-body td'), () => R.law);
 };
 /* 별표 회독 버튼: '이어 읽기' 위치(setLast)는 조문 기준이므로 건드리지 않는다 */
@@ -305,6 +321,13 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-brc]'); if (!b) return;
   const k = b.dataset.brc, d = b.dataset.d === '-' || e.shiftKey ? -1 : 1;
   S.reads[k] = Math.max(0, (S.reads[k] || 0) + d); saveRd(); drawRead(true);
+});
+/* 회독 제외 ✕/↩: S.rskip 은 켜고 끄기만 하고 S.reads 는 건드리지 않는다 (해제하면 회독 수가 그대로 돌아온다) */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-rskip]'); if (!b) return;
+  const k = b.dataset.rskip; S.rskip = S.rskip || {};
+  if (S.rskip[k]) delete S.rskip[k]; else S.rskip[k] = 1;
+  saveRd(); drawRead(true);
 });
 /* 아직 불러오지 않은 규정으로 이동할 때는 불러온 뒤에 이동 */
 const _goRef = goRef;

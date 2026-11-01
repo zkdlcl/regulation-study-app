@@ -18,7 +18,7 @@ await page.reload({ waitUntil: "load" }); await sleep(800);
 const r = await page.evaluate(() => ({ ex: S.ex, seeds: S.seeds, fix: D.stFix }));
 const flip = Object.keys(r.fix);
 ok("정정 대상 6문항", flip.length === 6, flip.join(","));
-ok("정정 대상은 틀림으로 바뀜", flip.every((id) => r.ex[id].last === false && r.ex[id].w >= 1 && r.ex[id].n >= r.ex[id].w));   /* 이후 다시 푼 기록(n·w 증가)도 허용 */
+ok("정정 대상은 틀림으로 바뀜", flip.every((id) => r.ex[id].w >= 1 && r.ex[id].n >= r.ex[id].w && (r.ex[id].last === false || r.ex[id].n > r.ex[id].w)), flip.map((id) => `${id}:${r.ex[id].n}/${r.ex[id].w}/${r.ex[id].last}`).join(" "));   /* 정정 뒤 다시 풀어 맞힌 기록(last=true, n>w)도 허용 */
 const same = Object.keys(P.ex).filter((id) => !flip.includes(id));
 ok("나머지 기록은 그대로", same.every((id) => JSON.stringify(P.ex[id]) === JSON.stringify(r.ex[id])), same.length + "건");
 ok("회독·카드 기록 그대로", JSON.stringify(P.reads) === JSON.stringify(await page.evaluate(() => S.reads)) && Object.keys(P.cards).length === (await page.evaluate(() => Object.keys(S.cards).length)));
