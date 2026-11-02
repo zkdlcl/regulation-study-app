@@ -1,0 +1,70 @@
+import puppeteer from "puppeteer-core";
+
+/* 규정 듣기: 듣기 버튼, 재생, 조문 이동, 배속, 트랙 전환, 이어 듣기, 보고 있는 조문부터 */
+const URL = "http://localhost:8765/index.html";
+const browser = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new", args: ["--no-sandbox", "--autoplay-policy=no-user-gesture-required"] });
+const res = [], errors = [];
+const ok = (n, c, x = "") => res.push(`${c ? "PASS" : "FAIL"}  ${n} ${x}`);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const page = await browser.newPage();
+page.on("pageerror", (e) => errors.push(e.message));
+await page.setViewport({ width: 1180, height: 820 });
+await page.goto(URL, { waitUntil: "load" });
+await page.evaluate(() => localStorage.clear());
+await page.reload({ waitUntil: "load" }); await sleep(600);
+const ev = (f, ...a) => page.evaluate(f, ...a);
+const vis = (s) => ev((s) => { const e = document.querySelector(s); return !!e && !e.hidden && e.getBoundingClientRect().width > 0; }, s);
+const openLaw = async (law) => { await ev((l) => { R.law = l; R.topic = "0"; showTab("read"); drawRead(); }, law); await sleep(900); };
+
+ok("다른 탭에는 듣기 버튼 없음", !(await vis("#tts-fab")));
+await openLaw("운영규정");
+ok("음원 없는 규정에는 듣기 버튼 없음", !(await vis("#tts-fab")));
+await openLaw("보수운영규정");
+ok("보수운영규정에 듣기 버튼", await vis("#tts-fab"));
+await page.click("#tts-fab"); await sleep(1500);
+ok("재생 시작", await ev(() => !TTS.A.paused && TTS.A.currentTime > 0), await ev(() => TTS.A.currentTime));
+ok("플레이어 표시, 듣기 버튼 숨김", (await vis("#tts-bar")) && !(await vis("#tts-fab")));
+ok("현재 조문 이름", (await ev(() => document.querySelector("#tts-now").textContent)).length > 0);
+
+const t0 = await ev(() => TTS.A.currentTime);
+await page.click('#tts-bar [data-t="next"]'); await sleep(500);
+ok("다음 조문 이동", (await ev(() => TTS.A.currentTime)) > t0, await ev(() => document.querySelector("#tts-now").textContent));
+await page.click('#tts-bar [data-t="rate"]'); await sleep(100);
+ok("배속 변경", (await ev(() => TTS.A.playbackRate)) === 1.25);
+await page.click('#tts-bar [data-t="list"]'); await sleep(100);
+ok("트랙 칩 11개", (await ev(() => document.querySelectorAll("#tts-list .tts-chip").length)) === 11);
+await page.screenshot({ path: "tests/tts-tablet.png" });
+
+await page.click('#tts-list [data-tti="7"]'); await sleep(1500);
+ok("Q&A 트랙 전환·재생", await ev(() => TTS.st.ti === 7 && !TTS.A.paused && TTS.A.currentTime > 0));
+ok("Q 표시", /^Q\d/.test(await ev(() => document.querySelector("#tts-now").textContent)));
+const mark = await ev(() => D.tts["보수운영규정"].tracks[7].marks[1].t);
+await page.click('#tts-bar [data-t="next"]'); await sleep(800);
+ok("Q 사이 이동", Math.abs((await ev(() => TTS.A.currentTime)) - mark) < 3, mark);
+await page.click('#tts-bar [data-t="toggle"]'); await sleep(200);
+ok("일시정지", await ev(() => TTS.A.paused));
+const pos = await ev(() => JSON.parse(localStorage.getItem("tts-pos"))["보수운영규정"]);
+ok("이어 듣기 위치 저장", pos && pos.ti === 7, JSON.stringify(pos));
+await page.click('#tts-bar [data-t="close"]'); await sleep(100);
+ok("닫기", !(await vis("#tts-bar")) && (await vis("#tts-fab")));
+
+await page.reload({ waitUntil: "load" }); await sleep(600);
+await openLaw("보수운영규정");
+await page.click("#tts-fab"); await sleep(1800);
+ok("새로고침 뒤 이어 듣기(Range 없는 서버 포함)", await ev((p) => TTS.st.ti === 7 && TTS.A.currentTime >= p.t - 1 && !TTS.A.paused, pos), await ev(() => TTS.A.currentTime));
+
+await ev(() => document.getElementById("a-보수운영규정:15").scrollIntoView()); await sleep(200);
+await page.click('#tts-bar [data-t="here"]'); await sleep(1800);
+ok("보고 있는 조문부터", /제1[45]조|제15조/.test(await ev(() => document.querySelector("#tts-now").textContent)), await ev(() => document.querySelector("#tts-now").textContent));
+
+await ev(() => { TTS.A.currentTime = TTS.A.duration - .3; }); await sleep(1500);
+ok("장 끝나면 다음 장", (await ev(() => TTS.st.ti)) === 3, await ev(() => TTS.st.ti));
+
+await ev(() => { document.documentElement.dataset.theme = "dark"; });
+await page.setViewport({ width: 390, height: 844 }); await sleep(300);
+await page.click('#tts-bar [data-t="list"]'); await sleep(200);
+ok("폰 너비 가로 넘침 없음", await ev(() => document.querySelector("#tts-bar").scrollWidth <= innerWidth));
+await page.screenshot({ path: "tests/tts-phone.png" });
+ok("JS 오류 없음", errors.length === 0, errors.join(" | "));
+console.log(res.join("\n"));
+await browser.close();

@@ -79,6 +79,13 @@ for _k, _v in D['extra'].items():
 EXTRA_INLINE = ['보수운영규정']
 D['extraFix'] = {x['law']: json.load(open(P(os.path.join('site', x['file'])), encoding='utf8'))['extra'] for x in D['lawIndex'] if x['law'] in EXTRA_INLINE}
 assert set(D['extraFix']) == set(EXTRA_INLINE), EXTRA_INLINE
+# 규정 듣기: tools/tts_build.py 가 만든 음원 목차 (MP3 는 data/tts/ 로 게시)
+import glob as _glob
+D['tts'] = {}
+for _f in sorted(_glob.glob(P(os.path.join('site', 'data', 'tts', '*.json')))):
+    _m = json.load(open(_f, encoding='utf8'))
+    assert all(os.path.getsize(P(os.path.join('site', _t['file']))) == _t['bytes'] for _t in _m['tracks']), _f
+    D['tts'][_m['law']] = _m
 newdata = json.dumps(D, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 body = body[:m.start(2)] + newdata + body[m.end(2):]
 
@@ -133,10 +140,10 @@ rep('<section class="pane" id="p-read"></section>', '<section class="pane" id="p
 rep("['read','📖 회독'],", "['read','📖 회독'],['bt','🕳 뻥뚫'],")
 rep("['cho','🔤 자음퀴즈'],", "")
 
-css = ''.join(rd(n) for n in ['rev-tab.css', 'ux-polish.css', 'ux2.css', 'ux4.css', 'ui7.css', 'ux8.css', 'op-study.css', 'card-review.css', 'case-bl.css'])
+css = ''.join(rd(n) for n in ['rev-tab.css', 'ux-polish.css', 'ux2.css', 'ux4.css', 'ui7.css', 'ux8.css', 'op-study.css', 'card-review.css', 'case-bl.css', 'tts.css'])
 k = body.index('</style>')
 body = body[:k] + css + '\n' + body[k:]
-js = ''.join(rd(n) for n in ['lawdata.js', 'rev-tab.js', 'ux-polish.js', 'ux2.js', 'ux3.js', 'plan-gen.js', 'ux4.js', 'ux5.js', 'ux6.js', 'ui7.js', 'kb-ui.js', 'ux8.js', 'op-study.js', 'card-review.js', 'case-bl.js'])
+js = ''.join(rd(n) for n in ['lawdata.js', 'rev-tab.js', 'ux-polish.js', 'ux2.js', 'ux3.js', 'plan-gen.js', 'ux4.js', 'ux5.js', 'ux6.js', 'ui7.js', 'kb-ui.js', 'ux8.js', 'op-study.js', 'card-review.js', 'case-bl.js', 'tts.js'])
 rep('/* 시작 */', js + '\n/* 시작 */')
 # ui7 디자인 층: 첫 화면을 그린 뒤 시작 (아이콘·칩·테마 전환)
 rep("|| 'today');\n</script>", "|| 'today');\nUI7.start();\n</script>")

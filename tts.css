@@ -1,0 +1,24 @@
+
+/* 규정 듣기 */
+#fabs #tts-fab{width:48px;min-width:48px;height:48px;padding:0;border-radius:16px;border:1px solid var(--line2);background:var(--card);color:var(--ink);display:grid;place-items:center}
+#fabs #tts-fab[hidden],#tts-bar[hidden],#tts-list[hidden]{display:none}
+#tts-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--card);color:var(--ink);border-top:1px solid var(--line2);padding:8px max(16px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));box-shadow:0 -2px 12px rgba(0,0,0,.15)}
+.tts-top{display:flex;align-items:center;gap:10px;max-width:760px;margin:0 auto}
+#tts-now{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
+#tts-time{font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+#tts-seek{display:block;width:100%;max-width:760px;margin:4px auto;accent-color:var(--red)}
+.tts-ctl{display:flex;align-items:center;justify-content:center;gap:6px;max-width:760px;margin:0 auto}
+.tts-ic{width:44px;height:44px;flex:none;display:grid;place-items:center;border:0;border-radius:50%;background:transparent;color:var(--ink);cursor:pointer}
+.tts-ic[aria-pressed="true"]{background:var(--soft);color:var(--red-d)}
+.tts-main{width:52px;height:52px;background:var(--red);color:#fff}
+.tts-rate{min-width:58px;height:40px;padding:0 10px;border:1px solid var(--line2);border-radius:99px;background:transparent;color:var(--ink);font:inherit;font-weight:700;font-variant-numeric:tabular-nums;cursor:pointer}
+#tts-list{max-width:760px;margin:8px auto 2px;display:grid;gap:8px;max-height:34vh;overflow:auto}
+.tts-g{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.tts-g>span{font-size:13px;width:38px}
+.tts-chip{min-height:40px;padding:0 12px;border:1px solid var(--line2);border-radius:99px;background:transparent;color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
+.tts-chip[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+body.tts-open main{padding-bottom:calc(190px + env(safe-area-inset-bottom,0px))}
+body.tts-open .fab-mode{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+body.tts-open .fab-mode.fab-amend{bottom:calc(210px + env(safe-area-inset-bottom,0px))}
+body.tts-open .fabs{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+body.tts-list .fabs,body.tts-list .fab-mode{visibility:hidden}
