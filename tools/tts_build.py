@@ -20,6 +20,27 @@ CACHE = P('audio', '.cache')
 CIRC = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳'
 
 
+SINO = '영일이삼사오육칠팔구'
+
+
+def sino(n):
+    """정수 → 한자어 수 글자. TTS 가 '제5호'를 '제어호'로 읽어서(사용자 지적) 서수 숫자는 글자로 준다."""
+    n, out = int(n), ''
+    for v, u in ((1000, '천'), (100, '백'), (10, '십')):
+        q, n = divmod(n, v)
+        if q: out += ('' if q == 1 else SINO[q]) + u
+    return (out + (SINO[n] if n else '')) or '영'
+
+
+def ordinals(s):
+    """제N조·항·호·장·절·관·목(+의N), 별표 제N호의N 의 숫자를 한글로."""
+    def f(m):
+        return '제' + sino(m[1]) + m[2] + ('의' + sino(m[3]) if m[3] else '')
+    s = re.sub(r'제\s*(\d+)\s*(조|항|호|장|절|관|목|차)(?:의\s*(\d+))?', f, s)
+    # '별표 제1호의2, 3' 처럼 이어지는 번호
+    return re.sub(r'(제[가-힣]+(?:조|항|호)(?:의[가-힣]+)?), (\d+)(?=[와과 ])', lambda m: m[1] + ', ' + sino(m[2]), s)
+
+
 def spoken(s):
     """눈으로 읽는 표기를 귀로 듣는 표기로. 내용 낱말은 바꾸지 않는다."""
     s = re.sub(r'[<＜〈]\s*(개정|신설|삭제|전문개정|본조신설)[^>＞〉]*[>＞〉]', '', s)
@@ -28,6 +49,7 @@ def spoken(s):
     s = re.sub(r'(\d+)\s*/\s*(\d+)', lambda m: f'{m[2]}분의 {m[1]}', s)
     s = s.replace('%', '퍼센트').replace('~', ' 부터 ').replace('∼', ' 부터 ').replace('･', ', ').replace('·', ', ').replace('‧', ', ')
     s = re.sub(r'[「」『』“”"‘’\'*]', '', s)
+    s = ordinals(s)
     return re.sub(r'[ \t]+', ' ', s).strip()
 
 
@@ -47,7 +69,9 @@ def art_lines(a):
     h = re.sub(r'<span class="amend">.*?</span>', '', a['html'], flags=re.S)
     h = re.sub(r'</div>|<br\s*/?>', '\n', h)
     t = html.unescape(re.sub(r'<[^>]+>', '', h))
-    return [x for x in (line(l) for l in re.split(r'[\r\n]+', t)) if x]
+    # 삭제된 항·호·목은 읽지 않는다 (사용자 지시)
+    gone = lambda x: re.fullmatch(r'(제[가-힣]+(항|호)\. |[가-힣]목\. )?삭제\.?', x)
+    return [x for x in (line(l) for l in re.split(r'[\r\n]+', t)) if x and not gone(x)]
 
 
 def art_no(no):
@@ -64,8 +88,8 @@ def law_tracks(law):
             tracks.append(cur)
         elif a['type'] == 'a':
             ls = art_lines(a)
-            if re.fullmatch(r'(삭제\.?\s*)+', ' '.join(ls)): continue
-            head = f"{art_no(a['no'])}, {spoken(a.get('title') or '')}.".replace(', .', '.')
+            if not ls or re.fullmatch(r'(삭제\.?\s*)+', ' '.join(ls)): continue
+            head = f"{spoken(art_no(a['no']))}, {spoken(a.get('title') or '')}.".replace(', .', '.')
             cur['segs'].append((V_A, head, 0.5, {'no': str(a['no']), 'label': f"{art_no(a['no']).replace('의 ', '의')} {a.get('title') or ''}".strip()}))
             cur['segs'].append((V_A, ' '.join(ls), 1.2, None))
     return tracks
@@ -93,7 +117,7 @@ def qa_tracks(law):
             l = re.sub(r'^A\.\s*', '', l)
             l = re.sub(r'\*\*', '', l)
             x = line(l)
-            if x: a.append(re.sub(r'^제\d+호\. ', '', x))
+            if x: a.append(re.sub(r'^제[가-힣]+호\. ', '', x))
         flush()
         if not t['segs']: sys.exit(f'대본 형식 확인 필요: {f}')
         tracks.append(t)
