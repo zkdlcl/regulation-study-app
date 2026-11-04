@@ -121,8 +121,8 @@ const TTS = (() => {
   function drawList(){
     const box = document.getElementById('tts-list'), m = man(); if (!box || !m) return;
     box.hidden = !st.list; document.body.classList.toggle('tts-list', st.list); document.querySelector('#tts-bar [data-t="list"]').setAttribute('aria-pressed', st.list);
-    const g = (k, n) => `<div class="tts-g"><span class="mute">${n}</span>${m.tracks.map((t, i) => t.kind !== k ? '' : `<button class="tts-chip" data-tti="${i}" aria-pressed="${i === st.ti}">${esc(t.title.replace(/^제\d+장 /, ''))}</button>`).join('')}</div>`;
-    box.innerHTML = g('law', '원문') + g('qa', 'Q&A');
+    const g = (k, n) => !m.tracks.some(t => t.kind === k) ? '' : `<div class="tts-g"><span class="mute">${n}</span>${m.tracks.map((t, i) => t.kind !== k ? '' : `<button class="tts-chip" data-tti="${i}" aria-pressed="${i === st.ti}">${esc(t.title.replace(/^제\d+장 /, ''))}</button>`).join('')}</div>`;
+    box.innerHTML = g('law', '원문') + g('qa', 'Q&A') + g('narration', '해설');   /* 트랙이 없는 묶음은 감춘다 */
   }
   let lastLabel = '';
   function paint(){

@@ -89,7 +89,7 @@ claude.ai 아티팩트의 소스·데이터·테스트 백업입니다.
 | `backup/progress.json` | 학습 기록(아티팩트 DB `state/progress`) 백업 — 복원용 |
 | `CLAUDE.md`, `.claude/skills/` | Claude 작업 규칙과 스킬: `exam-kb`(카드·문제·검수), `kb-annotate`(DB 기록), `artifact-release`(게시·백업), `artifact-restore`(복원) |
 | `build_artifact.py` | 기준 페이지 + 조각 → `orgmaster.html`(게시용 본문) 과 테스트용 `site/index.html` |
-| `dist/orgmaster.html` | **게시한 최종 페이지** (게시 v65, 2026-11-05). 빌드 없이도 이 파일로 복구할 수 있습니다. 소스에서 다시 빌드한 결과와 같습니다(데이터 JSON 의 키 순서만 빌드마다 달라질 수 있음). |
+| `dist/orgmaster.html` | **게시한 최종 페이지** (게시 v66, 2026-11-05). 빌드 없이도 이 파일로 복구할 수 있습니다. 소스에서 다시 빌드한 결과와 같습니다(데이터 JSON 의 키 순서만 빌드마다 달라질 수 있음). |
 | `site/data/laws/*.json` | 규정 8종 본문 (처음 열 때 불러옴) — `convert_regs.py` 로 생성 |
 | `site/data/quiz/*.json` | 기출 12 + 스터디 문제 98 묶음 — `quiz/convert_quiz.py` 로 생성 후 후처리(아래) |
 | `site/*.json` | 규정 목차, 문제 목차, 기록 이전표, 새 복습 카드 |
@@ -216,7 +216,7 @@ for t in *-test.mjs; do node $t | grep -v ^PASS; done   # 아무것도 안 나�
 ## 게시
 Artifact 도구로 `orgmaster.html` 을 같은 URL에 게시하고, `data/laws/*.json`, `data/quiz/*.json` 중 **바뀐 파일만** `files` 로 함께 올립니다(빠진 파일은 이전 것이 그대로 남음).
 
-> 2026-11-02(v64) 규정 듣기: `python -X utf8 tools/tts_build.py` 가 `site/data/tts/` 에 MP3·목차를 만들고, 빌드가 목차를 D.tts 로 넣는다. MP3 는 Artifact 도구의 `files` 로 `data/tts/...` 에 게시한다. 지금은 보수운영규정만 있다.
+> 2026-11-02(v64) 규정 듣기: `python -X utf8 tools/tts_build.py` 가 `site/data/tts/` 에 MP3·목차를 만들고, 빌드가 목차를 D.tts 로 넣는다. MP3 는 Artifact 도구의 `files` 로 `data/tts/...` 에 게시한다. 지금은 보수운영규정(원문·Q&A)과 국제인도법 해설 시범(`site/data/tts/ihl.json`, kind `narration`, 제1장 1~4절, Codex `tools/tts_narration.py` 생성)이 있다.
 
 > 2026-11-01(v62) 현재 게시 도구는 `file_path` 한 개만 받아 data 파일을 올릴 수 없습니다. 별표가 바뀐 규정은 `build_artifact.py` 의 `EXTRA_INLINE` 에 넣으면 페이지가 그 별표를 data 파일보다 우선합니다(`D.extraFix`). 조문 본문·문제 파일 변경도 같은 방식이 필요합니다.
 게시 도구는 Claude 작업 폴더·임시 폴더 안의 파일만 받으므로, 임시 폴더에 `orgmaster.html` 과 `data/...` 를 복사한 뒤 그 폴더를 `root` 로 줍니다.

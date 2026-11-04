@@ -65,6 +65,31 @@ await page.setViewport({ width: 390, height: 844 }); await sleep(300);
 await page.click('#tts-bar [data-t="list"]'); await sleep(200);
 ok("폰 너비 가로 넘침 없음", await ev(() => document.querySelector("#tts-bar").scrollWidth <= innerWidth));
 await page.screenshot({ path: "tests/tts-phone.png" });
+/* 국제인도법 해설(narration) 시범: 목차·이전/다음 구간 */
+await page.setViewport({ width: 1180, height: 820 });
+await page.click('#tts-bar [data-t="close"]'); await sleep(100);
+await ev(() => localStorage.removeItem("tts-pos"));
+await openLaw("국제인도법");
+ok("국제인도법 듣기 버튼", await vis("#tts-fab"));
+await page.click("#tts-fab"); await sleep(1500);
+ok("해설 재생 시작", await ev(() => TTS.st.law === "국제인도법" && TTS.st.ti === 0 && !TTS.A.paused && TTS.A.currentTime > 0));
+await ev(() => { if (!TTS.st.list) TTS.act("list"); }); await sleep(100);
+ok("해설 칩만 1개(빈 묶음 숨김)", await ev(() => document.querySelectorAll("#tts-list .tts-chip").length === 1 && document.querySelectorAll("#tts-list .tts-g").length === 1 && document.querySelector("#tts-list .tts-g span").textContent === "해설"));
+const ihlM = await ev(() => D.tts["국제인도법"].tracks[0].marks.map((m) => [m.t, m.label]));
+ok("목차 4구간 시간·제목 유지", JSON.stringify(ihlM) === JSON.stringify([[3.79, "국제인도법이 다루는 두 가지"], [176.47, "같은 법을 가리키는 이름들"], [221.11, "제네바법과 헤이그법"], [350.18, "군사적 필요와 인도"]]));
+/* 첫 구간(3.79초) 전에서 시작하므로 '다음'은 1구간 시작부터 차례로 간다 */
+for (let i = 0; i < 4; i++){
+  await page.click('#tts-bar [data-t="next"]'); await sleep(900);
+  ok(`다음 구간 ${i + 1}`, Math.abs((await ev(() => TTS.A.currentTime)) - ihlM[i][0]) < 2 && (await ev(() => document.querySelector("#tts-now").textContent)) === ihlM[i][1], await ev(() => TTS.A.currentTime));
+}
+await ev(() => { TTS.A.currentTime = 380; }); await sleep(600);
+await page.click('#tts-bar [data-t="prev"]'); await sleep(800);
+ok("이전: 현재 구간 처음", Math.abs((await ev(() => TTS.A.currentTime)) - ihlM[3][0]) < 2);
+await page.click('#tts-bar [data-t="prev"]'); await sleep(800);
+ok("이전: 앞 구간", Math.abs((await ev(() => TTS.A.currentTime)) - ihlM[2][0]) < 2, await ev(() => document.querySelector("#tts-now").textContent));
+await page.click('#tts-bar [data-t="here"]'); await sleep(300);
+ok("해설에서 '보고 있는 조문부터'는 오류 없이 무시", await ev(() => TTS.st.ti === 0));
+await page.screenshot({ path: "tests/tts-ihl.png" });
 ok("JS 오류 없음", errors.length === 0, errors.join(" | "));
 console.log(res.join("\n"));
 await browser.close();
