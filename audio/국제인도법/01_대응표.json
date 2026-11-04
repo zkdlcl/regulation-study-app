@@ -1,0 +1,66 @@
+{
+  "status": "draft",
+  "script": "01_국제인도법의_첫걸음.md",
+  "review": "제1장 1~4절 시범. 원문 대조 완료, 문체 피드백·청취 검토 대기.",
+  "sources": {
+    "distribution": "https://kr.icrc.org/2018/05/ihl-answers_to_your_questions/",
+    "ko": {
+      "url": "https://kr.icrc.org/app/uploads/2018/05/0703_210_IHL-answers_KORWEB-1.pdf",
+      "sha256": "da52c283e210ff21033bafd690cac0c9188e8d30d8d54527b3ab9879b2c8028a",
+      "pages": 100,
+      "method": "PDF 이미지 시각 대조. 텍스트 추출 결과가 비어 있음."
+    },
+    "en": {
+      "url": "https://kr.icrc.org/app/uploads/2018/05/0703_002_IHL-answers_LR-1.pdf",
+      "sha256": "6287cf7fe5bb0c792a493d627b6d367df7488d8a7ddc500705f914a866f542ad",
+      "pages": 100,
+      "method": "PDF 텍스트 대조"
+    }
+  },
+  "sections": [
+    {
+      "heading": "국제인도법이 다루는 두 가지",
+      "article": "국제인도법:제1장 1)",
+      "printed_page": 4,
+      "pdf_page": 6,
+      "english_heading": "1. What is IHL?",
+      "exam_ids": ["past-04-40", "past-06-23", "past-12-18", "2026-23"],
+      "preserve": ["국가·국제기구·기타 국제법 주체", "직접 가담하지 않거나 더 이상 직접 가담하지 않는 사람", "전쟁의 수단과 방법", "국제적·비국제적 성격", "국제조약 및 관습법", "국가 관행과 의무감"],
+      "notes": [
+        "수록본은 국제공법, 공식 국문은 국제법, 영문은 public international law. 대본은 교재 용어 국제공법을 명시한다.",
+        "수록본은 가담하지 않거나 더 이상 직접적으로 가담하지 않은, 공식 국문은 가담하지 않거나 더 이상 직접적으로 가담하지 않는, 영문은 not or are no longer directly participating. 해설에서는 직접 가담하지 않거나 더 이상 직접 가담하지 않는으로 표현한다.",
+        "국제적·비국제적 충돌을 모두 다룬다는 설명을 세부 규칙이 동일하다는 뜻으로 확대하지 않도록 연결 문장을 넣었다. 적용 범위의 구체적 규칙은 이번 대본에 추가하지 않았다."
+      ]
+    },
+    {
+      "heading": "같은 법을 가리키는 이름들",
+      "article": "국제인도법:제1장 2)",
+      "printed_page": 5,
+      "pdf_page": 7,
+      "english_heading": "Terminology",
+      "exam_ids": ["2026-23"],
+      "preserve": ["국제인도법·무력충돌법·전쟁법", "동의어로 사용될 수 있다", "선호하는 경향"],
+      "notes": ["ICRC는 녹음에서 아이씨알씨로 적었다. 국제적십자위원회라는 명칭은 공식 배포처와 수록본의 사용례를 확인했다."]
+    },
+    {
+      "heading": "제네바법과 헤이그법",
+      "article": "국제인도법:제1장 3)",
+      "printed_page": 5,
+      "pdf_page": 7,
+      "english_heading": "Geneva and The Hague",
+      "exam_ids": ["past-01-12", "past-06-23", "past-10-18", "past-11-18", "past-12-18"],
+      "preserve": ["전투력을 상실한 군인", "직접 가담하지 않거나 더 이상 직접 가담하지 않는 민간인", "교전자의 권리와 의무", "전쟁의 수단과 방법", "성문화된 도시", "1977년 6월 8일", "역사적·학문적 의미", "1949년 네 개 협약"],
+      "notes": ["제네바 제협약 풀이 주석은 공식 국문과 수록본에 있으며 영문 해당 면에는 없다. 주석의 1949년 발표된은 대본에서 1949년의 네 개 협약으로 풀었다. 법적 의미를 가진 발표·채택·발효를 임의로 치환하지 않는다."]
+    },
+    {
+      "heading": "군사적 필요와 인도",
+      "article": "국제인도법:제1장 4)",
+      "printed_page": 6,
+      "pdf_page": 8,
+      "english_heading": "Military necessity and humanity",
+      "exam_ids": ["past-03-16", "past-06-23", "past-10-18"],
+      "preserve": ["인도와 군사적 필요", "적법한 목적", "필요한 무력의 정도와 종류만", "생명·자원 손실 최소화", "최대한 빨리", "완전히 또는 부분적으로", "금지한 조치를 허용하지 않음", "필요하지 않은 모든 고통·상해·파괴"],
+      "notes": ["영문의 measures는 조치로 풀고 교재의 수단도 이어서 소개한다. 군사적 필요를 비례성으로 바꾼 기출 함정은 past-06-23 본문·근거 기록으로 확인했다."]
+    }
+  ]
+}

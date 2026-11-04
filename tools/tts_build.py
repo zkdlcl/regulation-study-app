@@ -185,4 +185,5 @@ async def build(dry):
     open(os.path.join(CACHE, '대본.txt'), 'w', encoding='utf8').write('\n'.join(script))
 
 
-asyncio.run(build('--dry' in sys.argv))
+if __name__ == '__main__':
+    asyncio.run(build('--dry' in sys.argv))
