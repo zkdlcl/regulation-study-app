@@ -143,7 +143,7 @@ rep("['cho','🔤 자음퀴즈'],", "")
 css = ''.join(rd(n) for n in ['rev-tab.css', 'ux-polish.css', 'ux2.css', 'ux4.css', 'ui7.css', 'ux8.css', 'op-study.css', 'card-review.css', 'case-bl.css', 'tts.css'])
 k = body.index('</style>')
 body = body[:k] + css + '\n' + body[k:]
-js = ''.join(rd(n) for n in ['lawdata.js', 'rev-tab.js', 'ux-polish.js', 'ux2.js', 'ux3.js', 'plan-gen.js', 'ux4.js', 'ux5.js', 'ux6.js', 'ui7.js', 'kb-ui.js', 'ux8.js', 'op-study.js', 'card-review.js', 'case-bl.js', 'tts.js'])
+js = ''.join(rd(n) for n in ['lawdata.js', 'rev-tab.js', 'ux-polish.js', 'ux2.js', 'ux3.js', 'plan-gen.js', 'ux4.js', 'ux5.js', 'ux6.js', 'ui7.js', 'kb-ui.js', 'ux8.js', 'op-study.js', 'card-review.js', 'case-bl.js', 'tts.js', 'resume.js'])
 rep('/* 시작 */', js + '\n/* 시작 */')
 # ui7 디자인 층: 첫 화면을 그린 뒤 시작 (아이콘·칩·테마 전환)
 rep("|| 'today');\n</script>", "|| 'today');\nUI7.start();\n</script>")

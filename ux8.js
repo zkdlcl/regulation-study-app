@@ -44,7 +44,11 @@ btBuild = function(a){
   let bl = $$('.b', root), keep = null;
   const only = BT.only && BT.only[artId(a)];
   if (only) keep = only;
-  else if (BT.max > 0 && bl.length > BT.max) keep = new Set(btShuffle(bl.map((_, i) => i)).slice(0, BT.max));
+  else if (BT.max > 0 && bl.length > BT.max){
+    /* 고른 칸은 세션 동안 조문별로 기억한다 — 다시 그리거나 복구해도 같은 칸 */
+    const id = artId(a), prev = (BT.keeps = BT.keeps || {})[id];
+    keep = new Set(prev && prev.length === BT.max && prev.every(i => i < bl.length) ? prev : (BT.keeps[id] = btShuffle(bl.map((_, i) => i)).slice(0, BT.max)));
+  }
   bl.forEach((b, i) => { b.dataset.k = i; });
   if (keep){ bl.forEach((b, i) => { if (!keep.has(i)) b.replaceWith(document.createTextNode(b.textContent)); }); bl = bl.filter((_, i) => keep.has(i)); }
   bl.forEach(b => {
@@ -89,7 +93,7 @@ btRecord = function(ok, tot){
 document.addEventListener('click', e => {
   const t = e.target; if (!t.closest || !t.closest('#p-bt')) return;
   if (t.id === 'bt-retry'){ BT.only = {}; BT.res.filter(r => r.ok < r.tot).forEach(r => { BT.only[r.id] = new Set(r.miss || []); }); }
-  else if (t.id === 'bt-home' || t.id === 'bt-start'){ BT.only = null; BT.salts = {}; }
+  else if (t.id === 'bt-home' || t.id === 'bt-start'){ BT.only = null; BT.salts = {}; BT.keeps = {}; }
 }, true);
 /* 처음 열고 Tab → 첫 빈칸 */
 document.addEventListener('keydown', e => {

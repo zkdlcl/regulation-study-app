@@ -89,7 +89,7 @@ claude.ai 아티팩트의 소스·데이터·테스트 백업입니다.
 | `backup/progress.json` | 학습 기록(아티팩트 DB `state/progress`) 백업 — 복원용 |
 | `CLAUDE.md`, `.claude/skills/` | Claude 작업 규칙과 스킬: `exam-kb`(카드·문제·검수), `kb-annotate`(DB 기록), `artifact-release`(게시·백업), `artifact-restore`(복원) |
 | `build_artifact.py` | 기준 페이지 + 조각 → `orgmaster.html`(게시용 본문) 과 테스트용 `site/index.html` |
-| `dist/orgmaster.html` | **게시한 최종 페이지** (게시 v66, 2026-11-05). 빌드 없이도 이 파일로 복구할 수 있습니다. 소스에서 다시 빌드한 결과와 같습니다(데이터 JSON 의 키 순서만 빌드마다 달라질 수 있음). |
+| `dist/orgmaster.html` | **게시한 최종 페이지** (게시 v67, 2026-11-06). 빌드 없이도 이 파일로 복구할 수 있습니다. 소스에서 다시 빌드한 결과와 같습니다(데이터 JSON 의 키 순서만 빌드마다 달라질 수 있음). |
 | `site/data/laws/*.json` | 규정 8종 본문 (처음 열 때 불러옴) — `convert_regs.py` 로 생성 |
 | `site/data/quiz/*.json` | 기출 12 + 스터디 문제 98 묶음 — `quiz/convert_quiz.py` 로 생성 후 후처리(아래) |
 | `site/*.json` | 규정 목차, 문제 목차, 기록 이전표, 새 복습 카드 |
@@ -215,6 +215,8 @@ for t in *-test.mjs; do node $t | grep -v ^PASS; done   # 아무것도 안 나�
 
 ## 게시
 Artifact 도구로 `orgmaster.html` 을 같은 URL에 게시하고, `data/laws/*.json`, `data/quiz/*.json` 중 **바뀐 파일만** `files` 로 함께 올립니다(빠진 파일은 이전 것이 그대로 남음).
+
+> 2026-11-06(v67) 진단·복구(`resume.js`): 부팅·오류·긴 작업·화면 숨김을 기기와 db `diag/<기기>` 문서에 남긴다(학습 기록과 별개). 부팅 기록의 `prev` 가 `cut` 이면 직전 실행이 pagehide 없이 끊긴 것(강제 종료·메모리 부족). 진행 중인 복습 카드·뻥뚫은 기기에 저장해 20분 안에 다시 열리면 이어서 연다. 조회: `ArtifactData list collection=diag`.
 
 > 2026-11-02(v64) 규정 듣기: `python -X utf8 tools/tts_build.py` 가 `site/data/tts/` 에 MP3·목차를 만들고, 빌드가 목차를 D.tts 로 넣는다. MP3 는 Artifact 도구의 `files` 로 `data/tts/...` 에 게시한다. 지금은 보수운영규정(원문·Q&A)과 국제인도법 해설 시범(`site/data/tts/ihl.json`, kind `narration`, 제1장 1~4절, Codex `tools/tts_narration.py` 생성)이 있다.
 
