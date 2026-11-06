@@ -144,7 +144,7 @@ rep('<section class="pane" id="p-read"></section>', '<section class="pane" id="p
 rep("['read','📖 회독'],", "['read','📖 회독'],['bt','🕳 뻥뚫'],")
 rep("['cho','🔤 자음퀴즈'],", "")
 
-css = ''.join(rd(n) for n in ['rev-tab.css', 'ux-polish.css', 'ux2.css', 'ux4.css', 'ui7.css', 'ux8.css', 'op-study.css', 'card-review.css', 'case-bl.css', 'tts.css'])
+css = ''.join(rd(n) for n in ['rev-tab.css', 'ux-polish.css', 'ux2.css', 'ux4.css', 'ui7.css', 'ux8.css', 'op-study.css', 'card-review.css', 'case-bl.css', 'tts.css', 'wage.css'])
 k = body.index('</style>')
 body = body[:k] + css + '\n' + body[k:]
 js = ''.join(rd(n) for n in ['lawdata.js', 'rev-tab.js', 'ux-polish.js', 'ux2.js', 'ux3.js', 'plan-gen.js', 'ux4.js', 'ux5.js', 'ux6.js', 'ui7.js', 'kb-ui.js', 'ux8.js', 'op-study.js', 'card-review.js', 'case-bl.js', 'tts.js', 'table-cat.js', 'resume.js'])

@@ -7,6 +7,8 @@ import html
 import os
 import re
 
+import study_wage
+
 # (표시 조문, 조문 키, 원문 조각, [빈칸 낱말…], 보충 설명)
 SUBJ = {
     '보수운영규정': [
@@ -117,21 +119,21 @@ def subject_table(law, arts):
 
 def mnemonic(root):
     b64 = base64.b64encode(open(os.path.join(root, MNEMO), 'rb').read()).decode()
-    return ('<h3>18. 지급기준액 암기 그림 (보수운영규정 제3조)</h3>\n'
+    return ('<h3>18. 지급기준액 암기 그림 · 통상·평균임금 구분 (보수운영규정 제3조)</h3>\n'
             '<p class="mute small">지급기준액 = 통상임금 − 직책보조비·의사 및 약사 등 확보조정비·상여수당 월할금액 (제3조 10호). 직급보조비는 들어갑니다.</p>\n'
             '<details class="mnemo"><summary aria-label="그림 펼치기">🖼</summary>'
             f'<img src="data:image/webp;base64,{b64}" alt="지급기준액 암기 그림: 포함 8개(봉급·업무수당·위험수당·장기근속수당·출납수당·전산업무수당·직급보조비·처우개선비), 제외 3개(직책보조비·확보조정비·상여수당 월할금액)" loading="lazy"></details>\n')
 
 
 def extend(table, arts, root):
-    """주체 표·암기 그림을 덧붙이고, 표마다 section 으로 감싸 규정별 칩을 단다. 백지 복원은 맨 끝·번호 없이."""
+    """주체 표·암기 그림(+통상·평균임금 구분, study_wage.py)을 덧붙이고, 표마다 section 으로 감싸 규정별 칩을 단다. 백지 복원은 맨 끝·번호 없이."""
     head, *secs = re.split(r'(?=<h3 id="table-\d+")', table)
     by = {int(re.match(r'<h3 id="table-(\d+)"', s)[1]): s for s in secs}
     assert sorted(by) == list(range(1, 15)), sorted(by)
     anchor = lambda h: re.sub(r'<h3>(\d+)\.', lambda m: f'<h3 id="table-{m[1]}" class="table-anchor" tabindex="-1">{m[1]}.', h, 1)
     for law, n in SUBJ_NO.items():
         by[n] = anchor(subject_table(law, arts))
-    by[18] = anchor(mnemonic(root))
+    by[18] = anchor(mnemonic(root) + study_wage.section(arts))
     by[14] = by[14].replace('>14. 백지 복원<', '>✍ 백지 복원<', 1)
     order = [n for n in sorted(by) if n != 14] + [14]
     chips = ''.join(f'<button class="chip{" on" if k == "all" else ""}" data-tcat="{k}" aria-pressed="{str(k == "all").lower()}">{t}</button>' for k, t in CHIPS)
