@@ -117,6 +117,8 @@ def main():
     parser.add_argument('--sample', action='store_true')
     parser.add_argument('--synthesize', action='store_true', help='유료 API 요청 실행')
     args = parser.parse_args()
+    if args.synthesize:
+        parser.error('사용자 방침: 무료 TTS만 사용합니다. 유료 CLOVA 합성은 중단했습니다. tools/tts_narration.py를 사용하세요.')
     output = args.out or (Path(narration.ROOT) / 'audio/.cache/clova' / args.script.stem /
                           f'{args.speaker}-{args.speed}' / ('sample' if args.sample else 'full'))
     plan = prepare(args.script, output, args.speaker, args.speed, args.sample)

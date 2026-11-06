@@ -16,3 +16,12 @@ tests/*.png
 
 # 음성 조각 캐시
 /audio/.cache/
+
+# 개인 로컬 설정
+/.claude/settings.local.json
+
+# AI 도구별 스킬 링크 (tools/agents_link.py 가 만듦)
+/.agents/
+/.agent/skills
+/.agents/rules
+!kb/진행/메모.log

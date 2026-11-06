@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "SessionStart": [{"hooks": [{"type": "command", "command": "python -X utf8 tools/ctx_guard.py resume", "timeout": 10}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python -X utf8 tools/ctx_guard.py prompt", "timeout": 10}]}],
+    "PreToolUse": [{"hooks": [{"type": "command", "command": "python -X utf8 tools/ctx_guard.py pretool", "timeout": 10}]}],
+    "PreCompact": [{"hooks": [{"type": "command", "command": "python -X utf8 tools/ctx_guard.py precompact", "timeout": 10}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python -X utf8 tools/ctx_guard.py stop", "timeout": 10}]}]
+  }
+}

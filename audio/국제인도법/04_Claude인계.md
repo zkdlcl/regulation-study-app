@@ -1,6 +1,15 @@
 # 국제인도법 SOURCE · TTS 인계
 
-2026-11-07. SOURCE 02·03 작성 및 국내 TTS 합성 준비 완료. **음원 합성·청취·앱 연결을 마친 뒤 게시할 단계**이며 지금 바로 게시할 완성 음원은 없다. 게시와 푸시는 Claude 담당이다.
+2026-11-07. SOURCE 02·03 작성 및 합성 준비 완료. **사용자는 무료 TTS만 사용한다. CLOVA 유료 API 합성·가입·크레딧 사용은 진행하지 않는다.** 기존 Edge TTS를 기본으로 한다. 음원 합성·청취·앱 연결을 마친 뒤 게시할 단계이며 지금 바로 게시할 완성 음원은 없다. 게시는 Claude, 커밋·푸시는 각 도구가 수행한다.
+
+## 현재 진행할 무료 합성
+
+```powershell
+python -X utf8 tools/tts_narration.py --script audio/국제인도법/02_전투가_멈춘_뒤에도_지켜야_할_규칙.md --out audio/.cache/ihl-preview/02 --dry
+python -X utf8 tools/tts_narration.py --script audio/국제인도법/03_전쟁의_이유와_전쟁_중의_규칙.md --out audio/.cache/ihl-preview/03 --dry
+```
+
+먼저 위 명령으로 텍스트를 점검한 뒤 `--dry`를 빼면 기존 Edge SunHi로 생성한다. 원고별 출력 폴더를 분리한다. 합성 시 텍스트가 외부 TTS 서비스로 전송되며 서비스 가용성은 보장되지 않는다. 사람의 청취 검토는 별도로 필요하다. 아래 CLOVA 준비 내용은 과거 구현 기록이며 실행 지시가 아니다.
 
 ## 추가한 원고
 
@@ -13,7 +22,7 @@
 
 번역 차이: 핵심 규칙의 무기 금지 문장 연결 방식, 영문에만 있는 부상자·병자 수색 문장, 정당방위의 individual/collective 표현을 기록했다. 외부 최신 설명으로 시험 교재를 덮어쓰지 않는다. 본문은 교재 해설이며 현행 개별 분쟁의 법적 판단을 다루지 않는다.
 
-## CLOVA Voice 합성 준비
+## 이전 CLOVA Voice 준비 기록 — 실행 중단
 
 후보는 네이버 CLOVA Voice Premium. 아라 `nara`와 진호 `njinho`를 같은 대본으로 비교한다. 기본 속도 0, 피치 0으로 시작하고, 필요하면 속도 1(조금 느리게)도 비교한다. 최고 음질이라고 확정한 것은 아니다. [공식 API 문서](https://api.ncloud-docs.com/docs/ai-naver-clovavoice-ttspremium)에서 한국어 요청당 2,000자 제한, 목소리 ID, 속도 방향, WAV 24kHz 지원을 확인했다.
 

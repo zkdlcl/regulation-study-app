@@ -62,21 +62,38 @@ class PreToolTest(unittest.TestCase):
         os.environ['CTX_GUARD'] = 'off'
         self.assertFalse(denied(read('kb/exam_kb.json')))
 
+    def test_codex_shell_and_patch_shapes(self):
+        self.assertTrue(denied(guard.pretool({'tool_name': 'functions.exec_command',
+                                            'tool_input': {'cmd': 'Get-Content kb/exam_kb.json'}})))
+        for action in ('Delete', 'Add'):
+            patch = f'*** Begin Patch\n*** {action} File: kb/진행상황.md\n*** End Patch'
+            self.assertTrue(denied(guard.pretool({'tool_name': 'apply_patch', 'tool_input': {'command': patch}})))
+        patch = '*** Begin Patch\n*** Update File: kb/진행상황.md\n@@\n-가\n+나\n*** End Patch'
+        self.assertFalse(denied(guard.pretool({'tool_name': 'apply_patch', 'tool_input': {'command': patch}})))
+
+
+def usage_line(tokens):
+    return json.dumps({'type': 'assistant', 'message': {'usage': {'input_tokens': 2, 'cache_read_input_tokens': tokens - 2}}})
+
 
 class PromptTest(unittest.TestCase):
-    def test_stage_warns_once(self):
+    def setUp(self):
+        os.environ.pop('CTX_WINDOW_TOKENS', None)
+
+    def test_stage_warns_once_by_real_usage(self):
         with tempfile.TemporaryDirectory() as d:
             t = Path(d) / 't.jsonl'
-            t.write_bytes(b'x' * (3 * 200000 * 55 // 100))      # 약 55%
             guard.state_dir = lambda: Path(d)
             data = {'transcript_path': str(t), 'session_id': 's1'}
-            first = guard.prompt(data)
-            self.assertIn('컨텍스트 약 55%', json.dumps(first, ensure_ascii=False))
+            t.write_text('x' * 3_000_000 + '\n' + usage_line(500_000) + '\n', encoding='utf8')   # 기록이 커도 실측 50% → 조용
             self.assertEqual(guard.prompt(data), {})
-            t.write_bytes(b'x' * (3 * 200000 * 75 // 100))      # 70% 단계로 올라가면 다시 알림
-            self.assertIn('75%', json.dumps(guard.prompt(data), ensure_ascii=False))
+            t.write_text(usage_line(720_000) + '\n', encoding='utf8')                            # 72% → 한 번 알림
+            self.assertIn('컨텍스트 약 72%', json.dumps(guard.prompt(data), ensure_ascii=False))
+            self.assertEqual(guard.prompt(data), {})
+            t.write_text(usage_line(860_000) + '\n', encoding='utf8')                            # 85% 단계 → 다시 알림
+            self.assertIn('86%', json.dumps(guard.prompt(data), ensure_ascii=False))
 
-    def test_small_transcript_silent(self):
+    def test_no_usage_silent(self):
         with tempfile.TemporaryDirectory() as d:
             t = Path(d) / 't.jsonl'
             t.write_bytes(b'x' * 1000)
@@ -84,28 +101,66 @@ class PromptTest(unittest.TestCase):
             self.assertEqual(guard.prompt({'transcript_path': str(t)}), {})
 
 
-class ResumeAndCheckpointTest(unittest.TestCase):
-    def test_resume_injects_handoff_within_limit(self):
-        ctx = guard.resume({})['hookSpecificOutput']['additionalContext']
-        self.assertIn('다음 순서', ctx)
-        self.assertLessEqual(len(ctx), 1500)
+class WriteGuardTest(unittest.TestCase):
+    def test_progress_files_block_write(self):
+        r = guard.pretool({'tool_name': 'Write', 'tool_input': {'file_path': str(R / 'kb' / '진행상황.md')}})
+        self.assertTrue(denied(r))
 
-    def test_checkpoint_keeps_bom_and_caps_lines(self):
+    def test_other_write_allowed(self):
+        self.assertFalse(denied(guard.pretool({'tool_name': 'Write', 'tool_input': {'file_path': str(R / 'tmp_new.txt')}})))
+
+
+class ResumeAndCheckpointTest(unittest.TestCase):
+    def test_resume_lists_streams_and_latest_memo(self):
         with tempfile.TemporaryDirectory() as d:
-            (Path(d) / 'kb').mkdir()
-            f = Path(d) / 'kb' / '진행상황.md'
-            f.write_bytes('\ufeff# 제목\n\n## 다음 순서\n1. 가\n\n## 작업 요령\n- 나\n'.encode('utf8'))
+            g = Path(d) / 'kb' / '진행'
+            g.mkdir(parents=True)
+            (g / '가줄.md').write_text('# 가줄\n상태: 진행 중\n다음: 가 다음\n', encoding='utf8')
+            (g / '끝줄.md').write_text('# 끝줄\n상태: 완료\n다음: -\n', encoding='utf8')
+            (g / '메모.log').write_text(''.join(f'11-07 00:{i:02d} [가줄] 메모{i}\n' for i in range(40)), encoding='utf8')
+            old = guard.ROOT
+            guard.ROOT = Path(d)
+            try:
+                ctx = guard.resume({})['hookSpecificOutput']['additionalContext']
+            finally:
+                guard.ROOT = old
+            self.assertIn('[가줄] 진행 중 — 다음: 가 다음', ctx)
+            self.assertNotIn('끝줄', ctx)
+            self.assertIn('메모39', ctx)                  # 최신 메모는 반드시 들어감
+            self.assertNotIn('메모29', ctx)
+            self.assertLessEqual(len(ctx), guard.RESUME_MAX)
+
+    def test_checkpoint_appends_only(self):
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / 'kb' / '진행').mkdir(parents=True)
             kbq.ROOT = Path(d)
+            log = Path(d) / 'kb' / '진행' / '메모.log'
+            log.write_text('이전 세션 줄\n', encoding='utf8')
+            original = log.read_bytes()
             for i in range(35):
-                kbq.checkpoint([f'메모{i}'])
-            raw = f.read_bytes()
-            self.assertTrue(raw.startswith(b'\xef\xbb\xbf'))
-            text = raw.decode('utf-8-sig')
-            self.assertEqual(text.count('\n- ') - 1, 30)        # 세션 메모 30줄 + '작업 요령'의 1줄
-            self.assertIn('메모34', text)
-            self.assertNotIn('메모4 ', text + ' ')
-            self.assertLess(text.index('## 세션 메모'), text.index('## 작업 요령'))
-            self.assertNotIn(b'\r', raw)
+                kbq.checkpoint(['--줄', '가줄', f'메모{i}'])
+            lines = log.read_text(encoding='utf8').splitlines()
+            self.assertEqual(lines[0], '이전 세션 줄')     # 다른 세션 기록을 지우지 않음
+            self.assertEqual(len(lines), 36)
+            self.assertTrue(lines[-1].endswith('[가줄] 메모34'))
+            self.assertTrue(log.read_bytes().startswith(original))
+            self.assertNotIn(b'\r', log.read_bytes()[len(original):])
+
+
+class WrongQueueTest(unittest.TestCase):
+    def test_add_due_hit(self):
+        with tempfile.TemporaryDirectory() as d:
+            kbq.WRONG = Path(d) / '오답.jsonl'
+            kbq.wrong(['add', '보수운영규정:35', 'X', '확실', '문장', '낱말'])
+            kbq.wrong(['add', '보수운영규정:15', 'O', '찍음', '문장2'])
+            rows = kbq._wq()
+            for r in rows:
+                r['due'] = '2000-01-01'
+            kbq._wsave(rows)
+            due = kbq.wrong(['due'])
+            self.assertLess(due.index('w001'), due.index('w002'))       # 확신 오답 먼저
+            self.assertIn('상자 1', kbq.wrong(['hit', 'w001', '맞음']))
+            self.assertIn('상자 0', kbq.wrong(['hit', 'w002', '틀림', '애매']))
 
 
 if __name__ == '__main__':

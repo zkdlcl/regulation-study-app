@@ -23,6 +23,14 @@ def wav():
 
 
 class ClovaTest(unittest.TestCase):
+    def test_paid_cli_disabled_by_user_policy(self):
+        with patch.object(sys, 'argv', ['tts_clova.py', '--script', 'unused.md', '--synthesize']), \
+             patch.object(clova, 'synthesize', side_effect=AssertionError('유료 호출')), \
+             patch.object(sys, 'stderr', io.StringIO()):
+            with self.assertRaises(SystemExit) as caught:
+                clova.main()
+            self.assertEqual(caught.exception.code, 2)
+
     def test_prepare_all_sources_without_network(self):
         with tempfile.TemporaryDirectory() as tmp, patch.object(clova.urllib.request, 'urlopen', side_effect=AssertionError('network')):
             for source_map in sorted((ROOT / 'audio/국제인도법').glob('[0-9][0-9]_대응표.json')):

@@ -34,6 +34,6 @@ for t in tests/*-test.mjs; do node $t | grep -v ^PASS; done   # 저장소 루트
 `ArtifactData get` (collection `state`, doc `progress`) → `backup/progress.json` 에 그대로 저장. **절대 set/update 하지 않는다.**
 
 ## 5. 마무리 (SVN 식: 묻지 않고 끝까지)
-단일 작업자라 테스트가 통과하면 게시·백업·커밋·**push 까지 확인 없이 이어서** 한다. `git add -A` 로 전부 넣는다(테스트 캡처 png 는 `.gitignore` 가 걸러 준다). 강제 push·이력 삭제만 먼저 묻는다.
+공용 형상관리·병렬 작업 규칙은 `AGENTS.md`를 따른다. Artifact 도구가 없는 세션은 게시·운영 백업을 수행하지 않고 검증·커밋·푸시 후 자기 작업 줄 `다음:`에 게시 필요를 남긴다. 도구가 있는 Claude 세션은 게시·백업 후 커밋·푸시한다.
 
 `cp orgmaster.html dist/orgmaster.html`, README 의 게시 버전 갱신, 커밋·푸시.

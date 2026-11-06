@@ -1,4 +1,4 @@
-"""구조도 검증·인계·로컬 자동 커밋. 원격 push/게시 기능은 없다."""
+"""구조도 검증용 기존 하네스. 공용 시작·종료는 ai_harness.py를 사용한다."""
 from __future__ import annotations
 import functools
 import hashlib
@@ -94,7 +94,7 @@ def validate():
     receipt = {'fingerprint':fingerprint(),'base_head':git('rev-parse','HEAD').strip(),
                'validated_at':datetime.now(timezone.utc).isoformat(),'tests':['harness','table-guidance','op-study','study-map','review-scope','table-goal','ux8','card','law']}
     (state_dir()/'verified.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf8')
-    print('검증 영수증 저장 완료. Stop 훅에서 로컬 커밋할 수 있습니다.',flush=True)
+    print('검증 영수증 저장 완료. AGENTS.md에 따라 커밋·pull --rebase·push까지 진행하세요.',flush=True)
 
 def auto_commit():
     changed = changed_paths() & OWNED
@@ -133,11 +133,13 @@ def main():
     if action=='validate':
         validate(); return
     try:
-        if action=='stop': result={'systemMessage':auto_commit()}
+        if action=='stop':
+            import ctx_guard
+            result=ctx_guard.stop({})
         elif action=='checkpoint': result={'systemMessage':checkpoint()}
-        elif action=='resume': result={'hookSpecificOutput':{'hookEventName':'SessionStart','additionalContext':
-            '구조도 작업은 docs/구조도-확장-진행.md와 docs/구조도-새세션-프롬프트.md를 먼저 읽고 이어가세요. '
-            '검증 후 로컬 자동 커밋만 허용됨. validate 영수증 없는 변경은 Stop에서 커밋하지 않습니다.'}}
+        elif action=='resume':
+            import ctx_guard
+            result=ctx_guard.resume({})
         else: raise ValueError('사용법: study_harness.py validate|stop|checkpoint|resume')
     except Exception as exc:
         result={'systemMessage':'구조도 하네스 보류: '+str(exc)}

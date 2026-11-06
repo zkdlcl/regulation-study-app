@@ -5,7 +5,8 @@
   python -X utf8 tools/kbq.py find <규정> <낱말>    낱말이 든 조문
   python -X utf8 tools/kbq.py err                  가채점 오류 교훈
   python -X utf8 tools/kbq.py ans <id...>          스터디 답지 기록
-  python -X utf8 tools/kbq.py checkpoint "<한 줄>"  kb/진행상황.md '세션 메모'에 한 줄 남김 (최근 30줄만 유지)
+  python -X utf8 tools/kbq.py checkpoint --줄 <줄> "<한 줄>"  kb/진행/메모.log 에 덧붙임 (병렬 세션 안전)
+  python -X utf8 tools/kbq.py wrong due|add|hit|list  오답 큐(간격 반복·확신도) — 설명은 wrong 함수 docstring
   --offset N 을 붙이면 N번째 글자부터 이어서 보여 준다.
 """
 import json
@@ -18,8 +19,6 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'kb'))
 
 LIMIT = 5000
-MEMO = '## 세션 메모'
-MEMO_MAX = 30
 
 
 def emit(text, offset=0):
@@ -104,28 +103,83 @@ def ans(args):
 
 
 def checkpoint(args):
-    """바이트 그대로 보존(BOM·줄바꿈): '## 세션 메모' 절에 한 줄 추가, 최근 MEMO_MAX 줄만 유지"""
-    path = ROOT / 'kb' / '진행상황.md'
-    raw = path.read_bytes()
-    bom = raw.startswith(b'\xef\xbb\xbf')
-    nl = '\r\n' if b'\r\n' in raw else '\n'
-    text = raw.decode('utf-8-sig').replace('\r\n', '\n')
-    line = f"- {datetime.now().strftime('%m-%d %H:%M')} {' '.join(args).strip()}"
-    m = re.search(r'^' + re.escape(MEMO) + r'.*?\n(?=^## |\Z)', text, re.S | re.M)
-    if m:
-        body = [x for x in m.group(0).splitlines()[1:] if x.startswith('- ')]
-        block = MEMO + '\n' + '\n'.join((body + [line])[-MEMO_MAX:]) + '\n\n'
-        text = text[:m.start()] + block + text[m.end():]
-    else:
-        block = MEMO + ' (kbq.py checkpoint 가 갱신, 최근 30줄)\n' + line + '\n\n'
-        at = text.find('\n## 작업 요령')
-        text = text[:at + 1] + block + text[at + 1:] if at >= 0 else text.rstrip('\n') + '\n\n' + block
-    out = text.replace('\n', nl).encode('utf8')
-    path.write_bytes((b'\xef\xbb\xbf' if bom else b'') + out)
-    return '세션 메모 저장: ' + line
+    """병렬 세션 안전: kb/진행/메모.log 에 한 줄 덧붙이기만 한다(읽고-고치고-쓰기 없음 → 다른 세션 기록을 지우지 않음).
+    --줄 <이름> 으로 작업 줄을 붙인다(생략 시 '기타')."""
+    stream = '기타'
+    if '--줄' in args:
+        k = args.index('--줄')
+        stream = args[k + 1] if k + 1 < len(args) else stream
+        args = args[:k] + args[k + 2:]
+    text = ' '.join(args).strip().replace('\n', ' ')
+    if not text:
+        return '메모가 비었다: checkpoint --줄 <이름> "<한 일·다음 한 줄>"'
+    line = f"{datetime.now().strftime('%m-%d %H:%M')} [{stream}] {text}"
+    log = ROOT / 'kb' / '진행' / '메모.log'
+    log.parent.mkdir(exist_ok=True)
+    with open(log, 'a', encoding='utf8', newline='\n') as f:     # O_APPEND: 동시 실행돼도 줄 단위로 안전
+        f.write(line + '\n')
+    hint = '' if (log.parent / f'{stream}.md').exists() or stream == '기타' else f' (kb/진행/{stream}.md 가 없다: 새 줄이면 만들 것)'
+    return '메모 저장: ' + line + hint
 
 
-CMDS = {'digest': digest, 'item': item, 'art': art, 'find': find, 'err': err, 'ans': ans, 'checkpoint': checkpoint}
+# ── 오답 큐: 간격 반복(라이트너 상자) + 확신도 ─────────────────────────────
+# 근거: 인출 연습·간격 반복(Dunlosky 2013 '높은 효과'), 확신 오답 우선(hypercorrection effect)
+WRONG = ROOT / 'kb' / 'study' / '오답.jsonl'
+GAPS = [1, 3, 7, 14, 30]          # 상자 0~4 의 다음 출제 간격(일). 상자 5 = 졸업
+
+
+def _wq():
+    if not WRONG.exists():
+        return []
+    return [json.loads(x) for x in WRONG.read_text(encoding='utf8').splitlines() if x.strip()]
+
+
+def _wsave(rows):
+    tmp = WRONG.with_suffix('.tmp')
+    tmp.write_text(''.join(json.dumps(r, ensure_ascii=False) + '\n' for r in rows), encoding='utf8')
+    tmp.replace(WRONG)
+
+
+def wrong(args):
+    """wrong due [n]                       오늘 낼 오답(확신 오답 → 오래된 순)
+       wrong add <규정:조문> <정답 O|X> <확신 확실|애매|찍음> "<원문 기준 문장>" ["<함정 낱말>"]
+       wrong hit <id> <맞음|틀림> [확신]       결과 기록: 맞으면 상자+1, 틀리면 상자 0
+       wrong list                           전체 요약"""
+    from datetime import date, timedelta
+    today = date.today()
+    rows = _wq()
+    cmd = args[0] if args else 'due'
+    if cmd == 'add':
+        art_, ans_, conf, stmt = args[1], args[2], args[3], args[4]
+        rid = f"w{len(rows) + 1:03d}"
+        rows.append({'id': rid, 'art': art_, 'stmt': stmt, 'ans': ans_, 'trap': args[5] if len(args) > 5 else '',
+                     'conf': conf, 'box': 0, 'due': (today + timedelta(days=GAPS[0])).isoformat(),
+                     'hist': [[today.isoformat(), '틀림', conf]]})
+        _wsave(rows)
+        return f'오답 추가 {rid}: {art_} ({conf}) 다음 {rows[-1]["due"]}'
+    if cmd == 'hit':
+        r = next(x for x in rows if x['id'] == args[1])
+        ok = args[2] == '맞음'
+        conf = args[3] if len(args) > 3 else ''
+        r['box'] = min(len(GAPS), r['box'] + 1) if ok else 0
+        r['conf'] = conf or r['conf']
+        r['hist'].append([today.isoformat(), args[2], conf])
+        r['due'] = '졸업' if r['box'] >= len(GAPS) else (today + timedelta(days=GAPS[r['box']])).isoformat()
+        _wsave(rows)
+        return f"{r['id']} {args[2]} → 상자 {r['box']}, 다음 {r['due']}"
+    if cmd == 'list':
+        return '\n'.join(f"{r['id']} 상자{r['box']} {r['due']} {r['art']} [{r['conf']}] {r['stmt'][:60]}" for r in rows) or '오답 없음'
+    n = int(args[1]) if len(args) > 1 else 10
+    due = [r for r in rows if r['due'] != '졸업' and r['due'] <= today.isoformat()]
+    due.sort(key=lambda r: (r['conf'] != '확실', r['due']))
+    if not due:
+        later = sorted(r['due'] for r in rows if r['due'] != '졸업')
+        return '오늘 낼 오답 없음' + (f' (다음 {later[0]})' if later else '')
+    return f'오늘 오답 {len(due)}개 중 {min(n, len(due))}개 (확신 오답 먼저)\n' + '\n'.join(
+        json.dumps({k: r[k] for k in ('id', 'art', 'stmt', 'ans', 'trap', 'conf', 'box')}, ensure_ascii=False) for r in due[:n])
+
+
+CMDS = {'digest': digest, 'item': item, 'art': art, 'find': find, 'err': err, 'ans': ans, 'checkpoint': checkpoint, 'wrong': wrong}
 
 
 def main(argv):
