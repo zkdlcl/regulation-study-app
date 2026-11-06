@@ -43,7 +43,17 @@ class NarrationTest(unittest.TestCase):
             self.assertIn(s['article'], data)
         inventory = json.loads((narration.DEFAULT_SCRIPT.parent / '진도.json').read_text(encoding='utf8'))
         self.assertEqual({s['article'] for s in inventory['sections']}, {k for k, a in data.items() if a['law'] == '국제인도법'})
-        self.assertEqual({s['article'] for s in inventory['sections'] if s['status'] == 'draft'}, {s['article'] for s in mapping['sections']})
+        drafted = set()
+        for path in narration.DEFAULT_SCRIPT.parent.glob('[0-9][0-9]_대응표.json'):
+            m = json.loads(path.read_text(encoding='utf8'))
+            script = path.parent / m['script']
+            _, parts = narration.paragraphs(script.read_text(encoding='utf8'))
+            narration.validate_map(script, parts)
+            for section in m['sections']:
+                self.assertIn(section['article'], data)
+                self.assertNotIn(section['article'], drafted)
+                drafted.add(section['article'])
+        self.assertEqual({s['article'] for s in inventory['sections'] if s['status'] == 'draft'}, drafted)
 
     def test_stale_source_map_rejected(self):
         with self.assertRaisesRegex(ValueError, '순서·제목'):
