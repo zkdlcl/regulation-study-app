@@ -4,6 +4,8 @@
 
 ## 현재 진행할 무료 합성
 
+2026-11-07 무료 Edge SunHi로 **02·03 전체 음원 생성 완료**. 로컬 미리듣기는 `audio/.cache/ihl-preview/02/01.mp3`와 `audio/.cache/ihl-preview/03/01.mp3`다. 각각 약 7분 11초·8분 55초이며, Chrome에서 전체 디코딩·세 절의 음성 신호·목차·원고 해시 일치를 확인했다. 발음·억양에 대한 사람의 청취 검토와 앱 목차 연결·게시는 남았다. `무료TTS검증.json`에 원고·음원 해시와 검증 결과를 보관한다. MP3는 로컬 캐시로 Git에 넣지 않으므로 다른 클론에서는 아래 명령에서 `--dry`를 빼고 재생성한다.
+
 ```powershell
 python -X utf8 tools/tts_narration.py --script audio/국제인도법/02_전투가_멈춘_뒤에도_지켜야_할_규칙.md --out audio/.cache/ihl-preview/02 --dry
 python -X utf8 tools/tts_narration.py --script audio/국제인도법/03_전쟁의_이유와_전쟁_중의_규칙.md --out audio/.cache/ihl-preview/03 --dry
@@ -50,6 +52,8 @@ python -X utf8 tools/tts_clova.py --script audio/국제인도법/02_전투가_�
 2. WAV를 게시용 MP3로 변환한다면 재인코딩 후 길이·목차 시간을 검사한다. `site/data/tts/ihl.json`의 기존 트랙을 보존하며 02·03 추가를 연결한다. 현재 앱 목차는 변경하지 않았다.
 3. 앱 연결 후 artifact-release 스킬에 따라 빌드, 재생·구간 이동·태블릿 검사와 기존 보수 듣기 회귀 검증을 수행한다. 이번 작업은 대본·별도 합성 도구만 변경하여 앱 빌드는 수행하지 않았다.
 4. Claude가 기존 게시본과 비교 후 게시한다. 학습 기록은 읽기만 한다.
+
+현재 Edge 출력은 이미 MP3다. 각 출력 폴더 내부 파일명은 `01.mp3`이므로 게시 폴더에 복사할 때 02편→`02.mp3`, 03편→`03.mp3`처럼 이름을 구분하고 기존 01편을 덮어쓰지 않는다. 게시 연결 전까지 `site/data/tts/ihl.json`은 기존 상태로 유지했다.
 
 로컬 검증 명령:
 

@@ -1,0 +1,78 @@
+{
+  "created_at": "2026-11-06T16:21:08.389934+00:00",
+  "provider": "기존 무료 Edge TTS",
+  "tracks": [
+    {
+      "episode": "02",
+      "script": "02_전투가_멈춘_뒤에도_지켜야_할_규칙.md",
+      "script_sha256": "ac607cb7ccbda5764800049f4bc41c4bda07bb8626ab97dd3bfc6d758606ff80",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/02/01.mp3",
+      "audio_sha256": "119c99f809df184b9f254b8c5a272d04e917933c69a70fdaf960d52a59e59428",
+      "bytes": 2584224,
+      "decoded_seconds": 430.7,
+      "marks": [
+        {
+          "t": 4.78,
+          "no": "1",
+          "label": "무기를 내려놓은 사람을 바라보는 관점"
+        },
+        {
+          "t": 95.47,
+          "no": "2",
+          "label": "공격과 보호를 함께 읽는 핵심 규칙"
+        },
+        {
+          "t": 320.11,
+          "no": "3",
+          "label": "명시적인 금지가 없으면 허용되는가"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "목차 길이 오차 1초 미만",
+        "세 절 순서·시각 범위·제목 일치",
+        "세 절 시작 후 20초 음성 신호",
+        "현재 원고 SHA-256 일치"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 목차 미연결·게시 대기"
+    },
+    {
+      "episode": "03",
+      "script": "03_전쟁의_이유와_전쟁_중의_규칙.md",
+      "script_sha256": "eb7266e48e987c412503c0c13bcbb529e9e46e1535e47d9d78d969485ef43c16",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/03/01.mp3",
+      "audio_sha256": "787616567275a42d1fb88920f8c05fce7a569bc97c04e41fe3380f6e7bc1d736",
+      "bytes": 3207024,
+      "decoded_seconds": 534.5,
+      "marks": [
+        {
+          "t": 4.54,
+          "no": "1",
+          "label": "개전법과 교전법을 구분하는 두 질문"
+        },
+        {
+          "t": 126.12,
+          "no": "2",
+          "label": "무력 사용 금지의 흐름"
+        },
+        {
+          "t": 237.65,
+          "no": "3",
+          "label": "보호책임의 목적과 무력 사용의 조건"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "목차 길이 오차 1초 미만",
+        "세 절 순서·시각 범위·제목 일치",
+        "세 절 시작 후 20초 음성 신호",
+        "현재 원고 SHA-256 일치"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 목차 미연결·게시 대기"
+    }
+  ]
+}

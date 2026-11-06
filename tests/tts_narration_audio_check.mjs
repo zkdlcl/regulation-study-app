@@ -1,4 +1,4 @@
-/* 생성된 시범 MP3를 Chrome에서 실제 디코딩해 길이·구간별 음성 신호를 확인한다. */
+/* 생성된 해설 MP3를 Chrome에서 디코딩해 대본·길이·구간별 음성 신호를 확인한다. */
 import puppeteer from 'puppeteer-core';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -7,7 +7,9 @@ import assert from 'node:assert/strict';
 
 const manifestPath = resolve(process.argv[2] || 'audio/.cache/ihl-preview/manifest.json');
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-const script = readFileSync(resolve('audio/국제인도법/01_국제인도법의_첫걸음.md'));
+const scriptPath = resolve(process.argv[3] || resolve('audio/국제인도법', manifest.script || '01_국제인도법의_첫걸음.md'));
+const script = readFileSync(scriptPath);
+const headings = [...script.toString('utf8').matchAll(/^## (.+)$/gm)].map(match => match[1].trim());
 assert.equal(manifest.script_sha256, createHash('sha256').update(script).digest('hex'), '음원과 대본 일치');
 const track = manifest.tracks[0];
 const bytes = readFileSync(resolve(dirname(manifestPath), track.file));
@@ -32,10 +34,11 @@ try {
     } finally { await ctx.close(); }
   }, bytes.toString('base64'), track.marks);
   assert.ok(Math.abs(decoded.duration - track.sec) < 1, '실제 디코딩 길이와 목차 일치');
-  assert.equal(track.marks.length, 4);
+  assert.deepEqual(track.marks.map(mark => mark.label), headings, '대본 절과 목차 일치');
   for (let i = 0; i < track.marks.length; i++) {
+    assert.ok(track.marks[i].t >= 0 && track.marks[i].t < decoded.duration, '구간 시각 범위');
     assert.ok(decoded.rms[i] > 0.001, `${track.marks[i].label}: 무음 아님`);
     if (i) assert.ok(track.marks[i].t > track.marks[i - 1].t, '구간 시각 오름차순');
   }
-  console.log(`PASS MP3 디코딩 ${decoded.duration.toFixed(2)}초, 네 구간 음성 신호·목차·대본 해시 일치`);
+  console.log(`PASS MP3 디코딩 ${decoded.duration.toFixed(2)}초, ${track.marks.length}개 구간 음성 신호·목차·대본 해시 일치`);
 } finally { await browser.close(); }

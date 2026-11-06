@@ -111,6 +111,7 @@ async def build(script, output, dry=False):
         raise ValueError('15분을 초과했습니다. 절 경계에서 대본을 나눠주세요.')
     (output / '01.mp3').write_bytes(data)
     manifest = {'law': '국제인도법', 'status': mapping['status'], 'voice': tts.V_A,
+                'script': script.name,
                 'script_sha256': hashlib.sha256(script.read_bytes()).hexdigest(),
                 'tracks': [{'kind': 'narration', 'title': title, 'file': '01.mp3',
                             'sec': seconds, 'bytes': len(data), 'marks': marks}]}
