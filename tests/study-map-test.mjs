@@ -64,7 +64,7 @@ try {
     const dates=D.days.map(d=>d.date),schedule=SCHED.map(s=>s.d);
     try {
       D.days.forEach(d=>d.date='2000-01-01');
-      SCHED.filter(s=>s.n<=4).forEach(s=>s.d='2000-01-01');
+      SCHED.filter(s=>s.n<=4).forEach(s=>s.d='2000-01-01');SCHED.filter(s=>s.n===5).forEach(s=>s.d='2099-01-01');
       dayIdx=D.days.length-1;renderers.today();
     } finally {D.days.forEach((d,i)=>d.date=dates[i]);SCHED.forEach((s,i)=>s.d=schedule[i]);}
   });

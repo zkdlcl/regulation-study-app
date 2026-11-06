@@ -4,7 +4,7 @@
      원문 낱말 그대로 입력해야 정답(띄어쓰기만 무시, 동의어는 오답). 틀리면 해당 항·호·목 원문을 인용한다. */
 (function(){
   if (!XG.some(g => g[0] === 'case')){
-    const i = XG.findIndex(g => g[0] === 'st3');
+    const i = Math.max(XG.findIndex(g => g[0] === 'st3'), XG.findIndex(g => g[0] === 'st4'));
     XG.splice(i < 0 ? 2 : i + 1, 0, ['case', '📕 사례형·빈칸 · 직원운영규정']);
   }
   const BL = {id: null, vals: []};

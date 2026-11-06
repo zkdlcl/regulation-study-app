@@ -136,7 +136,7 @@ const sp = await page.evaluate(() => SCHED.filter((s) => s.n && !s.prep).map((s)
 const miss = sp.filter((x) => x.m);
 ok("모든 시험 과목이 앱 규정에 연결됨(미연결 없음)", miss.length === 0, JSON.stringify(miss));
 ok("4차 → 인사관리시행규칙, 6차 → 재무·여비·감사 3종", sp[3].o === "인사관리시행규칙" && sp[5].o === "재무규정+여비규정+감사운영규정", JSON.stringify([sp[3], sp[5], sp[7]]));
-await page.evaluate(() => { SCHED.find((x) => x.n === 3).d = "2020-01-01"; showTab("today"); });  // 3차를 과거로 → 다음 시험이 4차
+await page.evaluate(() => { SCHED.forEach((x) => { if (x.n <= 4) x.d = "2020-01-01"; else if (x.n === 5) x.d = "2099-01-01"; });  /* 오늘 날짜와 무관하게 다음 시험 = 5차 */ showTab("today"); });  // 3차를 과거로 → 다음 시험이 4차
 await sleep(500);
 await page.evaluate(() => renderers.today());
 await sleep(300);

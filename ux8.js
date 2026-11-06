@@ -214,6 +214,7 @@ $('#p-today').addEventListener('click', e => { const b = e.target.closest('[data
 
 /* ── 스터디 3주차 문제 묶음(전권능) ── */
 if (!XG.some(g => g[0] === "st3")) XG.splice(2, 0, ["st3", "📕 스터디 3주차 · 운영규정 6~7장 문제"]);
+if (!XG.some(g => g[0] === "st4")) XG.splice(XG.findIndex(g => g[0] === "st3") + 1, 0, ["st4", "📕 스터디 4주차 · 보수운영규정 문제"]);
 
 /* ── 헤더 통합 검색 (탭 목록의 검색 대신) ── */
 (function(){

@@ -34,7 +34,7 @@ const h = await page.evaluate(() => ({
 ok("섹션 구성(오답노트·법령별·기출 2종)", h.hs.length === 4, h.hs.join(" | "));
 ok("법령별 모아 풀기 11개(유관법령 등 문제 없는 것은 비활성)", h.law === 11, `비활성: ${h.lawDis.join(",")}`);
 ok("스터디 묶음 98개", h.sen === 98 && h.qi === 110, `${h.sen}/${h.qi}`);
-ok("원문 복원본 5묶음(스터디 1·2·3주차 + 사례형 + 2026) 유지", h.local === 5);
+ok("원문 복원본 6묶음(스터디 1~4주차 + 사례형 + 2026) 유지", h.local === 6, String(h.local));
 ok("모아 풀기 문제 수 칩", h.chips.length === 4, h.chips.join(","));
 ok("처음엔 문제 파일 요청 없음", reqs.length === 0);
 ok("가로 스크롤 없음", await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
@@ -118,7 +118,7 @@ if (six) {
 } else res.push("SKIP  ⑥ 보기 문제 없음");
 
 /* ── 오늘 탭 → 기출 풀기 ── */
-await page.evaluate(() => { SCHED.find((x) => x.n === 3).d = "2020-01-01"; showTab("today"); }); await sleep(500);
+await page.evaluate(() => { SCHED.forEach((x) => { if (x.n <= 4) x.d = "2020-01-01"; else if (x.n === 5) x.d = "2099-01-01"; });  /* 오늘 날짜와 무관하게 다음 시험 = 5차 */ showTab("today"); }); await sleep(500);
 await page.evaluate(() => renderers.today()); await sleep(300);
 const qb = await page.evaluate(() => { const b = document.querySelector('[data-prep="quiz"]'); return b ? { t: b.textContent.trim(), laws: b.dataset.laws } : null; });
 ok("오늘 카드에 '기출·문제 풀기 (N)' 버튼 (10/29 이후 5차=보수운영규정)", qb && /기출·문제 풀기 \(\d+\)/.test(qb.t) && qb.laws === "보수운영규정", JSON.stringify(qb));
