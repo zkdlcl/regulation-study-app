@@ -8,4 +8,10 @@
 body #pk .b:not(.rev), body #pk .b.rev{color:inherit;background:none;border-bottom:0;cursor:auto;user-select:auto}
 body #pk[data-pkrd="1"] .b.b1:not(.rev), body #pk[data-pkrd="2"] .b:not(.rev), body #pk[data-pkrd="3"] .b:not(.rev){
   color:transparent;background:var(--blank);border-bottom:2px solid var(--blank-line);cursor:pointer;user-select:none}
-body #pk[data-pkrd="1"] .b.b1.rev, body #pk[data-pkrd="2"] .b.rev, body #pk[data-pkrd="3"] .b.rev{background:var(--ok-bg);color:var(--ok);cursor:pointer}
+body #pk[data-pkrd="1"] .b.b1.rev, body #pk[data-pkrd="2"] .b.rev, body #pk[data-pkrd="3"] .b.rev{background:var(--ok-bg);color:var(--ok);cursor:pointer}/* 대조·숫자 규정별 칩 (table-cat.js) */
+#p-table .tchips{flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+#p-table .tsec[hidden]{display:none}
+#p-table .mnemo summary{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border:1px solid var(--line2);border-radius:10px;cursor:pointer;font-size:20px;list-style:none}
+#p-table .mnemo summary::-webkit-details-marker{display:none}
+#p-table .mnemo[open] summary{background:var(--soft)}
+#p-table .mnemo img{display:block;width:100%;max-width:900px;height:auto;margin-top:8px;border-radius:10px}

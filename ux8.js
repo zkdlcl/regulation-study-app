@@ -176,6 +176,7 @@ function goalNav(key){
     showTab('table');
     requestAnimationFrame(()=>{
       if(!$('#p-table').classList.contains('on'))return;
+      if(typeof tcatReveal==='function')tcatReveal(g.table);
       const target=document.getElementById('table-'+g.table);if(!target)return;
       $$('#p-table .table-target').forEach(el=>el.classList.remove('table-target'));
       target.classList.add('table-target');target.focus({preventScroll:true});target.scrollIntoView({block:'start'});

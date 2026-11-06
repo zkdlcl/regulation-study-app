@@ -86,10 +86,11 @@ claude.ai 아티팩트의 소스·데이터·테스트 백업입니다.
 | `ux8.js` `ux8.css` | 2026-10-18 사용 피드백 반영(맨 마지막): 헤더 통합 검색, 탭 이동 시 진행 화면 유지, 뻥뚫 차수 박스+장·절 select·Enter/Tab·틀린 칸만 다시·화면 키보드 숨김, 뻥뚫 채점 → 회독 +1(하루 1번), 다회독 진도, 오늘 목표 글자=이동, 복습 카드 질문 머리 조문·답 출처 링크. 요청 목록 `docs/개선요청-2026-10-18.md` |
 | `blankfix.py` | 빈칸 경계 바로잡기(징계[의결] → [징계의결]). 빌드(조직법·정관·운영규정)와 `convert_regs.py`(나머지)가 같이 씀, 예외는 `BLANK_FIX` |
 | `kb-ui.js` | 기출 근거를 앱에 보여 줌: 기출 정답 공개 뒤 근거 조문(누르면 원문 패널)·함정·개정 차이, 회독 조문의 "기출 N" 배지 |
+| `study_subject.py` `table-cat.js` | 대조·숫자 탭: 규정별 주체 표(보수·재무·감사, 원문 인용 그대로 주체만 빈칸 — 빌드 때 원문 대조), 지급기준액 암기 그림(`docs/mnemonic/*.webp`), 규정별 칩(전체·주체·조직법·정관·운영규정·보수·재무·감사) |
 | `backup/progress.json` | 학습 기록(아티팩트 DB `state/progress`) 백업 — 복원용 |
 | `CLAUDE.md`, `.claude/skills/` | Claude 작업 규칙과 스킬: `exam-kb`(카드·문제·검수), `kb-annotate`(DB 기록), `artifact-release`(게시·백업), `artifact-restore`(복원) |
 | `build_artifact.py` | 기준 페이지 + 조각 → `orgmaster.html`(게시용 본문) 과 테스트용 `site/index.html` |
-| `dist/orgmaster.html` | **게시한 최종 페이지** (게시 v68, 2026-11-06). 빌드 없이도 이 파일로 복구할 수 있습니다. 소스에서 다시 빌드한 결과와 같습니다(데이터 JSON 의 키 순서만 빌드마다 달라질 수 있음). |
+| `dist/orgmaster.html` | **게시한 최종 페이지** (게시 v69, 2026-11-06). 빌드 없이도 이 파일로 복구할 수 있습니다. 소스에서 다시 빌드한 결과와 같습니다(데이터 JSON 의 키 순서만 빌드마다 달라질 수 있음). |
 | `site/data/laws/*.json` | 규정 8종 본문 (처음 열 때 불러옴) — `convert_regs.py` 로 생성 |
 | `site/data/quiz/*.json` | 기출 12 + 스터디 문제 98 묶음 — `quiz/convert_quiz.py` 로 생성 후 후처리(아래) |
 | `site/*.json` | 규정 목차, 문제 목차, 기록 이전표, 새 복습 카드 |
