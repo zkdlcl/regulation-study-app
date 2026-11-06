@@ -116,14 +116,29 @@ def section(text, head):
     return m.group(0).strip() if m else ''
 
 
+RESUME_MAX = 3000      # SessionStart 주입 한도(자). 넘치면 오래된 메모부터 버린다.
+RESUME_MEMOS = 10      # 최근 메모 몇 줄
+
+
 def resume(_):
     p = ROOT / 'kb' / '진행상황.md'
     if not p.exists():
         return {}
     text = p.read_text(encoding='utf-8-sig')
-    parts = [section(text, '## 다음 순서'), section(text, '## 세션 메모')]
-    ctx = '기출 DB 인계(kb/진행상황.md 발췌). 큰 DB 파일은 통독하지 말고 tools/kbq.py 로 조회한다.\n' + '\n\n'.join(x for x in parts if x)
-    return {'hookSpecificOutput': {'hookEventName': 'SessionStart', 'additionalContext': ctx[:1500]}}
+    head = '진행 인계(kb/진행상황.md 발췌, 최신 메모가 맨 아래). 응답은 한국어. 큰 DB 파일은 통독하지 말고 tools/kbq.py 로 조회한다.\n'
+    nxt = section(text, '## 다음 순서')
+    memo = [x for x in section(text, '## 세션 메모').splitlines() if x.startswith('- ')][-RESUME_MEMOS:]
+
+    def tail():
+        return '\n\n## 최근 세션 메모\n' + '\n'.join(memo)
+
+    # 최신 메모를 반드시 남긴다: 넘치면 오래된 메모부터 버리고(최소 3줄), 그래도 넘치면 '다음 순서' 꼬리를 자른다
+    while len(memo) > 3 and len(head + nxt + tail()) > RESUME_MAX:
+        memo.pop(0)
+    room = RESUME_MAX - len(head) - len(tail())
+    if len(nxt) > room:
+        nxt = nxt[:max(0, room - 1)] + '…'
+    return {'hookSpecificOutput': {'hookEventName': 'SessionStart', 'additionalContext': (head + nxt + tail())[-RESUME_MAX:]}}
 
 
 def precompact(_):
@@ -140,7 +155,8 @@ def main():
         sys.stdout.reconfigure(encoding='utf8')
     action = sys.argv[1] if len(sys.argv) > 1 else ''
     try:
-        raw = sys.stdin.read() if not sys.stdin.isatty() else ''
+        # Windows 기본 stdin 은 cp949 → 한글 경로가 깨져 가드가 무력화된다. 바이트로 받아 UTF-8 로 푼다.
+        raw = sys.stdin.buffer.read().decode('utf-8', 'replace') if not sys.stdin.isatty() else ''
         data = json.loads(raw) if raw.strip() else {}
         result = ACTIONS[action](data)
     except Exception as exc:       # 훅이 작업을 막지 않도록 실패는 조용히 알리기만 한다
