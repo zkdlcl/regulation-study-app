@@ -1169,6 +1169,32 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "32",
+      "script": "32_무력충돌에_휩싸인_이주민의_보호.md",
+      "script_sha256": "1b17c1fd17ed4cad62cf30b053b84683a19d503766933cd8571ed6aaafc6abee",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/32/01.mp3",
+      "audio_sha256": "76362cfd603f18789b6fd2adf199b86c8c11cb4c7d812b2d6a681a259a14bc31",
+      "bytes": 971568,
+      "decoded_seconds": 161.93,
+      "marks": [
+        {
+          "t": 4.73,
+          "no": "1",
+          "label": "이주민과 혼합이주"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
     }
   ]
 }
