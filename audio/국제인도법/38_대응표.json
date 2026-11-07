@@ -1,0 +1,92 @@
+{
+  "status": "draft",
+  "script": "38_국제적십자위원회의_임무와_보호와_지원.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "지정 국문 PDF 이미지·수록본·연결 기출 본문/근거 DB·공식 영문 대조. 사람 청취 미실시. 앱 연결·게시 제외.",
+  "sections": [
+    {
+      "heading": "국제인도법의 수호자와 옹호자",
+      "article": "국제인도법:제20장 1)",
+      "pdf_page": 88,
+      "printed_page": 88,
+      "english_pdf_pages": [
+        90
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "수호/옹호·존중증진 경로 보존."
+      ]
+    },
+    {
+      "heading": "전적으로 인도적인 사명",
+      "article": "국제인도법:제20장 2)",
+      "pdf_page": 89,
+      "printed_page": 89,
+      "english_pdf_pages": [
+        91
+      ],
+      "exam_ids": [
+        "past-04-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-04-24"
+      ],
+      "notes": [
+        "임무문 전부: 공평중립독립·전적 인도성·예방·1863·기원·지휘조정 보존."
+      ]
+    },
+    {
+      "heading": "보호 활동이 하는 일",
+      "article": "국제인도법:제20장 3)",
+      "pdf_page": 89,
+      "printed_page": 89,
+      "english_pdf_pages": [
+        91
+      ],
+      "exam_ids": [
+        "past-04-24",
+        "past-09-25"
+      ],
+      "exam_ids_reviewed": [
+        "past-04-24",
+        "past-09-25"
+      ],
+      "notes": [
+        "물리적보호 불가·위험/학대/권리/의견·방문/평가/민간/가족 보존."
+      ]
+    },
+    {
+      "heading": "지원 활동의 범위",
+      "article": "국제인도법:제20장 4)",
+      "pdf_page": 89,
+      "printed_page": 89,
+      "english_pdf_pages": [
+        91
+      ],
+      "exam_ids": [
+        "past-09-25"
+      ],
+      "exam_ids_reviewed": [
+        "past-09-25"
+      ],
+      "notes": [
+        "결과 및 원인정황·상황별 지원·모든 예시 보존."
+      ]
+    },
+    {
+      "heading": "정관이 명시한 역할",
+      "article": "국제인도법:제20장 5)",
+      "pdf_page": 90,
+      "printed_page": 90,
+      "english_pdf_pages": [
+        92
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "정관5조2항 c/g 박스 두 문단 모두 반영. 낭독에서 항목문자 한글 표기."
+      ]
+    }
+  ]
+}

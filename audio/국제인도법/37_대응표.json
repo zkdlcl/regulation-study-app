@@ -1,0 +1,118 @@
+{
+  "status": "draft",
+  "script": "37_규칙을_행동으로_옮기는_예방과_감시와_억제.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "지정 국문 PDF 이미지·수록본·연결 기출 본문/근거 DB·공식 영문 대조. 사람 청취 미실시. 앱 연결·게시 제외.",
+  "sections": [
+    {
+      "heading": "이행의 첫 책임",
+      "article": "국제인도법:제19장 1)",
+      "pdf_page": 84,
+      "printed_page": 84,
+      "english_pdf_pages": [
+        86
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "국문84~85·영문86~87. 책임/공통1조·실무 예시 보존."
+      ]
+    },
+    {
+      "heading": "평시에도 준비하는 세 갈래 조치",
+      "article": "국제인도법:제19장 2)",
+      "pdf_page": 86,
+      "printed_page": 86,
+      "english_pdf_pages": [
+        88
+      ],
+      "exam_ids": [
+        "past-05-30",
+        "2026-28"
+      ],
+      "exam_ids_reviewed": [
+        "past-05-30",
+        "2026-28"
+      ],
+      "notes": [
+        "평시/충돌·법적/실무적·3분류 보존."
+      ]
+    },
+    {
+      "heading": "여섯 가지 예방적 조치",
+      "article": "국제인도법:제19장 3)",
+      "pdf_page": 86,
+      "printed_page": 86,
+      "english_pdf_pages": [
+        88
+      ],
+      "exam_ids": [
+        "past-05-30",
+        "past-06-29",
+        "2026-28"
+      ],
+      "exam_ids_reviewed": [
+        "past-05-30",
+        "past-06-29",
+        "2026-28"
+      ],
+      "notes": [
+        "6항 모두 보존. 예방 목록의 전쟁범죄 방지 및 처벌 유지."
+      ]
+    },
+    {
+      "heading": "분쟁 중 준수를 감시하는 다섯 장치",
+      "article": "국제인도법:제19장 4)",
+      "pdf_page": 86,
+      "printed_page": 86,
+      "english_pdf_pages": [
+        88
+      ],
+      "exam_ids": [
+        "past-01-18",
+        "past-03-22",
+        "past-04-27",
+        "past-05-30",
+        "past-06-29",
+        "past-10-21",
+        "2026-28"
+      ],
+      "exam_ids_reviewed": [
+        "past-01-18",
+        "past-03-22",
+        "past-04-27",
+        "past-05-30",
+        "past-06-29",
+        "past-10-21",
+        "2026-28"
+      ],
+      "notes": [
+        "국문86·영문88~89. 5장치·동의·공식권한/의향·대리 조건 보존. 일부확인 기출의 인원/회의/통보경로 확대 없음."
+      ]
+    },
+    {
+      "heading": "억제 의무와 이행 장치의 과제",
+      "article": "국제인도법:제19장 5)",
+      "pdf_page": 87,
+      "printed_page": 87,
+      "english_pdf_pages": [
+        89
+      ],
+      "exam_ids": [
+        "past-03-22",
+        "past-05-30",
+        "past-06-29",
+        "past-10-21"
+      ],
+      "exam_ids_reviewed": [
+        "past-03-22",
+        "past-05-30",
+        "past-06-29",
+        "past-10-21"
+      ],
+      "notes": [
+        "국문87·영문89. 수록본 누락: 대부분 절차 실제 적용 없거나 거의 사용 안 됨을 최신 국문 이미지로 복원. 국문은 더욱이 이러한 절차 국제충돌만 적용, 수록본 대부분 절차 국제충돌 적용과 차이. 4의무·장치강화 평가 교재시점 유지."
+      ]
+    }
+  ]
+}
