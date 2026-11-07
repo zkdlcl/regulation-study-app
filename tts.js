@@ -16,7 +16,7 @@ const TTS = (() => {
   const man = () => (D.tts || {})[st.law];
   const trk = () => { const m = man(); return m ? m.tracks[st.ti] : null; };
   const store = () => { try { return JSON.parse(localStorage.getItem('tts-pos') || '{}'); } catch(e){ return {}; } };
-  const keep = () => { try { const s = store(); s.rate = A.playbackRate; if (st.law && st.ti >= 0) s[st.law] = {ti: st.ti, t: Math.floor(A.currentTime)}; localStorage.setItem('tts-pos', JSON.stringify(s)); } catch(e){} };
+  const keep = () => { try { const s = store(); s.rate = A.playbackRate; if (st.law && st.ti >= 0) s[st.law] = {ti: st.ti, f: man().tracks[st.ti].file, t: Math.floor(A.currentTime)}; localStorage.setItem('tts-pos', JSON.stringify(s)); } catch(e){} };
   const clock = s => { s = Math.max(0, Math.floor(s || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
   const markAt = (t, x) => { let m = null; for (const k of t.marks){ if (k.t <= x + .05) m = k; else break; } return m; };
   const nowLabel = () => { const t = trk(); if (!t) return ''; const m = markAt(t, A.currentTime); return m ? m.label : t.title; };
@@ -63,8 +63,9 @@ const TTS = (() => {
     return false;
   }
   function openBar(){
-    bar(); st.open = true; st.law = R.law; const p = store()[st.law], r = store().rate;
+    bar(); st.open = true; st.law = R.law; let p = store()[st.law]; const r = store().rate;
     if (r) A.playbackRate = r;
+    if (p && p.f){ const i = man().tracks.findIndex(x => x.file === p.f); if (i >= 0) p.ti = i; else p = null; }   /* 트랙 순서가 바뀌어도 같은 파일에서 이어 듣는다 */
     if (p && man().tracks[p.ti]) load(p.ti, p.t, true); else if (!goHere(true)) load(0, 0, true);
     drawList(); sync();
   }

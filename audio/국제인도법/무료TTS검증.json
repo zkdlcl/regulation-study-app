@@ -406,6 +406,267 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 목차 미연결·게시 필요"
+    },
+    {
+      "episode": "14",
+      "script": "14_민간인과_전투원의_서로_다른_보호.md",
+      "script_sha256": "f83a90735ca8959eb6d1350b8580d9ed4f7d424e6e8c53c7b8b91253006d118c",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/14/01.mp3",
+      "audio_sha256": "5f86100685697621eb450d875bf63dd437071dddb4fa17f65e598ba4c7da1d79",
+      "bytes": 3118176,
+      "decoded_seconds": 519.7,
+      "marks": [
+        {
+          "t": 4.75,
+          "no": "1",
+          "label": "피해자를 보호하되 보호의 성격은 다르게"
+        },
+        {
+          "t": 41.38,
+          "no": "2",
+          "label": "민간인에게 주어지는 두 가지 보호"
+        },
+        {
+          "t": 191.02,
+          "no": "3",
+          "label": "피보호자인 민간인이 존중받아야 할 것들"
+        },
+        {
+          "t": 267.72,
+          "no": "4",
+          "label": "전투력을 상실한 전투원과 포로"
+        },
+        {
+          "t": 436.3,
+          "no": "5",
+          "label": "비국제적 무력충돌에서는 지위와 보호를 구분한다"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "15",
+      "script": "15_지위에_상관없이_지켜야_할_보호.md",
+      "script_sha256": "dafb8297f112c121067117030b840952b1d37ab0eafb97a738cdbf082ccdfee9",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/15/01.mp3",
+      "audio_sha256": "56dbd1a4098e043f6cefe8b788abedcc118bd893648e796d7431e28d282883a2",
+      "bytes": 1920384,
+      "decoded_seconds": 320.06,
+      "marks": [
+        {
+          "t": 4.51,
+          "no": "1",
+          "label": "부상자와 병자, 조난자와 의무요원"
+        },
+        {
+          "t": 67.49,
+          "no": "2",
+          "label": "여성과 아동에게 필요한 각별한 보호"
+        },
+        {
+          "t": 205.58,
+          "no": "3",
+          "label": "지위에 상관없는 기본권 보장"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "16",
+      "script": "16_국가와_무장단체를_구속하는_법.md",
+      "script_sha256": "e1b791c157029f5e206a1c5bd57217a159c407ac02cd9af5bf93eef86aabb905",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/16/01.mp3",
+      "audio_sha256": "4e0ef1546e50b6003d4a6b4bec40f8e5aec4780b0984a94346a7aaca40a07f7d",
+      "bytes": 2078208,
+      "decoded_seconds": 346.37,
+      "marks": [
+        {
+          "t": 4.37,
+          "no": "1",
+          "label": "모든 무력충돌 당사자를 구속한다"
+        },
+        {
+          "t": 42.43,
+          "no": "2",
+          "label": "조약의 당사자가 될 수 있는 주체"
+        },
+        {
+          "t": 122.86,
+          "no": "3",
+          "label": "조직된 비국가 무장단체의 의무"
+        },
+        {
+          "t": 173.9,
+          "no": "4",
+          "label": "민족해방운동 단체의 일방적 선언"
+        },
+        {
+          "t": 229.94,
+          "no": "5",
+          "label": "유엔의 평화활동에도 적용될 수 있는가"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "17",
+      "script": "17_평화활동과_존중을_보장할_의무.md",
+      "script_sha256": "881a327bd3c48b6dcab55847a77a495ef9488b218fc0345c346f03c513b01985",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/17/01.mp3",
+      "audio_sha256": "5a61cab30c39be76b052ec4f3ad4d78fd73ae047cf97ddc764e7399e5dfccbb5",
+      "bytes": 2149200,
+      "decoded_seconds": 358.2,
+      "marks": [
+        {
+          "t": 4.63,
+          "no": "1",
+          "label": "평화유지 활동의 목적과 조건"
+        },
+        {
+          "t": 71.35,
+          "no": "2",
+          "label": "평화집행 활동의 임무와 강제 수단"
+        },
+        {
+          "t": 121.51,
+          "no": "3",
+          "label": "두 활동의 구분과 국제인도법 적용 기준"
+        },
+        {
+          "t": 186.58,
+          "no": "4",
+          "label": "존중하고 존중되도록 보장할 의무"
+        },
+        {
+          "t": 260.21,
+          "no": "5",
+          "label": "지식을 확산시킬 법적 의무는 국가에 있다"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "18",
+      "script": "18_인권법과_국제인도법이_만나는_곳.md",
+      "script_sha256": "91e2765176e3c53b21ffe14279d03798b4f45f770566ce96809162980cd6fd45",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/18/01.mp3",
+      "audio_sha256": "07c284d3fc1cc84b8c27bff7226a4a56be283b8eaefc5379d394715b5bf5cc5d",
+      "bytes": 3135456,
+      "decoded_seconds": 522.58,
+      "marks": [
+        {
+          "t": 4.54,
+          "no": "1",
+          "label": "국제인권법은 무엇인가"
+        },
+        {
+          "t": 48.55,
+          "no": "2",
+          "label": "주요 조약과 서로 보완하는 목표"
+        },
+        {
+          "t": 259.27,
+          "no": "3",
+          "label": "오래된 국제인도법과 더 최근의 인권법"
+        },
+        {
+          "t": 337.82,
+          "no": "4",
+          "label": "언제 적용되고 어떤 의무가 해제될 수 있는가"
+        },
+        {
+          "t": 427.42,
+          "no": "5",
+          "label": "국경 밖에서도 적용되는가"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "19",
+      "script": "19_같은_사실에_두_법이_적용될_때.md",
+      "script_sha256": "ef80decabcb139af59b9d6add2de85ddcb01e228166ddd1b478008103e8662d1",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/19/01.mp3",
+      "audio_sha256": "4b4ebed106bc1f9f9cef64880cf4daecbfaed9e9a4c920c22b21e636b29aadaa",
+      "bytes": 3219264,
+      "decoded_seconds": 536.54,
+      "marks": [
+        {
+          "t": 4.37,
+          "no": "1",
+          "label": "누구에게 적용되는가"
+        },
+        {
+          "t": 59.74,
+          "no": "2",
+          "label": "수평적 관계와 수직적 관계"
+        },
+        {
+          "t": 154.97,
+          "no": "3",
+          "label": "규율하는 문제와 무력 사용, 구금의 차이"
+        },
+        {
+          "t": 423.82,
+          "no": "4",
+          "label": "상호보완성과 특별법의 관계"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
     }
   ]
 }

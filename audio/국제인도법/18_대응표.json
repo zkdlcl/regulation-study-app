@@ -1,0 +1,106 @@
+{
+  "status": "draft",
+  "script": "18_인권법과_국제인도법이_만나는_곳.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "2026-11-07 사용자 최신 국문 PDF35~37쪽 이미지 직접확인·수록본 kbq art·연결기출 본문과근거·공식영문37~39쪽 대조. 실제 청취 미실시.",
+  "additional_sources": [
+    {
+      "url": "https://treaties.un.org/PAGES/ViewDetails.aspx?chapter=4&clang=_en&mtdsg_no=IV-13&src=TREATY",
+      "checked": "2026-11-07",
+      "finding": "이주노동자협약1990-12-18채택. 교재1999표기와 차이 확인."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "국제인권법은 무엇인가",
+      "article": "국제인도법:제9장 1)",
+      "pdf_page": 35,
+      "printed_page": 35,
+      "previous_official_pdf_page": 37,
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "국문35쪽·영문37쪽·수록본. 조약/관습·개인단체·국가존중보호·비조약원칙지침 연성법 반영."
+      ]
+    },
+    {
+      "heading": "주요 조약과 서로 보완하는 목표",
+      "article": "국제인도법:제9장 2)",
+      "pdf_page": 35,
+      "printed_page": 35,
+      "previous_official_pdf_page": 37,
+      "exam_ids": [
+        "past-01-17",
+        "past-07-26",
+        "past-08-4",
+        "past-08-40",
+        "past-10-19"
+      ],
+      "exam_ids_reviewed": [
+        "past-01-17",
+        "past-07-26",
+        "past-08-4",
+        "past-08-40",
+        "past-10-19"
+      ],
+      "notes": [
+        "국문35~36쪽·영문37~38쪽·수록본. 보편10/지역3 조약·연도·감독기구2·파생조항3예·생명건강존엄성·고문형사권리차별여성아동식량건강·기원범위이행 차이 모두 유지.",
+        "이주노동자 협약은 최신 국문/수록본 제9장/영문 모두1999, 수록본 제4장 연표 및 past-08-4 근거는1990. UN 조약기록은1990-12-18채택. 대본에 세 근거의 차이를 명시하고 원문DB는 수정하지 않음.",
+        "국문 인간의 권리에 관한 아프리카 헌장 vs 영문 African Charter on Human and Peoples’ Rights: 인민의 권리 표현 차이를 명시. past-10-19의 로마규정은 이 목록에 추가하지 않음."
+      ]
+    },
+    {
+      "heading": "오래된 국제인도법과 더 최근의 인권법",
+      "article": "국제인도법:제9장 3)",
+      "pdf_page": 36,
+      "printed_page": 36,
+      "previous_official_pdf_page": 38,
+      "exam_ids": [
+        "past-07-26"
+      ],
+      "exam_ids_reviewed": [
+        "past-07-26"
+      ],
+      "notes": [
+        "국문36쪽·영문38쪽. 오래된기원/19세기후반성문화/뒤낭·계몽운동1776/1789·2차대전후유엔·1948구속력없는총회결의·1966양규약 모두 유지."
+      ]
+    },
+    {
+      "heading": "언제 적용되고 어떤 의무가 해제될 수 있는가",
+      "article": "국제인도법:제9장 4)",
+      "pdf_page": 36,
+      "printed_page": 36,
+      "previous_official_pdf_page": 38,
+      "exam_ids": [
+        "past-01-17",
+        "past-06-30",
+        "2026-30"
+      ],
+      "exam_ids_reviewed": [
+        "past-01-17",
+        "past-06-30",
+        "2026-30"
+      ],
+      "notes": [
+        "국문36쪽·영문38~39쪽. 인도법 무력충돌만/인권법 원칙항시·일부조약/존립위협공적위기/특정의무·필요비례비차별타국제법준수·해제불가목록 유지. 영문 slavery and servitude vs 국문 노예화 차이를 명시.",
+        "past-01-17 유보 표현은 현 교재 의무해제(derogation)와 구분, 조약법 유보와 동일시하지 않음. 후속 인적/실질 범위와 특별법 설명은 다음 묶음."
+      ]
+    },
+    {
+      "heading": "국경 밖에서도 적용되는가",
+      "article": "국제인도법:제9장 5)",
+      "pdf_page": 37,
+      "printed_page": 37,
+      "previous_official_pdf_page": 39,
+      "exam_ids": [
+        "2026-30"
+      ],
+      "exam_ids_reviewed": [
+        "2026-30"
+      ],
+      "notes": [
+        "국문37쪽·영문39쪽. IAC 역외논란없음/NIAC 국경넘어도면제안됨·인권법 반대견해존재/역외일반견해/정확범위미정/영역점령·사람구금/무력사용판례미확립 모두 유지. 교재설명임을 명시해 현재 판례 전체 확정으로 확대하지 않음."
+      ]
+    }
+  ]
+}

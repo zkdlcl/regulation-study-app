@@ -1,0 +1,58 @@
+{
+  "status": "draft",
+  "script": "15_지위에_상관없이_지켜야_할_보호.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "2026-11-07 사용자 지정 최신 국문 PDF 이미지 직접 확인·수록본 kbq art·연결 기출 본문/근거 DB·기존 공식 영문 대조. 실제 청취 미실시. 앱 연결/게시 제외.",
+  "sections": [
+    {
+      "heading": "부상자와 병자, 조난자와 의무요원",
+      "article": "국제인도법:제7장 6)",
+      "pdf_page": 29,
+      "printed_page": 29,
+      "previous_official_pdf_page": 31,
+      "exam_ids": [
+        "past-03-16",
+        "past-07-27"
+      ],
+      "exam_ids_reviewed": [
+        "past-03-16",
+        "past-07-27"
+      ],
+      "notes": [
+        "최신 국문29쪽·영문31쪽. 지위에 상관없이/반드시 수색수용간호/모든 상황/흰바탕 세 표장 유지. past-03-16 일부확인 중②만 이 절에 연결, 유보 및 방문의 미확인 판단 유지."
+      ]
+    },
+    {
+      "heading": "여성과 아동에게 필요한 각별한 보호",
+      "article": "국제인도법:제7장 7)",
+      "pdf_page": 29,
+      "printed_page": 29,
+      "previous_official_pdf_page": 31,
+      "exam_ids": [
+        "past-02-20",
+        "past-08-8"
+      ],
+      "exam_ids_reviewed": [
+        "past-02-20",
+        "past-08-8"
+      ],
+      "notes": [
+        "최신 국문29쪽·영문31~32쪽. 최신 국문과 수록본 임신부와 미성년 모 vs 영문 pregnant women and young mothers 차이 명시. 15세 직접가담 방지, 가족분리 보호, 부양/종교/교육, 분리수용 가족단위 예외, 범행당시18세미만 사형집행금지, 여성보호/성별동일금지/분리예외/여성직접감독 모두 반영.",
+        "past-02-20 일부확인: 신분표식/선택의정서 징집 연령 확정하지 않음. past-08-8 이 절 나·다만 연결."
+      ]
+    },
+    {
+      "heading": "지위에 상관없는 기본권 보장",
+      "article": "국제인도법:제7장 8)",
+      "pdf_page": 30,
+      "printed_page": 30,
+      "previous_official_pdf_page": 32,
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "최신 국문30쪽과 수록본 폭력목록 마지막 신체 표기가 동일. 영문32쪽 mutilation과 차이를 대본에서 명시하고 신체 훼손 뜻을 연결. 임의로 원문 DB를 고치지 않음.",
+        "제1추가75/제2추가4(기본보장), 제1추가75/제2추가6(절차사법) 참조. 영문 under all circumstances는 국문에 별도 표현 없어 차이 명시. 생명건강정신/살인고문체벌신체/존엄침해성폭력/인질/집단처벌/위협/절차사법 전부 반영."
+      ]
+    }
+  ]
+}

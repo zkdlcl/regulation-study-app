@@ -1,0 +1,100 @@
+{
+  "status": "draft",
+  "script": "14_민간인과_전투원의_서로_다른_보호.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "2026-11-07 사용자 지정 최신 국문 PDF 이미지 직접 확인·수록본 kbq art·연결 기출 본문/근거 DB·기존 공식 영문 대조. 실제 청취 미실시. 앱 연결/게시 제외.",
+  "sections": [
+    {
+      "heading": "피해자를 보호하되 보호의 성격은 다르게",
+      "article": "국제인도법:제7장 1)",
+      "pdf_page": 26,
+      "printed_page": 26,
+      "previous_official_pdf_page": 28,
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "최신 국문26쪽·수록본·영문28쪽 대조. 모든 피해자 보호와 지위별 보호 차이 모두 유지."
+      ]
+    },
+    {
+      "heading": "민간인에게 주어지는 두 가지 보호",
+      "article": "국제인도법:제7장 2)",
+      "pdf_page": 26,
+      "printed_page": 26,
+      "previous_official_pdf_page": 28,
+      "exam_ids": [
+        "past-01-19",
+        "past-08-1",
+        "past-11-20"
+      ],
+      "exam_ids_reviewed": [
+        "past-01-19",
+        "past-08-1",
+        "past-11-20"
+      ],
+      "notes": [
+        "최신 국문26~27쪽·영문28~29쪽. 국문 해당 적국 국민이 아닌 경우를 유지. 우방/중립국 정상외교 단서를 영문 unless do not enjoy normal diplomatic relations와 구분 설명. 점령지 중립국 국민 언제나 보호 유지.",
+        "past-01-19 일부확인: 노역 보기④는 미확인으로 남김. past-11-20은 직접 가담 중 공격 보호 예외이며 모든 보호 상실로 확대하지 않음."
+      ]
+    },
+    {
+      "heading": "피보호자인 민간인이 존중받아야 할 것들",
+      "article": "국제인도법:제7장 3)",
+      "pdf_page": 27,
+      "printed_page": 27,
+      "previous_official_pdf_page": 29,
+      "exam_ids": [
+        "past-08-1"
+      ],
+      "exam_ids_reviewed": [
+        "past-08-1"
+      ],
+      "notes": [
+        "최신 국문27쪽·영문29쪽. 점령국 식량/의료 의무, 추방/강제이전, 몰수/압류 규칙, 억류/절차/석방 모두 반영."
+      ]
+    },
+    {
+      "heading": "전투력을 상실한 전투원과 포로",
+      "article": "국제인도법:제7장 4)",
+      "pdf_page": 27,
+      "printed_page": 27,
+      "previous_official_pdf_page": 29,
+      "exam_ids": [
+        "past-01-15",
+        "past-01-16",
+        "past-07-27",
+        "past-08-1"
+      ],
+      "exam_ids_reviewed": [
+        "past-01-15",
+        "past-01-16",
+        "past-07-27",
+        "past-08-1"
+      ],
+      "notes": [
+        "최신 국문27~28쪽·영문29~30쪽. 의무/군종 제외, 책임지휘, 정규/비정규/저항, 제3협약 추가조건, 전투력상실 세 경우와 두 부정조건, 즉시보호, 포로지위/면제/전쟁범죄/보호 상세 모두 유지. 참조: 제1추가의정서43조1·2항, ICRC 관습법연구 규칙3·4.",
+        "past-01-15 확인필요: 사진/서신/임금/진술 상세는 추가하지 않음. past-01-16 일부확인: 용병/공개휴대 상세는 확정하지 않음."
+      ]
+    },
+    {
+      "heading": "비국제적 무력충돌에서는 지위와 보호를 구분한다",
+      "article": "국제인도법:제7장 5)",
+      "pdf_page": 28,
+      "printed_page": 28,
+      "previous_official_pdf_page": 30,
+      "exam_ids": [
+        "past-01-16",
+        "past-07-27",
+        "2026-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-01-16",
+        "past-07-27",
+        "2026-24"
+      ],
+      "notes": [
+        "최신 국문28쪽·영문30~31쪽. 특정 부류 불인정은 보호 부정이 아님을 이어지는 원문으로 설명. 전투원/포로 지위 없음·국내법 기소 가능 유지."
+      ]
+    }
+  ]
+}
