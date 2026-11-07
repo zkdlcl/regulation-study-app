@@ -1,0 +1,105 @@
+{
+  "status": "draft",
+  "script": "31_난민과_국내_실향민의_구별과_보호.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "2026-11-07 최신 국문68~71쪽 이미지·수록본·연결기출 본문/근거DB·공식영문70~73쪽 대조. 청취 미실시. 앱 연결/게시 제외.",
+  "sections": [
+    {
+      "heading": "난민의 보호",
+      "article": "국제인도법:제16장 1)",
+      "pdf_page": 68,
+      "printed_page": 68,
+      "english_pdf_pages": [
+        70,
+        71
+      ],
+      "exam_ids": [
+        "past-03-17",
+        "past-05-23",
+        "past-07-30",
+        "past-09-34",
+        "past-11-20"
+      ],
+      "exam_ids_reviewed": [
+        "past-03-17",
+        "past-05-23",
+        "past-07-30",
+        "past-09-34",
+        "past-11-20"
+      ],
+      "notes": [
+        "국문68~69쪽·영문70~71쪽. 국경/박해·난민법2문서/인권/강제송환금지·UNHCR·무력충돌국가·일반민간/특별보호 유지. 참조 제4협약44/제1추가73. 실제개별분쟁 법적판단으로 확장하지 않음."
+      ]
+    },
+    {
+      "heading": "국내 실향민과 관련 문서",
+      "article": "국제인도법:제16장 2)",
+      "pdf_page": 69,
+      "printed_page": 69,
+      "english_pdf_pages": [
+        71,
+        72
+      ],
+      "exam_ids": [
+        "past-07-30"
+      ],
+      "exam_ids_reviewed": [
+        "past-07-30"
+      ],
+      "notes": [
+        "국문69~70쪽·영문71~72쪽. 보편조약없음·캄팔라2012.12 최초국제협약·국내/인권/조건부IHL·지도원칙1998비구속/기존국제법반영/귀환재정착재통합 유지. 모두 교재시점 설명."
+      ]
+    },
+    {
+      "heading": "실향을 방지하고 실향민을 보호하는 규칙",
+      "article": "국제인도법:제16장 3)",
+      "pdf_page": 70,
+      "printed_page": 70,
+      "english_pdf_pages": [
+        72
+      ],
+      "exam_ids": [
+        "past-07-30"
+      ],
+      "exam_ids_reviewed": [
+        "past-07-30"
+      ],
+      "notes": [
+        "국문70쪽·영문72쪽. 금지3군·안전및긴급군사이유있지않는한·피난처위생건강안전영양·가족비분리·구호·관습/양충돌 유지. 번역차이: 영문 unless their security or imperative military reasons, 국문 안전 및 긴급한 군사상의 이유. 국문 유지. 영문 집단처벌은 주거파괴 형태일수있음, 국문 집단적처벌로서 주거지파괴."
+      ]
+    },
+    {
+      "heading": "난민 정의의 요건",
+      "article": "국제인도법:제16장 4)",
+      "pdf_page": 70,
+      "printed_page": 70,
+      "english_pdf_pages": [
+        72,
+        73
+      ],
+      "exam_ids": [
+        "past-03-17"
+      ],
+      "exam_ids_reviewed": [
+        "past-03-17"
+      ],
+      "notes": [
+        "국문70~71쪽·영문72~73쪽. 정의 전문·5이유·공포·국적국밖/보호불능또는원치않음·무적국자 경우 유지. 국문 무적국자 표현 유지, 해설은 국적없는사람. OAU1969/카타헤나1984 넓은정의 유지."
+      ]
+    },
+    {
+      "heading": "국내 실향민의 정의",
+      "article": "국제인도법:제16장 5)",
+      "pdf_page": 71,
+      "printed_page": 71,
+      "english_pdf_pages": [
+        73
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "국문71쪽·영문73쪽. 정의 전문 유지. 번역차이 국문 혹은 그 영향으로 인해, 영문 or in order to avoid the effects of(영향을 피하기 위해); 국문 무분별한 폭력, 영문 generalized violence. 국문을 임의로 고치지 않음."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "status": "draft",
+  "script": "32_무력충돌에_휩싸인_이주민의_보호.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "2026-11-07 최신 국문71쪽 이미지·수록본·연결기출 본문/근거DB·공식영문73쪽 대조. 청취 미실시. 앱 연결/게시 제외.",
+  "sections": [
+    {
+      "heading": "이주민과 혼합이주",
+      "article": "국제인도법:제16장 6)",
+      "pdf_page": 71,
+      "printed_page": 71,
+      "english_pdf_pages": [
+        73
+      ],
+      "exam_ids": [
+        "past-07-30",
+        "past-10-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-07-30",
+        "past-10-24"
+      ],
+      "notes": [
+        "정의보편인정없음·자발강제구별어려움·급속/점진4요인·혼합이주 구성과상황/요인·난민자격못얻음/국경넘으면국내실향아님·취약/보호/인신매매·보편조약없음·국내법인권법조건부IHL·민간인 모두 유지. 교재의 현재/과거 비교는 교재시점 설명. 번역차이: 국문 소수민족 vs 영문 minorities, 국문 가족관계형성가능성 vs 영문 availability of family networks. 국문 유지."
+      ]
+    }
+  ]
+}
