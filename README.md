@@ -160,6 +160,8 @@ for t in *-test.mjs; do node $t | grep -v ^PASS; done   # 아무것도 안 나�
 ## 게시
 Artifact 도구로 `orgmaster.html` 을 같은 URL에 게시하고, `data/laws/*.json`, `data/quiz/*.json` 중 **바뀐 파일만** `files` 로 함께 올립니다(빠진 파일은 이전 것이 그대로 남음).
 
+> 2026-11-07(v71) 국제인도법 해설 듣기 02·03편 추가: 무료 Edge SunHi 음원을 `site/data/tts/ihl/02.mp3`·`03.mp3` 로 이름을 나눠 넣고 `ihl.json` 에 트랙을 덧붙였다(01편 보존). 원고 해시는 `ihl.json` 의 `scripts_sha256`.
+
 > 2026-11-06(v67) 진단·복구(`resume.js`): 부팅·오류·긴 작업·화면 숨김을 기기와 db `diag/<기기>` 문서에 남긴다(학습 기록과 별개). 부팅 기록의 `prev` 가 `cut` 이면 직전 실행이 pagehide 없이 끊긴 것(강제 종료·메모리 부족). 진행 중인 복습 카드·뻥뚫은 기기에 저장해 20분 안에 다시 열리면 이어서 연다. 조회: `ArtifactData list collection=diag`.
 
 > 2026-11-02(v64) 규정 듣기: `python -X utf8 tools/tts_build.py` 가 `site/data/tts/` 에 MP3·목차를 만들고, 빌드가 목차를 D.tts 로 넣는다. MP3 는 Artifact 도구의 `files` 로 `data/tts/...` 에 게시한다. 지금은 보수운영규정(원문·Q&A)과 국제인도법 해설 시범(`site/data/tts/ihl.json`, kind `narration`, 제1장 1~4절, Codex `tools/tts_narration.py` 생성)이 있다.

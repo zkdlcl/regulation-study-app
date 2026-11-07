@@ -74,7 +74,7 @@ ok("국제인도법 듣기 버튼", await vis("#tts-fab"));
 await page.click("#tts-fab"); await sleep(1500);
 ok("해설 재생 시작", await ev(() => TTS.st.law === "국제인도법" && TTS.st.ti === 0 && !TTS.A.paused && TTS.A.currentTime > 0));
 await ev(() => { if (!TTS.st.list) TTS.act("list"); }); await sleep(100);
-ok("해설 칩만 1개(빈 묶음 숨김)", await ev(() => document.querySelectorAll("#tts-list .tts-chip").length === 1 && document.querySelectorAll("#tts-list .tts-g").length === 1 && document.querySelector("#tts-list .tts-g span").textContent === "해설"));
+ok("해설 칩만 3개(빈 묶음 숨김)", await ev(() => document.querySelectorAll("#tts-list .tts-chip").length === 3 && document.querySelectorAll("#tts-list .tts-g").length === 1 && document.querySelector("#tts-list .tts-g span").textContent === "해설"));
 const ihlM = await ev(() => D.tts["국제인도법"].tracks[0].marks.map((m) => [m.t, m.label]));
 ok("목차 4구간 시간·제목 유지", JSON.stringify(ihlM) === JSON.stringify([[3.79, "국제인도법이 다루는 두 가지"], [176.47, "같은 법을 가리키는 이름들"], [221.11, "제네바법과 헤이그법"], [350.18, "군사적 필요와 인도"]]));
 /* 첫 구간(3.79초) 전에서 시작하므로 '다음'은 1구간 시작부터 차례로 간다 */
@@ -90,6 +90,20 @@ ok("이전: 앞 구간", Math.abs((await ev(() => TTS.A.currentTime)) - ihlM[2][
 await page.click('#tts-bar [data-t="here"]'); await sleep(300);
 ok("해설에서 '보고 있는 조문부터'는 오류 없이 무시", await ev(() => TTS.st.ti === 0));
 await page.screenshot({ path: "tests/tts-ihl.png" });
+/* 02·03편: 트랙 전환·구간 이동, 01편 파일 보존 */
+ok("해설 파일 01·02·03 구분", await ev(() => D.tts["국제인도법"].tracks.map((t) => t.file).join() === "data/tts/ihl/01.mp3,data/tts/ihl/02.mp3,data/tts/ihl/03.mp3"));
+for (const ti of [1, 2]){
+  await ev(() => { if (!TTS.st.list) TTS.act("list"); }); await sleep(100);
+  await page.click(`#tts-list [data-tti="${ti}"]`); await sleep(1500);
+  ok(`${ti + 1}편 전환·재생`, await ev((ti) => TTS.st.ti === ti && !TTS.A.paused && TTS.A.currentTime > 0 && TTS.A.src.endsWith(`/ihl/0${ti + 1}.mp3`), ti));
+  ok(`${ti + 1}편 길이`, Math.abs((await ev(() => TTS.A.duration)) - (await ev((ti) => D.tts["국제인도법"].tracks[ti].sec, ti))) < 2, await ev(() => TTS.A.duration));
+  const ms = await ev((ti) => D.tts["국제인도법"].tracks[ti].marks.map((m) => [m.t, m.label]), ti);
+  for (let i = 0; i < ms.length; i++){
+    await page.click('#tts-bar [data-t="next"]'); await sleep(900);
+    ok(`${ti + 1}편 다음 구간 ${i + 1}`, Math.abs((await ev(() => TTS.A.currentTime)) - ms[i][0]) < 2 && (await ev(() => document.querySelector("#tts-now").textContent)) === ms[i][1], await ev(() => TTS.A.currentTime));
+  }
+}
+
 ok("JS 오류 없음", errors.length === 0, errors.join(" | "));
 console.log(res.join("\n"));
 await browser.close();
