@@ -62,7 +62,7 @@ python -X utf8 -m unittest discover -s tests -p tts_narration_test.py
 python -X utf8 -m unittest discover -s tests -p tts_clova_test.py
 ```
 
-다음 SOURCE는 제3장 6~10절부터 계속한다. 머릿글과 제3장 1~5절을 추가해 `진도.json`의 151개 절 중 16개가 draft, 135개는 pending이다. 전체 범위 제작이 완료된 상태로 표시하지 않는다.
+다음 SOURCE는 제7장부터 계속한다. 현재 머릿글과 제1~6장을 작성해 `진도.json`의 151개 절 중 37개가 draft, 114개는 pending이다. 전체 범위 제작이 완료된 상태로 표시하지 않는다.
 
 ## 2026-11-07 Claude 검수 결과
 
@@ -86,4 +86,22 @@ node tests/tts_narration_audio_check.mjs audio/.cache/ihl-preview/05/manifest.js
 node tests/tts_narration_audio_check.mjs audio/.cache/ihl-preview/06/manifest.json
 ```
 
-다음 대화 이어가기: “국제인도법 SOURCE·무료 TTS를 제3장 6~10절부터 이어서 해줘. ai_harness.py start 후 제작안내·진도·Claude인계·인도법무료TTS 작업 줄을 읽고, 기존 05 머릿글·06 제3장 1~5절을 보존해줘. 최대 5절씩 수록본·기출·국문 PDF 이미지·영문을 대조하고 무료 Edge 합성·전체 디코딩 검증·진도·checkpoint·커밋·pull --rebase·push까지 해줘. 청취·앱 연결·게시는 Claude 담당이야.”
+다음 대화 이어가기: “국제인도법 SOURCE·무료 TTS를 제7장부터 이어서 해줘. ai_harness.py start 후 제작안내·진도·Claude인계·인도법무료TTS 작업 줄을 읽고 기존 01~13(04는 인계)을 보존해줘. 최대 5절씩 수록본·기출·국문 PDF 이미지·영문을 대조하고 무료 Edge 합성·전체 디코딩 검증·진도·checkpoint·커밋·pull --rebase·push까지 해줘. 청취·앱 연결·게시는 Claude 담당이야.”
+
+## 2026-11-07 추가 07~13 — 통합 게시 대기
+
+| 원고 | 실제 작성 범위 | 디코딩 길이 |
+|---|---|---:|
+| 07 | 제3장 6~10절 | 405.12초 |
+| 08 | 제4장 1~2절(수록본 보충 연표 포함) | 661.73초 |
+| 09 | 제4장 3~4절 | 372.98초 |
+| 10 | 제5장 1~5절 | 400.56초 |
+| 11 | 제5장 6절·별도 키 적용법 표·8절 | 306.26초 |
+| 12 | 제6장 1~2절 | 273.55초 |
+| 13 | 제6장 3~4절 | 436.75초 |
+
+- 7편·21절 추가. 합계2856.95초(약47분37초). 전부 무료 Edge SunHi, 원고별 `audio/.cache/ihl-preview/07`~`13`에 분리 생성. 15분 초과 편 없음.
+- 수록본 kbq art·연결된 기출 본문/근거·국문 PDF14~27쪽 이미지·영문 동일 면 대조. 08 수록본 보충 연표의 확인된 차이는 UN/ICRC 공식 출처와 함께 대응표에 기록했다. 12·13의 국문/영문 및 옛 기출 번역 차이도 유지했다.
+- 7편 모두 Chrome 전체 MP3 디코딩·전체 절의 20초 음성 신호·목차 순서/제목/시각·현재 원고 SHA256 일치 검사 통과. 07~13 총21절, SOURCE 전체37절. 음원 해시/결과는 무료TTS검증.json.
+- 실제 사람의 청취 검토는 미실시. SOURCE 제작 작업에서 앱 코드는 변경하지 않았고 앱 빌드는 하지 않았다. 병렬 Claude가 게시한 02·03(v71) 및 이후 시각화(v72)는 보존.
+- 게시 요청용 본문은 `통합게시요청.md`. 05~13을 교재 순서로 연결·검증·게시 필요. 캐시가 없는 클론은 각 대응표의 script 필드를 사용해 기존 명령으로 재합성한다.
