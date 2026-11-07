@@ -1000,6 +1000,88 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "28",
+      "script": "28_실종을_막는_기록과_가족의_알_권리.md",
+      "script_sha256": "0536627537c9807a0458aa307b9e5231ddb9f582d47165ed56dad8175f4fff41",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/28/01.mp3",
+      "audio_sha256": "44b02f62558d4dd05567643835eb7480610276eca7eeb6ea124c2ee79477ae22",
+      "bytes": 2512944,
+      "decoded_seconds": 418.82,
+      "marks": [
+        {
+          "t": 4.99,
+          "no": "1",
+          "label": "실종과 가족 찾기의 출발점"
+        },
+        {
+          "t": 57.65,
+          "no": "2",
+          "label": "자유를 박탈당한 사람의 기록과 연락"
+        },
+        {
+          "t": 122.52,
+          "no": "3",
+          "label": "사망자에 대한 의무"
+        },
+        {
+          "t": 183.38,
+          "no": "4",
+          "label": "가족의 알 권리"
+        },
+        {
+          "t": 264.38,
+          "no": "5",
+          "label": "실종자가 발생하는 여러 상황"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "29",
+      "script": "29_강제실종의_금지와_정보를_잇는_기구.md",
+      "script_sha256": "0c0709dfd4ee44cad3f57a90f10094419183d054bfa88567b99ae6fb27ac3d57",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/29/01.mp3",
+      "audio_sha256": "e0a3ebd10c6d71274e15aed103dfea836306077bb03aa1147b028d8fb5c7fcf1",
+      "bytes": 1796112,
+      "decoded_seconds": 299.35,
+      "marks": [
+        {
+          "t": 4.94,
+          "no": "1",
+          "label": "강제실종은 어떻게 금지되는가"
+        },
+        {
+          "t": 131.21,
+          "no": "2",
+          "label": "국내정보국"
+        },
+        {
+          "t": 199.22,
+          "no": "3",
+          "label": "중앙심인국"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
     }
   ]
 }

@@ -1,0 +1,92 @@
+{
+  "status": "draft",
+  "script": "28_실종을_막는_기록과_가족의_알_권리.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "2026-11-07 최신 국문59~61쪽 이미지·수록본·연결기출 본문/근거DB·공식영문61~63쪽 대조. 청취 미실시. 앱 연결/게시 제외.",
+  "sections": [
+    {
+      "heading": "실종과 가족 찾기의 출발점",
+      "article": "국제인도법:제14장 1)",
+      "pdf_page": 59,
+      "printed_page": 59,
+      "english_pdf_pages": [
+        61
+      ],
+      "exam_ids": [
+        "past-04-23"
+      ],
+      "exam_ids_reviewed": [
+        "past-04-23"
+      ],
+      "notes": [
+        "국문59쪽·영문61쪽. 육체이상상처·가족이산·3종 의무 유지. past-04-23 일부확인④ 중립국 설치는 확정하지 않음."
+      ]
+    },
+    {
+      "heading": "자유를 박탈당한 사람의 기록과 연락",
+      "article": "국제인도법:제14장 2)",
+      "pdf_page": 60,
+      "printed_page": 60,
+      "english_pdf_pages": [
+        62
+      ],
+      "exam_ids": [
+        "past-07-29",
+        "past-08-8"
+      ],
+      "exam_ids_reviewed": [
+        "past-07-29",
+        "past-08-8"
+      ],
+      "notes": [
+        "국문60쪽·영문62쪽. 세부기록·본인제공·친지전달·이익보호국정의·연락권과절대적군사필요 예외 유지. 번역차이 국문 생포자/억류자 명부 vs 영문 capture or internment card(카드). 국문 유지."
+      ]
+    },
+    {
+      "heading": "사망자에 대한 의무",
+      "article": "국제인도법:제14장 3)",
+      "pdf_page": 60,
+      "printed_page": 60,
+      "english_pdf_pages": [
+        62
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "국문60쪽·영문62쪽. 수색수습이송/신체훼손방지·유족또는반대당사자 요청시 송환노력·예우분묘·매장전정보/위치 유지. 영문 despoliation을 국문 신체훼손으로 표현."
+      ]
+    },
+    {
+      "heading": "가족의 알 권리",
+      "article": "국제인도법:제14장 4)",
+      "pdf_page": 60,
+      "printed_page": 60,
+      "english_pdf_pages": [
+        62
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "국문60쪽·영문62쪽. 국제적충돌 모든가능조치·가족정의4군 전부·반대당사자 보고실종 수색·비국제 조약발전과 관습적용 유지."
+      ]
+    },
+    {
+      "heading": "실종자가 발생하는 여러 상황",
+      "article": "국제인도법:제14장 5)",
+      "pdf_page": 61,
+      "printed_page": 61,
+      "english_pdf_pages": [
+        63
+      ],
+      "exam_ids": [
+        "past-04-26"
+      ],
+      "exam_ids_reviewed": [
+        "past-04-26"
+      ],
+      "notes": [
+        "국문61쪽·영문63쪽 박스6상황 전부 유지. 국문 못하고/못하거나를 낭독문에서 또는로 풀어 읽음. 영문 and/or 대응. 국문 손상 vs 영문 destroyed, 국문 약식입양 vs 영문 unceremoniously 차이. past-04-26 일부확인④ 조문번호 확정안함."
+      ]
+    }
+  ]
+}
