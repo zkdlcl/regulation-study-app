@@ -90,6 +90,13 @@ for _f in sorted(_glob.glob(P(os.path.join('site', 'data', 'tts', '*.json')))):
     _m = json.load(open(_f, encoding='utf8'))
     assert all(os.path.getsize(P(os.path.join('site', _t['file']))) == _t['bytes'] for _t in _m['tracks']), _f
     D['tts'][_m['law']] = _m
+# 국제인도법 이해 층(해석·원어·팁·비교·연표): 키가 실제 조문·비교쌍인지 검사
+D['ihlStudy'] = json.load(open(P(os.path.join('kb', 'ihl_study.json')), encoding='utf8'))
+D['ihlStudy'].pop('_설명', None)
+_ihl_nos = {a['no'] for a in json.load(open(P(os.path.join('site', 'data', 'laws', 'ihl.json')), encoding='utf8'))['articles'] if a['type'] == 'a'}
+_ihl_bad = [k for k in D['ihlStudy']['arts'] if k not in _ihl_nos] + [p for a in D['ihlStudy']['arts'].values() for p in a.get('pairs', []) if p not in D['ihlStudy']['pairs']] + [s for p in D['ihlStudy']['pairs'].values() for s in p['src'] if s not in _ihl_nos]
+if _ihl_bad: sys.exit(f'빌드 멈춤: kb/ihl_study.json 키 오류 {_ihl_bad}')
+print('국제인도법 이해 층:', len(D['ihlStudy']['arts']), '절,', len(D['ihlStudy']['pairs']), '비교쌍')
 newdata = json.dumps(D, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 body = body[:m.start(2)] + newdata + body[m.end(2):]
 
@@ -144,10 +151,10 @@ rep('<section class="pane" id="p-read"></section>', '<section class="pane" id="p
 rep("['read','📖 회독'],", "['read','📖 회독'],['bt','🕳 뻥뚫'],")
 rep("['cho','🔤 자음퀴즈'],", "")
 
-css = ''.join(rd(n) for n in ['rev-tab.css', 'ux-polish.css', 'ux2.css', 'ux4.css', 'ui7.css', 'ux8.css', 'op-study.css', 'card-review.css', 'case-bl.css', 'tts.css', 'wage.css'])
+css = ''.join(rd(n) for n in ['rev-tab.css', 'ux-polish.css', 'ux2.css', 'ux4.css', 'ui7.css', 'ux8.css', 'op-study.css', 'card-review.css', 'case-bl.css', 'tts.css', 'wage.css', 'ihl-study.css'])
 k = body.index('</style>')
 body = body[:k] + css + '\n' + body[k:]
-js = ''.join(rd(n) for n in ['lawdata.js', 'rev-tab.js', 'ux-polish.js', 'ux2.js', 'ux3.js', 'plan-gen.js', 'ux4.js', 'ux5.js', 'ux6.js', 'ui7.js', 'kb-ui.js', 'ux8.js', 'op-study.js', 'card-review.js', 'case-bl.js', 'tts.js', 'table-cat.js', 'resume.js'])
+js = ''.join(rd(n) for n in ['lawdata.js', 'rev-tab.js', 'ux-polish.js', 'ux2.js', 'ux3.js', 'plan-gen.js', 'ux4.js', 'ux5.js', 'ux6.js', 'ui7.js', 'kb-ui.js', 'ux8.js', 'op-study.js', 'card-review.js', 'case-bl.js', 'tts.js', 'table-cat.js', 'resume.js', 'ihl-study.js'])
 rep('/* 시작 */', js + '\n/* 시작 */')
 # ui7 디자인 층: 첫 화면을 그린 뒤 시작 (아이콘·칩·테마 전환)
 rep("|| 'today');\n</script>", "|| 'today');\nUI7.start();\n</script>")

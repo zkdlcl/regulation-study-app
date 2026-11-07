@@ -1,0 +1,49 @@
+{
+  "status": "draft",
+  "script": "08_사건으로_이어_듣는_국제인도법_연표.md",
+  "sources_ref": "01_대응표.json#/sources",
+  "review": "2026-11-07 수록본 제4장 1~2절 kbq art·연결 기출 13문항 본문 및 근거 DB·ICRC 국문 PDF 16~17쪽 이미지·영문 동일 면 대조. 수록본 보충 항목과 원책의 차이를 아래에 기록. 청취 미실시, 앱 미연결.",
+  "additional_sources": [
+    {"url": "https://treaties.un.org/Pages/showDetails.aspx?objid=08000002801d56c5", "purpose": "1968 NPT 명칭은 Non-Proliferation. 수록본의 비 누락을 확인."},
+    {"url": "https://legal.un.org/avl/ha/cedaw/cedaw.html", "purpose": "여성차별철폐협약 1979 채택·1981 발효 구분."},
+    {"url": "https://ihl-databases.icrc.org/en/ihl-treaties/san-remo-manual-1994", "purpose": "산레모 편람 1994 채택·1995 출판 구분. ICRC 검색 색인 본문 확인, 직접 open은 JS 안내만 반환."},
+    {"url": "https://international-review.icrc.org/sites/default/files/S0020860400087258a.pdf", "purpose": "산레모 편람 표제 ADOPTED IN JUNE 1994 확인."},
+    {"url": "https://www.icrc.org/sites/default/files/external/doc/en/assets/files/publications/icrc-002-1130.pdf", "purpose": "2011 대표자회의 결의 1 Working towards the elimination of nuclear weapons. 조약 채택으로 확대하지 않음."},
+    {"url": "https://www.icrc.org/en/publication/0911-statutes-and-rules-procedure-international-red-cross-and-red-crescent-movement", "purpose": "1986 제25차 회의 규약 채택 확인."},
+    {"url": "https://international-review.icrc.org/articles/origin-and-evolution-statutes-international-red-cross", "purpose": "최초 국제적십자 규약은 1928. 수록본 1986 최초 채택을 모든 규약의 최초 역사로 일반화하지 않음."},
+    {"url": "https://achpr.au.int/index.php/en/charter/african-charter-human-and-peoples-rights", "purpose": "1981 아프리카 헌장 정식 명칭과 채택 확인."}
+  ],
+  "sections": [
+    {
+      "heading": "필요가 커지면서 단계적으로 발전한 법",
+      "article": "국제인도법:제4장 1)",
+      "printed_page": 14,
+      "pdf_page": 16,
+      "english_heading": "What treaties make up IHL? What is customary IHL?",
+      "exam_ids": [],
+      "preserve": ["1864 최초 협약·현대 IHL", "무기 기술 발달·무력충돌 성격 변화", "인도적 지원 필요 증가·단계적 진화", "필요했던 사건 뒤 도입되는 경우 대부분"],
+      "notes": ["국문 PDF 16쪽 상단 이미지·영문·수록본 대조. 연표에는 조약뿐 아니라 설립·발효·작성 사건이 포함됨을 연결 해설로 안내."]
+    },
+    {
+      "heading": "첫 협약에서 무기거래조약까지",
+      "article": "국제인도법:제4장 2)",
+      "printed_page": 14,
+      "pdf_page": 16,
+      "pdf_pages": [16, 17],
+      "english_heading": "Main IHL treaties in chronological order of adoption",
+      "exam_ids": ["past-01-13", "past-02-16", "past-02-20", "past-03-19", "past-03-20", "past-03-25", "past-04-29", "past-05-24", "past-05-25", "past-08-4", "past-09-21", "past-11-23", "2026-25"],
+      "exam_ids_reviewed": ["past-01-13", "past-02-16", "past-02-20", "past-03-19", "past-03-20", "past-03-25", "past-04-29", "past-05-24", "past-05-25", "past-08-4", "past-09-21", "past-11-23", "2026-25"],
+      "preserve": ["1862 회상·1863 리버/오인 위원회·1864 육전 협약", "1868 발사체·1874 브뤼셀 비준 안 됨·1876 ICRC", "1899 육전 헤이그/제네바 원칙 해전 적용·마르텐스 세 근거", "1906 제네바 개정·1907 헤이그 개정 및 신협약", "1914~1918·1919 IFRC·1925 가스/세균 사용금지·1928 파리", "1929 두 협약·1934 도쿄 채택 안 됨·1939~1945", "1945 ICJ·1948 인권선언/집단살해·1949 네 협약별 대상", "1950 유럽·1951 난민·1954 문화재", "1965 인종·1966 두 규약·1968 NPT·1969 OAU/미주", "1972 생물/독성 개발생산비축금지폐기·1976 환경기술·1977 두 추가의정서별 대상", "1979/1981 여성협약·1980 CCW 및 제1~3의정서·1981 아프리카", "1984 난민/고문·1986 운동규약·1989 아동 제38조·1990 이주노동자", "1993 화학·1994 환경지침·1995 실명레이저 제4·산레모", "1996 개정 제2·1997 대인지뢰 사용비축생산이전금지폐기·1998 로마/2002 발효", "1999 문화재 제2·2000 아동 선택·2001 CCW1조·2003 잔류폭발물 제5", "2005 표장 제3·2006 실종/장애·2008 집속탄·2011 핵제거 노력·2013 무기거래"],
+      "notes": [
+        "국문 PDF 16~17쪽 표 전체를 이미지로 확인. 공식 양 언어판보다 수록본 표의 범위가 넓다. 보충 항목은 수록본에 근거하며 공식 PDF에 전부 실려 있다고 표시하지 않았다.",
+        "수록본 보충: 1862·1863·1874·1876·1899 마르텐스 설명·세계대전 기간·1919·1928·1934·1945·1948·1950·1951·1965·1966·1968·1969·1979·1981·1984·1986·1990·1994·산레모·2002 로마 발효·2006 장애·2011. 각 항목은 대본에 포함하되 아래 확인된 차이는 구분 안내.",
+        "1968 수록본 핵무기 확산 조약은 UN 공식 Non-Proliferation 명칭과 다름. 대본에 수록본 표현과 비확산 의미를 모두 안내했으며 DB 원문 자체는 수정하지 않음.",
+        "여성협약은 수록본에 1979와 1981로 중복 기재되나 동사가 없음. UN 자료로 1979 채택·1981 발효를 확인해 구분함. 산레모도 수록본 1995 아래 괄호 기재를 채택으로 간주하지 않고 ICRC 자료의 1994 채택·1995 출판을 함께 안내.",
+        "수록본 1986 국제적십자운동 규약 최초 채택은 1986 해당 규약의 채택으로 읽음. ICRC의 1928 최초 국제적십자 규약 기록이 있어 모든 규약 역사의 최초라는 확대는 피함. 수록본의 최초라는 단어를 독립 사실로 낭독하지 않은 이유를 여기에 보존.",
+        "아프리카 헌장은 수록본 인간권리 표현을 정식 명칭 Human and Peoples' Rights에 대응시킴. 1990 권히는 권리로 바로잡음. 2011 항목은 ICRC 대표자회의 결의로 특정, 조약으로 읽지 않음.",
+        "기출은 5문항 안팎 묶음으로 본문·근거 조회. past-02-20 징집 연령·past-03-25 제55조·past-05-24 준비과정은 수록본만으로 확인 안 되는 기록이므로 대본에 확정 내용으로 추가하지 않음. past-01-13의 표장 발효 연도도 2005 채택과 혼동하지 않음.",
+        "past-08-4의 이주노동자 1990/제9장 1999 차이는 기존 DB에 기록되어 있다. 이번은 제4장 표 1990으로 읽으며 제9장은 미검수. past-03-20 의정서 번호 바꾸기와 2026-25 순서를 학습용 연결 설명에 반영."
+      ]
+    }
+  ]
+}

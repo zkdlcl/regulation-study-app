@@ -1,0 +1,59 @@
+/* ═════ 국제인도법 이해 층 (ihl-study.js) ═════ */
+.ihx{margin:4px 0 8px}
+.ihx-chips{display:flex;gap:6px;flex-wrap:wrap}
+.ihx-c{display:inline-grid;place-items:center;width:40px;height:40px;padding:0;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--mute);cursor:pointer;transition:background .12s,color .12s,border-color .12s}
+.ihx-c:hover{background:var(--soft);color:var(--ink)}
+.ihx-c.on{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.ihx-pane{margin-top:8px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--soft);padding:12px 14px;display:grid;gap:10px}
+.ihx-h{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;letter-spacing:.04em;color:var(--mute)}
+.ihx-h svg{width:16px;height:16px}
+
+/* 해석 */
+.ihx-easy{margin:0;padding:0;list-style:none;counter-reset:e;display:grid;gap:8px}
+.ihx-easy li{counter-increment:e;position:relative;padding:8px 12px 8px 40px;background:var(--card);border-radius:10px;border:1px solid var(--line);line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+.ihx-easy li::before{content:counter(e);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:7px;background:var(--red-bg);color:var(--red-d);font:700 .78rem/22px var(--f-mono);text-align:center}
+.ihx-foot{margin:0;font-size:.78rem;color:var(--mute)}
+
+/* 원어 */
+.ihx-en{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.ihx-term{display:grid;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.ihx-term b{font-size:.95rem}
+.ihx-eng{font-family:var(--f-mono);font-size:.92rem;font-weight:700;color:var(--red-d);font-style:italic;letter-spacing:-.01em;overflow-wrap:anywhere}
+.ihx-term small{color:var(--mute);font-size:.8rem;line-height:1.5}
+
+/* 팁 */
+.ihx-tip{display:flex;gap:10px;align-items:flex-start;background:var(--warn-bg);border:1px solid color-mix(in srgb,var(--warn) 30%,var(--line));border-radius:10px;padding:10px 12px}
+.ihx-tip svg{flex:none;color:var(--warn);margin-top:3px}
+.ihx-tip p{margin:0;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+
+/* 비교 */
+.ihx-pair{display:grid;gap:6px}
+.ihx-pt{font-weight:800;font-size:.95rem}
+.ihx-vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:stretch}
+.ihx-vsm{align-self:center;font:800 .8rem var(--f-mono);color:var(--mute)}
+.ihx-side{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px 10px;min-width:0}
+.ihx-side[data-side="a"]{border-top:3px solid var(--red)}
+.ihx-side[data-side="b"]{border-top:3px solid var(--ink)}
+.ihx-side h5{margin:0 34px 6px 0;font-size:.95rem;line-height:1.35;overflow-wrap:anywhere}
+.ihx-side ul{margin:0;padding-left:1.1em;display:grid;gap:4px;font-size:.92rem;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+.ihx-cover{position:absolute;top:6px;right:6px;width:32px;height:32px;display:grid;place-items:center;padding:0;border:0;border-radius:8px;background:none;color:var(--mute);cursor:pointer}
+.ihx-cover:hover{background:var(--soft);color:var(--ink)}
+.ihx-cover svg{width:18px;height:18px}
+.ihx-side.covered ul{color:transparent;background:var(--blank);border-radius:6px;user-select:none}
+.ihx-side.covered .ihx-cover{color:var(--red)}
+@media (max-width:560px){.ihx-vs{grid-template-columns:minmax(0,1fr)}.ihx-vsm{justify-self:center}}
+
+/* 연표 */
+.ihx-tlbar{display:flex;gap:6px}
+.ihx-tl{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:0}
+.ihx-tl::before{content:"";position:absolute;left:calc(4em + 15px);top:6px;bottom:6px;width:2px;background:var(--line2)}
+.ihx-ti{display:grid;grid-template-columns:4em minmax(0,1fr);gap:32px;padding:6px 0;position:relative}
+.ihx-ti::before{content:"";position:absolute;left:calc(4em + 10px);top:14px;width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--line2)}
+.ihx-ty{font:700 .88rem/1.9 var(--f-mono);color:var(--mute);text-align:right;letter-spacing:-.03em}
+.ihx-td{font-size:.92rem;line-height:1.65;color:var(--mute);overflow-wrap:anywhere}
+.ihx-ti.core .ihx-ty{color:var(--red-d)}
+.ihx-ti.core .ihx-td{color:var(--ink);font-weight:600}
+.ihx-ti.core::before{background:var(--red);border-color:var(--red)}
+.ihx-ti.war .ihx-td{font-style:italic}
+.ihx-tl.core-only .ihx-ti:not(.core){display:none}
+@media (max-width:560px){.ihx-tl::before{left:calc(3.4em + 11px)}.ihx-ti{grid-template-columns:3.4em minmax(0,1fr);gap:24px}.ihx-ti::before{left:calc(3.4em + 6px)}.ihx-ty{font-size:.78rem}}

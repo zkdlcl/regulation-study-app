@@ -1,0 +1,58 @@
+{
+  "status": "draft",
+  "script": "07_협약보다_오래된_전쟁의_규칙.md",
+  "sources_ref": "01_대응표.json#/sources",
+  "review": "수록본 제3장 6~10절 kbq art·ICRC 국문 PDF 14~15쪽 이미지·영문 같은 면 대조. art 연결 기출 없음. SOURCE 초안, 실제 청취·발음·억양 검토 미실시, 앱 미연결.",
+  "sections": [
+    {
+      "heading": "조약이 생기기 전에도 규칙은 있었다",
+      "article": "국제인도법:제3장 6)",
+      "printed_page": 12,
+      "pdf_page": 14,
+      "english_heading": "IHL prior to its codification",
+      "exam_ids": [],
+      "preserve": ["1863 적십자 설립·1864 최초 협약을 출발점으로만 생각하면 잘못", "자체 규칙 없는 사회 없음", "애매하든 명료하든", "적대행위·개전·종전", "규칙 없는 전쟁 사실상 없음"],
+      "notes": ["국문 PDF 14쪽 주황 박스와 영문 같은 면·수록본 대조. 앞선 현대 국제인도법 탄생 문장과의 관계는 현대 국제조약 등장과 오래된 규칙의 존재를 구분하는 학습용 해설로 연결했다. 원문을 삭제하거나 번역 차이로 치부하지 않았다."]
+    },
+    {
+      "heading": "퀸시 라이트가 짚은 네 종류의 규칙",
+      "article": "국제인도법:제3장 7)",
+      "printed_page": 12,
+      "pdf_page": 14,
+      "english_heading": "Quincy Wright",
+      "exam_ids": [],
+      "preserve": ["원시부족 전쟁행위·현대 국제 전쟁규칙", "적 유형", "개전·종전의 정황·공식절차·권한", "사람·시간·장소·행동방법 제한", "전쟁 전면 금지"],
+      "notes": ["국문 PDF 14쪽 인용 전체 이미지·영문·수록본 대조. 영문 circumstances, formalities and authority를 국문 정황·공식절차·권한에 대응. 네 갈래를 모두 낭독하며 뒤의 질문형 풀이 문단은 해설이다."]
+    },
+    {
+      "heading": "강자가 약자를 탄압하지 못하도록",
+      "article": "국제인도법:제3장 8)",
+      "printed_page": 13,
+      "pdf_page": 15,
+      "english_heading": "Hammurabi, King of Babylon",
+      "exam_ids": [],
+      "preserve": ["최초 전쟁법·우리 시대보다 수천 년 앞서 공표", "강자의 약자 탄압 방지", "바빌론 함무라비왕"],
+      "notes": ["국문 PDF 15쪽 상단 이미지·영문·수록본 대조. 영문 before our era와 국문 우리 시대보다의 표현 차이를 국문대로 보존하고 독립적인 절대연도를 덧붙이지 않았다. 인용은 교재가 소개하는 말로 귀속했다."]
+    },
+    {
+      "heading": "고문서와 기사도에서 만나는 존중",
+      "article": "국제인도법:제3장 9)",
+      "printed_page": 13,
+      "pdf_page": 15,
+      "english_heading": "Many ancient texts / medieval Europe",
+      "exam_ids": [],
+      "preserve": ["마하브라타·성경·코란·적 존중", "비가옛·13세기 말·아랍의 스페인 지배 정점", "전쟁규칙", "중세 유럽 기사도·약자와 스스로 방어 불가자 존중", "국제인도법 보편성"],
+      "notes": ["국문 PDF 15쪽 주황 박스 전체 이미지·영문·수록본 대조. 국문 VIGAYET와 영문 Viqayet의 로마자 표기가 다르다. 마하브라타는 영문 Mahabharata에 대응한다. 대본은 국문 음역을 임의로 통일하지 않았다."]
+    },
+    {
+      "heading": "리버규칙은 성문화의 시도였지만 조약은 아니었다",
+      "article": "국제인도법:제3장 10)",
+      "printed_page": 13,
+      "pdf_page": 15,
+      "english_heading": "The Lieber Code",
+      "exam_ids": [],
+      "preserve": ["500건 넘는 교전국간 협정·행동강령·규약·기타 문서", "1863년 4월 발효", "기존 전쟁법·관습 성문화 첫 시도", "최초 제네바협약은 1년 뒤 채택", "미국 내전·북부 연방군만 적용 의도", "조약 지위 없음"],
+      "notes": ["국문 PDF 15쪽 초록 박스 전체 이미지·영문·수록본 대조. 영문 cartels를 국문 교전국 간 협정으로 유지. first attempt to codify existing laws and customs of war라는 교재 서술을 소개하며 다른 역사적 주장으로 확대하지 않았다.", "제4장 표에는 리버훈령으로도 나타나지만 이번 대본은 제3장의 리버규칙을 사용. 다자간 협약과의 비교는 앞서 확인한 제3장 5절에 근거한다. art 조회상 6~10절에 직접 연결된 기출 ID가 없어 기출 경향을 새로 만들지 않았다."]
+    }
+  ]
+}
