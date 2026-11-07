@@ -1,0 +1,61 @@
+{
+  "status": "draft",
+  "script": "06_솔페리노에서_제네바협약까지.md",
+  "sources_ref": "01_대응표.json#/sources",
+  "review": "2026-11-07 수록본 kbq art·연결 기출 3문항 본문 및 근거 DB·ICRC 국문 PDF 13~14쪽 이미지·영문 같은 면 텍스트 대조. 두 PDF SHA256 기존 sources 기록과 일치. SOURCE 초안, 사람의 청취·발음·억양 검토 대기, 앱 미연결.",
+  "sections": [
+    {
+      "heading": "오래된 보호의 노력과 근대 조약의 등장",
+      "article": "국제인도법:제3장 1)",
+      "printed_page": 11,
+      "pdf_page": 13,
+      "english_heading": "What are the origins of IHL?",
+      "exam_ids": [],
+      "preserve": ["고대부터 개인 보호 노력", "19세기 후반·피해자 권리와 보호·전쟁 규제 국제조약"],
+      "notes": ["국문 PDF 13쪽 상단 이미지·영문·수록본 대조. 박스 참조의 본문인 6~10절은 다음 묶음에 남겼음. 이번에 포함했다고 표시하지 않음."]
+    },
+    {
+      "heading": "뒤푸르와 뒤낭이 주고받은 질문",
+      "article": "국제인도법:제3장 2)",
+      "printed_page": 11,
+      "pdf_page": 13,
+      "english_heading": "Dufour (to Dunant) / Dunant",
+      "exam_ids": [],
+      "preserve": ["전장의 승리·고문과 눈물·생생한 예", "다른 국적의 군주·회의", "협약 승인·위반할 수 없는 국제 원칙", "합의·비준·유럽 여러 나라 부상자 구호단체 근거"],
+      "notes": ["국문 PDF 13쪽 인용 박스 이미지·영문·수록본 대조. 인용 뒤 연결 해설을 별도 문단으로 둠.", "국문 전장의 승리/전쟁 군주/협약에서 승인했기에 성격상 위반할 수 없는은 영문 glory of the battlefield / princes of the military art / sanctioned by a Convention and inviolate in character에 대응. 임의 번역 교정 없이 국문 표현을 유지."]
+    },
+    {
+      "heading": "뒤낭과 뒤푸르, 그리고 다섯 사람",
+      "article": "국제인도법:제3장 3)",
+      "printed_page": 11,
+      "pdf_page": 13,
+      "english_heading": "Who were the founders of contemporary IHL?",
+      "exam_ids": ["past-12-19"],
+      "exam_ids_reviewed": ["past-12-19"],
+      "preserve": ["스위스 기업가 뒤낭·장군 뒤푸르", "1859 이탈리아·솔페리노 목격", "1862 솔페리노의 회상 출간", "1864 뒤푸르 외교회의 의장·지지", "1863 오인 위원회·군 부상자 구호", "므와니에·아삐아·모노아·뒤낭·뒤푸르", "1876 ICRC"],
+      "notes": ["국문 PDF 13쪽 하단 이미지·영문·수록본 대조. past-12-19 ①②④ 본문·근거 인용 확인.", "국문 음역과 영문 Moynier·Appia·Maunoir·Dunant·Dufour 대응 확인. 영문 army officer와 국문 장군의 표현 차이는 국문을 따름. 연혁은 교재 서술로 소개."]
+    },
+    {
+      "heading": "외교회의를 소집한 주체와 육전의 부상자",
+      "article": "국제인도법:제3장 4)",
+      "printed_page": 12,
+      "pdf_page": 14,
+      "english_heading": "How did contemporary IHL come into being?",
+      "exam_ids": ["past-04-23", "past-12-19"],
+      "exam_ids_reviewed": ["past-04-23", "past-12-19"],
+      "preserve": ["1864·다섯 설립자 촉구", "스위스 정부 소집", "16개국 참석", "육전 군대 부상자 상태 개선 협약·현대 IHL 탄생"],
+      "notes": ["국문 PDF 14쪽 상단 이미지·영문·수록본 대조. past-04-23 ② 소집 주체 바꾸기와 past-12-19 ③ 육전→해전 함정 확인.", "past-04-23 DB 상태 일부확인은 다른 범위인 ④의 중립국 표현에 관한 것. 이번에 문항 전체를 확정 판정하지 않고 제3장 관련 ②만 검수함."]
+    },
+    {
+      "heading": "최초의 협약이 가져온 네 가지 혁신",
+      "article": "국제인도법:제3장 5)",
+      "printed_page": 12,
+      "pdf_page": 14,
+      "english_heading": "What innovations did the 1864 Convention bring about?",
+      "exam_ids": ["past-09-18"],
+      "exam_ids_reviewed": ["past-09-18"],
+      "preserve": ["다자간 조약·부상/병든 전투원과 간호자 보호", "구 전쟁법·관습 성문화·강화", "보편적 명문 규칙·부상/병든 전투원", "모든 국가 조인 가능", "적군 아군 구별 없이·부상 군인과 병든 군인 치료 의무", "의무 요원·수송수단·장비 존중 및 구분", "흰색 바탕 적십자"],
+      "notes": ["국문 PDF 14쪽 열거 전체 이미지·영문·수록본 대조. past-09-18 ①~④ 본문·근거 DB 확인. 민간인 등 모든 사람으로 확대하는 ③의 함정을 대본에 반영.", "영문 standing written rules of universal scope와 국문·수록본 보편적인 명문화된 규칙의 차이를 기록. standing을 별도 요건으로 추가하지 않음. marking은 국문의 구분을 따라 표장에 의한 구분으로 풀이.", "성문화 풀이·주체와 동사 묶기·마지막 역사 연결은 학습용 해설이며 원문 인용이 아님."]
+    }
+  ]
+}

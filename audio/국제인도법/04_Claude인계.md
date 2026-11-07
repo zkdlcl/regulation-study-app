@@ -62,10 +62,28 @@ python -X utf8 -m unittest discover -s tests -p tts_narration_test.py
 python -X utf8 -m unittest discover -s tests -p tts_clova_test.py
 ```
 
-다음 SOURCE는 미작성 머릿글을 보완하고 제3장부터 계속한다. `진도.json`의 151개 절 중 10개가 draft, 141개는 pending이다. 전체 범위 제작이 완료된 상태로 표시하지 않는다.
+다음 SOURCE는 제3장 6~10절부터 계속한다. 머릿글과 제3장 1~5절을 추가해 `진도.json`의 151개 절 중 16개가 draft, 135개는 pending이다. 전체 범위 제작이 완료된 상태로 표시하지 않는다.
 
 ## 2026-11-07 Claude 검수 결과
 
 - 02·03을 수록본(`kbq.py art`)·기출 본문(past-08-8·08-39·12-22·2026-23 등)과 문장 단위로 대조해 빠진 원문 표현을 복원했다. 핵심 규칙 4번(인과 vs 병렬)과 정당방위(개인 또는 집단으로서의 vs individual/collective)의 번역 차이는 **수록본 표현을 먼저 읽고 영문판 차이를 따로 안내**하는 방식으로 유지했다. 항목별 내용은 각 대응표 notes 마지막 줄.
 - 원고 수정 후 `plan.json`·`녹음용.txt`를 로컬에서 다시 만들었고(네트워크 없음) 두 단위 테스트가 통과했다.
 - CLOVA 키(`NCP_CLOVA_API_KEY_ID`·`NCP_CLOVA_API_KEY`)는 Process·User·Machine 어디에도 없어서 샘플 합성은 하지 않았다. 사람이 청취한 구간은 아직 없다.
+
+## 2026-11-07 Codex 후속 묶음 — 게시 필요
+
+- 05_전쟁에도_한계가_있다는_약속.md: 미작성 머릿글 보완. 무료 Edge SunHi MP3 185.14초(약 3분 5초), 1절.
+- 06_솔페리노에서_제네바협약까지.md: 제3장 1~5절. 같은 무료 음성 MP3 447.26초(약 7분 27초), 5절. 04 인계 파일 보존을 위해 05·06으로 번호를 배정했다.
+- 두 PDF의 기존 SHA256 일치 확인. 국문 PDF 5·13·14쪽을 이미지로 보고 영문 같은 면·수록본 kbq art와 대조. 연결된 기출 past-12-19·past-04-23·past-09-18 본문 및 근거 DB 확인. 번역 차이·검수 범위는 번호별 대응표에 기록했다.
+- 두 음원 모두 tests/tts_narration_audio_check.mjs 통과: Chrome 전체 디코딩·모든 절의 음성 신호·목차·대본 SHA256 일치. 15분 이내. 검증 기록은 무료TTS검증.json. 발음·억양의 실제 사람 청취는 미실시.
+- 기존 01~03 음원·앱 연결 담당 작업은 보존했다. 05·06은 앱에 연결하지 않았다. 앱 코드를 변경하지 않은 SOURCE·별도 음원 작업이므로 앱 빌드는 수행하지 않았다.
+- Claude는 청취·앱 연결·artifact-release 검증 후 게시 필요. 각 출력 내부 이름은 01.mp3이므로 게시할 때 05.mp3·06.mp3 등으로 구분해 기존 파일을 보존한다. 재생 순서는 머릿글→01→02→03→06으로 구성한다(파일 번호와 교재 순서가 다름).
+
+```powershell
+python -X utf8 tools/tts_narration.py --script audio/국제인도법/05_전쟁에도_한계가_있다는_약속.md --out audio/.cache/ihl-preview/05
+python -X utf8 tools/tts_narration.py --script audio/국제인도법/06_솔페리노에서_제네바협약까지.md --out audio/.cache/ihl-preview/06
+node tests/tts_narration_audio_check.mjs audio/.cache/ihl-preview/05/manifest.json
+node tests/tts_narration_audio_check.mjs audio/.cache/ihl-preview/06/manifest.json
+```
+
+다음 대화 이어가기: “국제인도법 SOURCE·무료 TTS를 제3장 6~10절부터 이어서 해줘. ai_harness.py start 후 제작안내·진도·Claude인계·인도법무료TTS 작업 줄을 읽고, 기존 05 머릿글·06 제3장 1~5절을 보존해줘. 최대 5절씩 수록본·기출·국문 PDF 이미지·영문을 대조하고 무료 Edge 합성·전체 디코딩 검증·진도·checkpoint·커밋·pull --rebase·push까지 해줘. 청취·앱 연결·게시는 Claude 담당이야.”

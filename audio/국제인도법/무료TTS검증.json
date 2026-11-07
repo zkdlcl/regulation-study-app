@@ -73,6 +73,80 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 목차 미연결·게시 대기"
+    },
+    {
+      "episode": "05",
+      "script": "05_전쟁에도_한계가_있다는_약속.md",
+      "script_sha256": "87b9e79d4bee90f07497bc770d90d7e0faaf505d862fa24fc85645337b4a81bc",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/05/01.mp3",
+      "audio_sha256": "327634a2a8f78183673d0610cef25022dae66d0e3de5df25ca62d1363ded31f8",
+      "bytes": 1110816,
+      "decoded_seconds": 185.14,
+      "marks": [
+        {
+          "t": 4.2,
+          "no": "1",
+          "label": "머릿글, 규칙을 만드는 일과 지키는 일"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "목차 길이 오차 1초 미만",
+        "전체 절 순서·시각 범위·제목 일치",
+        "각 절 시작 후 20초 음성 신호",
+        "현재 원고 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 목차 미연결·게시 필요"
+    },
+    {
+      "episode": "06",
+      "script": "06_솔페리노에서_제네바협약까지.md",
+      "script_sha256": "ce6e7926ac3d957128f28125aaac17c49c122015970d53ddace4441c2c1da27e",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/06/01.mp3",
+      "audio_sha256": "853f76225b67d94bad95019c9015e36595571c8b17e762290c0bf19bfa632a43",
+      "bytes": 2683584,
+      "decoded_seconds": 447.26,
+      "marks": [
+        {
+          "t": 4.34,
+          "no": "1",
+          "label": "오래된 보호의 노력과 근대 조약의 등장"
+        },
+        {
+          "t": 51.77,
+          "no": "2",
+          "label": "뒤푸르와 뒤낭이 주고받은 질문"
+        },
+        {
+          "t": 120.26,
+          "no": "3",
+          "label": "뒤낭과 뒤푸르, 그리고 다섯 사람"
+        },
+        {
+          "t": 232.56,
+          "no": "4",
+          "label": "외교회의를 소집한 주체와 육전의 부상자"
+        },
+        {
+          "t": 296.4,
+          "no": "5",
+          "label": "최초의 협약이 가져온 네 가지 혁신"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "목차 길이 오차 1초 미만",
+        "전체 절 순서·시각 범위·제목 일치",
+        "각 절 시작 후 20초 음성 신호",
+        "현재 원고 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 목차 미연결·게시 필요"
     }
   ]
 }
