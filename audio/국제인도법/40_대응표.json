@@ -1,0 +1,118 @@
+{
+  "status": "draft",
+  "script": "40_전쟁범죄와_기소의_책임.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "지정 국문 PDF 이미지·수록본·연결 기출 본문/근거 DB·공식 영문 대조. 사람 청취 미실시. 앱 연결·게시 제외.",
+  "sections": [
+    {
+      "heading": "전쟁범죄의 정의와 근거 문서",
+      "article": "국제인도법:제21장 1)",
+      "pdf_page": 93,
+      "printed_page": 93,
+      "english_pdf_pages": [
+        95
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "국문93~94·영문95~96. 문서목록·규정8조·국내법/판례 보존."
+      ]
+    },
+    {
+      "heading": "전쟁범죄로 분류되는 행동",
+      "article": "국제인도법:제21장 2)",
+      "pdf_page": 94,
+      "printed_page": 94,
+      "english_pdf_pages": [
+        96
+      ],
+      "exam_ids": [
+        "past-02-17",
+        "past-05-23",
+        "past-09-22",
+        "past-10-24",
+        "past-12-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-02-17",
+        "past-05-23",
+        "past-09-22",
+        "past-10-24",
+        "past-12-24"
+      ],
+      "notes": [
+        "9항 전부/한정어·비국제관습 보존. 수록본 누락 괄호참조 규칙156 및 로마8조2항 c/d/e/f를 지정 국문94쪽에서 반영. 기출 우발손실/배신누락/합법적 함정 확인."
+      ]
+    },
+    {
+      "heading": "인도에 반한 죄와 집단살해",
+      "article": "국제인도법:제21장 3)",
+      "pdf_page": 94,
+      "printed_page": 94,
+      "english_pdf_pages": [
+        96
+      ],
+      "exam_ids": [
+        "past-12-25"
+      ],
+      "exam_ids_reviewed": [
+        "past-12-25"
+      ],
+      "notes": [
+        "국문94~95·영문96~97. 인도반한죄 공격/인지·예시 전부·집단4유형/의도/5행위 보존."
+      ]
+    },
+    {
+      "heading": "국가의 기소 또는 인도 의무",
+      "article": "국제인도법:제21장 4)",
+      "pdf_page": 95,
+      "printed_page": 95,
+      "english_pdf_pages": [
+        97
+      ],
+      "exam_ids": [
+        "past-01-14",
+        "past-01-17",
+        "past-02-14",
+        "past-05-40",
+        "past-09-25",
+        "past-12-25",
+        "2026-39"
+      ],
+      "exam_ids_reviewed": [
+        "past-01-14",
+        "past-01-17",
+        "past-02-14",
+        "past-05-40",
+        "past-09-25",
+        "past-12-25",
+        "2026-39"
+      ],
+      "notes": [
+        "국문95·영문97. 입법/국내기소 또는 이송·보편관할·조사범위·적절한경우기소 보존. past-05-40 개정차이: 체약국/보편적 재판관할/국내재판소와 현재 국가/보편적 관할권/법원. 일부확인 기출 확대 없음."
+      ]
+    },
+    {
+      "heading": "국제재판소와 국가의 제일차적 책임",
+      "article": "국제인도법:제21장 5)",
+      "pdf_page": 96,
+      "printed_page": 96,
+      "english_pdf_pages": [
+        98
+      ],
+      "exam_ids": [
+        "past-10-19",
+        "past-12-25",
+        "2026-39"
+      ],
+      "exam_ids_reviewed": [
+        "past-10-19",
+        "past-12-25",
+        "2026-39"
+      ],
+      "notes": [
+        "국문96·영문98. 국가1차/ICC관할조건·연혁·혼합법원 보존. 국문 내전, 영문 conflicts. 현재 기관운영을 단정하지 않음."
+      ]
+    }
+  ]
+}
