@@ -913,6 +913,93 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "26",
+      "script": "26_표장이_전하는_보호와_소속의_의미.md",
+      "script_sha256": "b6709f011da9a87d110e405e7b981508a4829c020ce0e8a7dc3084aca133c22c",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/26/01.mp3",
+      "audio_sha256": "9354b2692306dc717b9b0492645be7497af304d1c5416418accaef8a9517ab94",
+      "bytes": 2518704,
+      "decoded_seconds": 419.78,
+      "marks": [
+        {
+          "t": 4.66,
+          "no": "1",
+          "label": "표장의 두 가지 기능"
+        },
+        {
+          "t": 89.3,
+          "no": "2",
+          "label": "보호 장치로서의 사용"
+        },
+        {
+          "t": 168.02,
+          "no": "3",
+          "label": "표시 장치로서의 사용"
+        },
+        {
+          "t": 230.16,
+          "no": "4",
+          "label": "표장의 남용"
+        },
+        {
+          "t": 380.83,
+          "no": "5",
+          "label": "제네바 제협약의 세 표장"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "27",
+      "script": "27_적수정과_그_안에_담는_표장.md",
+      "script_sha256": "2223940ea5bed38dfafcf16fa2aa37c7a1e5e76af86621fe9471f733016d8b77",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/27/01.mp3",
+      "audio_sha256": "14e5588518a5909ef30601f4c1bc92d81266209fc04ad2a1a5600787e994f3ae",
+      "bytes": 1580112,
+      "decoded_seconds": 263.35,
+      "marks": [
+        {
+          "t": 4.37,
+          "no": "1",
+          "label": "적수정이 추가된 이유"
+        },
+        {
+          "t": 70.87,
+          "no": "2",
+          "label": "적수정 안에 기존 표장을 넣는 경우"
+        },
+        {
+          "t": 131.69,
+          "no": "3",
+          "label": "다른 표장이나 표지를 포함시키는 두 조건"
+        },
+        {
+          "t": 216.14,
+          "no": "4",
+          "label": "적수정 안 다윗의 붉은 방패"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
     }
   ]
 }
