@@ -1,0 +1,104 @@
+{
+  "status": "draft",
+  "script": "25_금지된_전쟁_방법과_전쟁의_위계.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "2026-11-07 최신 사용자 국문 PDF54쪽 이미지 직접확인·수록본 kbq art·연결기출 본문과근거DB·공식영문56쪽 대조. 실제 청취 미실시. 앱 연결/게시 제외.",
+  "sections": [
+    {
+      "heading": "전쟁 방법",
+      "article": "국제인도법:국제인도법은 전쟁의 수단과 방법을 어떻게 규제하고 있나? 9)",
+      "pdf_page": 54,
+      "printed_page": 54,
+      "english_pdf_pages": [
+        56
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "국문54쪽·영문56쪽. 조약 또는 관습 국제인도법으로 명확하게 금지·몇 가지 소개 유지. 네 가지 목록 예고는 해설."
+      ]
+    },
+    {
+      "heading": "즉결 처분",
+      "article": "국제인도법:국제인도법은 전쟁의 수단과 방법을 어떻게 규제하고 있나? 10)",
+      "pdf_page": 54,
+      "printed_page": 54,
+      "english_pdf_pages": [
+        56
+      ],
+      "exam_ids": [
+        "past-10-25",
+        "past-11-25"
+      ],
+      "exam_ids_reviewed": [
+        "past-10-25",
+        "past-11-25"
+      ],
+      "notes": [
+        "국문54쪽·영문56쪽. 지시·위협·이를 바탕으로 한 적대행위 금지·투항하고 포로가 될 기회·부상 군인 존중·보호 유지.",
+        "용어 차이: 영문 제목 'Denial of quarter'(자비 거부), 국문 제목 '즉결 처분'. 국문 유지."
+      ]
+    },
+    {
+      "heading": "약탈",
+      "article": "국제인도법:국제인도법은 전쟁의 수단과 방법을 어떻게 규제하고 있나? 11)",
+      "pdf_page": 54,
+      "printed_page": 54,
+      "english_pdf_pages": [
+        56
+      ],
+      "exam_ids": [
+        "past-10-25"
+      ],
+      "exam_ids_reviewed": [
+        "past-10-25"
+      ],
+      "notes": [
+        "국문54쪽·영문56쪽. 침략군 또는 점령군·적의 국민·개인 재산·강제 몰수·금지 유지. 영문 'invading or conquering army'의 conquering을 국문은 '점령군'."
+      ]
+    },
+    {
+      "heading": "기아",
+      "article": "국제인도법:국제인도법은 전쟁의 수단과 방법을 어떻게 규제하고 있나? 12)",
+      "pdf_page": 54,
+      "printed_page": 54,
+      "english_pdf_pages": [
+        56
+      ],
+      "exam_ids": [
+        "past-10-25",
+        "past-11-25"
+      ],
+      "exam_ids_reviewed": [
+        "past-10-25",
+        "past-11-25"
+      ],
+      "notes": [
+        "국문54쪽·영문56쪽. 전쟁방법으로서 민간인 대중 굶기기 금지·생존 필수 물자 공격/파괴/제거/사용불능화 금지 유지."
+      ]
+    },
+    {
+      "heading": "배신",
+      "article": "국제인도법:국제인도법은 전쟁의 수단과 방법을 어떻게 규제하고 있나? 13)",
+      "pdf_page": 54,
+      "printed_page": 54,
+      "english_pdf_pages": [
+        56
+      ],
+      "exam_ids": [
+        "past-10-25",
+        "past-11-25"
+      ],
+      "exam_ids_reviewed": [
+        "past-10-25",
+        "past-11-25"
+      ],
+      "notes": [
+        "국문54쪽·영문56쪽. 배신행위로 살해·상해·생포 금지·제1추가의정서 제37조 정의 전문·상처 또는 병 위장 예·전쟁의 위계(국제법 위반 없이 배신 금지 존중하며 혼란) 비금지·위장/유인/양동작전/오보 유지.",
+        "번역 차이: 영문 정의 'entitled to, or is obliged to accord, protection'(보호를 받을 권리 또는 부여할 의무), 국문 '보호를 부여받을 권리가 있거나 따라야 할 의무'. 대본은 국문을 읽고 영문 차이를 짧게 안내.",
+        "표현 차이: 영문은 위장·유인 등을 '전쟁의 위계에 포함되는 예'(This would include)로, 국문은 '배신행위가 아니다'로 서술. 국문 유지.",
+        "해설: 배신의 예 '상처 또는 병을 위장'과 위계의 예 '위장(camouflage)'은 같은 국문 낱말이나 다른 행위라는 점을 대본에서 구분. 영문은 feigning(가장)과 camouflage(위장)로 다름."
+      ]
+    }
+  ]
+}
