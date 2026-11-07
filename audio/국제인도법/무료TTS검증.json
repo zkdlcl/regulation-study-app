@@ -1410,6 +1410,52 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "38",
+      "script": "38_국제적십자위원회의_임무와_보호와_지원.md",
+      "script_sha256": "6350f4fb1ec16b8193b30d13dc3f09a592a6aaf24da01c490dbc74532035d3bc",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/38/01.mp3",
+      "audio_sha256": "a4e1193496795c86e223a4fd2943490914169f9bcb96de9e765ba8dd31e89ce4",
+      "bytes": 1481040,
+      "decoded_seconds": 246.84,
+      "marks": [
+        {
+          "t": 5.04,
+          "no": "1",
+          "label": "국제인도법의 수호자와 옹호자"
+        },
+        {
+          "t": 47.9,
+          "no": "2",
+          "label": "전적으로 인도적인 사명"
+        },
+        {
+          "t": 100.18,
+          "no": "3",
+          "label": "보호 활동이 하는 일"
+        },
+        {
+          "t": 149.14,
+          "no": "4",
+          "label": "지원 활동의 범위"
+        },
+        {
+          "t": 197.95,
+          "no": "5",
+          "label": "정관이 명시한 역할"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
     }
   ]
 }

@@ -1,0 +1,68 @@
+{
+  "status": "draft",
+  "script": "39_법의_보급과_비공개_대화_그리고_발전.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "지정 국문 PDF 이미지·수록본·연결 기출 본문/근거 DB·공식 영문 대조. 사람 청취 미실시. 앱 연결·게시 제외.",
+  "sections": [
+    {
+      "heading": "법을 알리고 국내 이행을 돕는 일",
+      "article": "국제인도법:제20장 6)",
+      "pdf_page": 90,
+      "printed_page": 90,
+      "english_pdf_pages": [
+        92
+      ],
+      "exam_ids": [
+        "past-01-14"
+      ],
+      "exam_ids_reviewed": [
+        "past-01-14"
+      ],
+      "notes": [
+        "교육/군훈련/대학·자문서비스/국내입법 보존."
+      ]
+    },
+    {
+      "heading": "존중의 감시와 비공개 의견 전달",
+      "article": "국제인도법:제20장 7)",
+      "pdf_page": 90,
+      "printed_page": 90,
+      "english_pdf_pages": [
+        92
+      ],
+      "exam_ids": [
+        "past-01-14",
+        "past-02-15",
+        "past-03-16",
+        "past-07-40"
+      ],
+      "exam_ids_reviewed": [
+        "past-01-14",
+        "past-02-15",
+        "past-03-16",
+        "past-07-40"
+      ],
+      "notes": [
+        "국문90~91·영문92~93. 국문 내정에 간섭하지 않는 한도에서 지원 제공, 영문 지원 제안 자체 내정간섭 아님. 국문 유지. 공개조건3 국문 동원노력 시도했으나, 영문 when attempted 한정 차이. 국문 유지. 기밀성·3효과·4조건·권리 보존. 일부확인 기출 방문근거 확대 없음."
+      ]
+    },
+    {
+      "heading": "새로운 규칙의 준비와 채택",
+      "article": "국제인도법:제20장 8)",
+      "pdf_page": 91,
+      "printed_page": 91,
+      "english_pdf_pages": [
+        93
+      ],
+      "exam_ids": [
+        "past-04-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-04-24"
+      ],
+      "notes": [
+        "국문91~92·영문93~94. 수록본 및 지정국문 제31차 전체회의 및 제1결의안/영문 회의 뒤 결의안 채택. 교재 사례로 설명. 준비/채택 주체 보존."
+      ]
+    }
+  ]
+}
