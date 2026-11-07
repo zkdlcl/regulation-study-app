@@ -667,6 +667,52 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "20",
+      "script": "20_자유를_박탈당한_사람의_보호.md",
+      "script_sha256": "5e103601a78f190efb847eef1c04f429c59f9644409937892f02011930424157",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/20/01.mp3",
+      "audio_sha256": "2cf81a924f0dc8a6dd9e9cca090194cffb935637bacf78f96c9e0da9af68e835",
+      "bytes": 3528864,
+      "decoded_seconds": 588.14,
+      "marks": [
+        {
+          "t": 4.39,
+          "no": "1",
+          "label": "개요, 왜 자유를 박탈당한 사람을 따로 보호하는가"
+        },
+        {
+          "t": 60.02,
+          "no": "2",
+          "label": "국제적 무력충돌 시 포로"
+        },
+        {
+          "t": 167.04,
+          "no": "3",
+          "label": "국제적 무력충돌 시 민간인 피억류자"
+        },
+        {
+          "t": 289.08,
+          "no": "4",
+          "label": "비국제적 무력충돌 시 자유를 박탈당한 자"
+        },
+        {
+          "t": 505.06,
+          "no": "5",
+          "label": "인질 억류"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
     }
   ]
 }
