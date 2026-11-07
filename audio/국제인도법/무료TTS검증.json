@@ -713,6 +713,78 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "21",
+      "script": "21_구별과_비례_적대행위의_기본_규칙.md",
+      "script_sha256": "9e64a7eb20c3229c9bc83f136c7a19f474afd29b3fc7d29bc88dbf9c35193614",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/21/01.mp3",
+      "audio_sha256": "06f91a91c6e6740fd63d5a4fcb2dd40d5d8fa6f6d470c8734a6da50e19980e45",
+      "bytes": 2492640,
+      "decoded_seconds": 415.44,
+      "marks": [
+        {
+          "t": 5.06,
+          "no": "1",
+          "label": "개요, 적대행위를 규율하는 세 가지 기본 규칙"
+        },
+        {
+          "t": 95.88,
+          "no": "2",
+          "label": "구별"
+        },
+        {
+          "t": 293.66,
+          "no": "3",
+          "label": "비례"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "22",
+      "script": "22_사전_경고와_적대행위_직접_가담.md",
+      "script_sha256": "0e3f16a722c0c3f6d2953c131c2e038ed0e7f29d7751534ef0c670e30b5d41c2",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/22/01.mp3",
+      "audio_sha256": "919ecfbfa3195ca54bddf550aecff064f224b251705e979a0b1372f936c00a47",
+      "bytes": 2794464,
+      "decoded_seconds": 465.74,
+      "marks": [
+        {
+          "t": 4.68,
+          "no": "1",
+          "label": "사전 경고"
+        },
+        {
+          "t": 115.51,
+          "no": "2",
+          "label": "과도한 상해 또는 불필요한 고통의 유발 금지"
+        },
+        {
+          "t": 229.85,
+          "no": "3",
+          "label": "적대행위에 대한 직접 가담"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
     }
   ]
 }
