@@ -11,7 +11,7 @@ python -X utf8 tools/tts_narration.py --script audio/국제인도법/02_전투�
 python -X utf8 tools/tts_narration.py --script audio/국제인도법/03_전쟁의_이유와_전쟁_중의_규칙.md --out audio/.cache/ihl-preview/03 --dry
 ```
 
-먼저 위 명령으로 텍스트를 점검한 뒤 `--dry`를 빼면 기존 Edge SunHi로 생성한다. 원고별 출력 폴더를 분리한다. 합성 시 텍스트가 외부 TTS 서비스로 전송되며 서비스 가용성은 보장되지 않는다. 사람의 청취 검토는 별도로 필요하다. 아래 CLOVA 준비 내용은 과거 구현 기록이며 실행 지시가 아니다.
+먼저 위 명령으로 텍스트를 점검한 뒤 `--dry`를 빼면 기존 Edge SunHi로 생성한다. 원고별 출력 폴더를 분리한다. 합성 시 텍스트가 외부 TTS 서비스로 전송되며 서비스 가용성은 보장되지 않는다. 사람의 청취 검토는 별도로 필요하다. 유료 TTS 구현과 과거 실행 안내는 제거했다.
 
 ## 추가한 원고
 
@@ -24,34 +24,11 @@ python -X utf8 tools/tts_narration.py --script audio/국제인도법/03_전쟁�
 
 번역 차이: 핵심 규칙의 무기 금지 문장 연결 방식, 영문에만 있는 부상자·병자 수색 문장, 정당방위의 individual/collective 표현을 기록했다. 외부 최신 설명으로 시험 교재를 덮어쓰지 않는다. 본문은 교재 해설이며 현행 개별 분쟁의 법적 판단을 다루지 않는다.
 
-## 이전 CLOVA Voice 준비 기록 — 실행 중단
+## 무료 TTS 전용 제작
 
-후보는 네이버 CLOVA Voice Premium. 아라 `nara`와 진호 `njinho`를 같은 대본으로 비교한다. 기본 속도 0, 피치 0으로 시작하고, 필요하면 속도 1(조금 느리게)도 비교한다. 최고 음질이라고 확정한 것은 아니다. [공식 API 문서](https://api.ncloud-docs.com/docs/ai-naver-clovavoice-ttspremium)에서 한국어 요청당 2,000자 제한, 목소리 ID, 속도 방향, WAV 24kHz 지원을 확인했다.
+유료 CLOVA 구현과 과거 실행 안내는 2026-11-07 제거했다. `tools/tts_clova.py`는 모든 실행과 직접 합성을 거부하고 무료 생성기로 안내하는 종료 코드만 남겼다. 과거 구현은 Git 이력에만 있으며 현재 제작 절차로 복구하지 않는다. 무료 전용 방침은 AGENTS.md에 상시 적용되므로 새 작업 프롬프트마다 반복할 필요가 없다.
 
-`tools/tts_clova.py`는 **기본 실행 시 네트워크·과금 없이** `plan.json`·`녹음용.txt`를 생성한다. 제목·절·문단별로 분리하고 절 제목 뒤 0.8초, 문단 뒤 1.2초 쉼을 설정했다. URL·근거·검토 메모는 읽지 않는다. 2,000자를 넘는 문단은 묵시적으로 잘라 읽지 않고 분할을 요구한다.
-
-```powershell
-python -X utf8 tools/tts_clova.py --script audio/국제인도법/02_전투가_멈춘_뒤에도_지켜야_할_규칙.md
-python -X utf8 tools/tts_clova.py --script audio/국제인도법/03_전쟁의_이유와_전쟁_중의_규칙.md
-```
-
-합성은 `NCP_CLOVA_API_KEY_ID`, `NCP_CLOVA_API_KEY` 환경변수가 필요하다. 키는 로컬에서 설정하고 저장소·원고·채팅에 남기지 않는다. `--synthesize` 실행은 텍스트를 네이버 API로 보내며 사용량이 청구될 수 있다. 계정·서비스 개설은 이번 작업에 포함하지 않았다.
-
-먼저 같은 첫 두 문단을 두 목소리로 생성해 비교한다.
-
-```powershell
-python -X utf8 tools/tts_clova.py --script audio/국제인도법/02_전투가_멈춘_뒤에도_지켜야_할_규칙.md --speaker nara --sample --synthesize
-python -X utf8 tools/tts_clova.py --script audio/국제인도법/02_전투가_멈춘_뒤에도_지켜야_할_규칙.md --speaker njinho --sample --synthesize
-```
-
-확정한 목소리로 `--sample` 없이 생성한다. 01도 같은 도구로 재합성할 수 있다. 기본 출력은 `audio/.cache/clova/<원고>/<목소리>-<속도>/sample` 또는 `full`이다. WAV 조각을 검증·캐시하고 PCM 무음을 삽입해 `preview.wav`·`manifest.json`을 만든다. 기존 Edge 전용 MP3 프레임 결합은 사용하지 않는다. 15분 초과 시 절 경계에서 원고를 나눠야 한다. API 실제 응답 형식·발음·억양은 아직 검증하지 않았고, WAV 처리·캐시·목차 시간은 모의 응답으로 검사했다.
-
-## 게시 전 남은 작업
-
-1. 샘플 청취 후 목소리·속도 확정. 전체 합성 후 숫자, 라틴어, 루소·마르텐스, 적신월·적수정, 문단 쉼을 실제로 듣고 점검한다.
-2. WAV를 게시용 MP3로 변환한다면 재인코딩 후 길이·목차 시간을 검사한다. `site/data/tts/ihl.json`의 기존 트랙을 보존하며 02·03 추가를 연결한다. 현재 앱 목차는 변경하지 않았다.
-3. 앱 연결 후 artifact-release 스킬에 따라 빌드, 재생·구간 이동·태블릿 검사와 기존 보수 듣기 회귀 검증을 수행한다. 이번 작업은 대본·별도 합성 도구만 변경하여 앱 빌드는 수행하지 않았다.
-4. Claude가 기존 게시본과 비교 후 게시한다. 학습 기록은 읽기만 한다.
+생성은 `tools/tts_narration.py`, 음원 검증은 `tests/tts_narration_audio_check.mjs`를 사용한다. 기존 SunHi MP3와 목차를 보존한다. 앱 연결·게시 절차는 이 문서의 최신 제작 기록과 통합게시요청.md를 따른다.
 
 현재 Edge 출력은 이미 MP3다. 각 출력 폴더 내부 파일명은 `01.mp3`이므로 게시 폴더에 복사할 때 02편→`02.mp3`, 03편→`03.mp3`처럼 이름을 구분하고 기존 01편을 덮어쓰지 않는다. 게시 연결 전까지 `site/data/tts/ihl.json`은 기존 상태로 유지했다.
 
@@ -68,7 +45,7 @@ python -X utf8 -m unittest discover -s tests -p tts_clova_test.py
 
 - 02·03을 수록본(`kbq.py art`)·기출 본문(past-08-8·08-39·12-22·2026-23 등)과 문장 단위로 대조해 빠진 원문 표현을 복원했다. 핵심 규칙 4번(인과 vs 병렬)과 정당방위(개인 또는 집단으로서의 vs individual/collective)의 번역 차이는 **수록본 표현을 먼저 읽고 영문판 차이를 따로 안내**하는 방식으로 유지했다. 항목별 내용은 각 대응표 notes 마지막 줄.
 - 원고 수정 후 `plan.json`·`녹음용.txt`를 로컬에서 다시 만들었고(네트워크 없음) 두 단위 테스트가 통과했다.
-- CLOVA 키(`NCP_CLOVA_API_KEY_ID`·`NCP_CLOVA_API_KEY`)는 Process·User·Machine 어디에도 없어서 샘플 합성은 하지 않았다. 사람이 청취한 구간은 아직 없다.
+- 당시 유료 합성은 미실시. 현재는 유료 구현을 제거했고 무료 생성기만 사용한다. 사람 청취 미실시.
 
 ## 2026-11-07 Codex 후속 묶음 — 게시 필요
 
