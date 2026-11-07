@@ -1287,6 +1287,47 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "35",
+      "script": "35_자연환경과_위험한_시설물을_지키는_규칙.md",
+      "script_sha256": "9bbaebcff076a47a8d571bb25b0bdf64b6a8d3654e8519eb115789fe327d2a2b",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/35/01.mp3",
+      "audio_sha256": "d7725d63138a86e30498be56dbff7707ad3da196ecfcb08aa10ffa38fc7541b1",
+      "bytes": 1504368,
+      "decoded_seconds": 250.73,
+      "marks": [
+        {
+          "t": 5.18,
+          "no": "1",
+          "label": "충돌이 남기는 환경 피해"
+        },
+        {
+          "t": 62.83,
+          "no": "2",
+          "label": "자연환경의 일반 보호와 특별 보호"
+        },
+        {
+          "t": 158.71,
+          "no": "3",
+          "label": "위험한 물리력을 포함한 시설물의 정의"
+        },
+        {
+          "t": 182.47,
+          "no": "4",
+          "label": "시설물과 인근 군사 목표물의 보호"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
     }
   ]
 }
