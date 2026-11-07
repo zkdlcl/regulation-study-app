@@ -21,7 +21,7 @@ ok("다른 규정에는 이해 칩 없음", await ev(() => !document.querySelect
 await openLaw("국제인도법");
 const n = await ev(() => document.querySelectorAll(".art .ihx").length);
 ok("데이터 있는 절 수만큼 칩 줄", n === (await ev(() => Object.keys(D.ihlStudy.arts).length)), n);
-ok("데이터 없는 절에는 없음", await ev(() => !document.querySelector('[id="a-국제인도법:제1장 1)"] .ihx')));
+ok("데이터 없는 절에는 없음", await ev(() => !document.querySelector('[id="a-국제인도법:제1장 2)"] .ihx')));
 ok("처음엔 닫힘", await ev((s) => document.querySelector(s + " .ihx-pane").hidden, A("제2장 1)")));
 
 await ev((s) => document.querySelector(s).scrollIntoView({ block: "center" }), A("제2장 1)"));
