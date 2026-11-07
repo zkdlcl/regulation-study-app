@@ -1,0 +1,86 @@
+{
+  "status": "draft",
+  "script": "35_자연환경과_위험한_시설물을_지키는_규칙.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "지정 국문 PDF 이미지·수록본·연결 기출 본문/근거 DB·공식 영문 대조. 사람 청취 미실시. 앱 연결·게시 제외.",
+  "sections": [
+    {
+      "heading": "충돌이 남기는 환경 피해",
+      "article": "국제인도법:제17장 4-2)",
+      "pdf_page": 77,
+      "printed_page": 77,
+      "english_pdf_pages": [
+        79
+      ],
+      "exam_ids": [
+        "past-07-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-07-24"
+      ],
+      "notes": [
+        "원인 양면·시설/오염 예시·어느 정도 용인/과도금지 보존."
+      ]
+    },
+    {
+      "heading": "자연환경의 일반 보호와 특별 보호",
+      "article": "국제인도법:제17장 4-3)",
+      "pdf_page": 77,
+      "printed_page": 77,
+      "english_pdf_pages": [
+        79
+      ],
+      "exam_ids": [
+        "past-03-25",
+        "past-11-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-03-25",
+        "past-11-24"
+      ],
+      "notes": [
+        "국문77~78·영문79~80. 국문 광범위하고 장기적인 심각한: 영문 IHL widespread,long-term and severe / ENMOD widespread,long-lasting or severe. 국문 접속어 유지, 둘의 영문 차이 별도 기록. 비국제 관습 논란 유지. past-03-25 다 일부확인 확대 없음."
+      ]
+    },
+    {
+      "heading": "위험한 물리력을 포함한 시설물의 정의",
+      "article": "국제인도법:제17장 5-1)",
+      "pdf_page": 79,
+      "printed_page": 79,
+      "english_pdf_pages": [
+        81
+      ],
+      "exam_ids": [
+        "past-06-39"
+      ],
+      "exam_ids_reviewed": [
+        "past-06-39"
+      ],
+      "notes": [
+        "댐·제방·원자력발전소 정의 보존."
+      ]
+    },
+    {
+      "heading": "시설물과 인근 군사 목표물의 보호",
+      "article": "국제인도법:제17장 5-2)",
+      "pdf_page": 79,
+      "printed_page": 79,
+      "english_pdf_pages": [
+        81
+      ],
+      "exam_ids": [
+        "past-05-31",
+        "past-06-39",
+        "past-11-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-05-31",
+        "past-06-39",
+        "past-11-24"
+      ],
+      "notes": [
+        "방출/인명손실·인근 목표물 조건·양충돌 관습·특수표지 도해 보존. 교재 범위 밖 조약 예외 추가하지 않음."
+      ]
+    }
+  ]
+}

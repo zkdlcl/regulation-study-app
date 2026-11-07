@@ -1,0 +1,100 @@
+{
+  "status": "draft",
+  "script": "34_문화유산을_지키는_특별한_보호.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "지정 국문 PDF 이미지·수록본·연결 기출 본문/근거 DB·공식 영문 대조. 사람 청취 미실시. 앱 연결·게시 제외.",
+  "sections": [
+    {
+      "heading": "문화재의 정의와 방패 표장",
+      "article": "국제인도법:제17장 3-1)",
+      "pdf_page": 75,
+      "printed_page": 75,
+      "english_pdf_pages": [
+        77
+      ],
+      "exam_ids": [
+        "past-05-31",
+        "past-07-24",
+        "past-11-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-05-31",
+        "past-07-24",
+        "past-11-24"
+      ],
+      "notes": [
+        "국문75 및77 표장 그림·영문77/79. 기출 제네바 오기 대본 제외. past-05-31 일부확인 확대 없음."
+      ]
+    },
+    {
+      "heading": "민간 물자로서의 문화재",
+      "article": "국제인도법:제17장 3-2)",
+      "pdf_page": 75,
+      "printed_page": 75,
+      "english_pdf_pages": [
+        77
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "민간물자·특별주의·민족유산 조건 보존"
+      ]
+    },
+    {
+      "heading": "문화재 보호의 법적 근거",
+      "article": "국제인도법:제17장 3-3)",
+      "pdf_page": 75,
+      "printed_page": 75,
+      "english_pdf_pages": [
+        77
+      ],
+      "exam_ids": [
+        "past-02-19",
+        "2026-32"
+      ],
+      "exam_ids_reviewed": [
+        "past-02-19",
+        "2026-32"
+      ],
+      "notes": [
+        "국문 헤이그협약/영문 Hague Regulations 차이 유지. 1954 연도 함정 확인."
+      ]
+    },
+    {
+      "heading": "존중과 보호의 의무와 서로 다른 예외",
+      "article": "국제인도법:제17장 3-4)",
+      "pdf_page": 75,
+      "printed_page": 75,
+      "english_pdf_pages": [
+        77
+      ],
+      "exam_ids": [
+        "2026-32"
+      ],
+      "exam_ids_reviewed": [
+        "2026-32"
+      ],
+      "notes": [
+        "국문75~76·영문77~79. 공격/군사사용 각각 요건과 예외·지휘·경고·반환·약탈 보존. 영문 공격 예외 when and for as long as, 국문 공격 열거에는 기간 문구 없음. 1977 예외없음과 1954 제2의정서 구별."
+      ]
+    },
+    {
+      "heading": "자연환경이라는 다음 보호 대상",
+      "article": "국제인도법:제17장 4-1)",
+      "pdf_page": 77,
+      "printed_page": 77,
+      "english_pdf_pages": [
+        79
+      ],
+      "exam_ids": [
+        "past-07-24"
+      ],
+      "exam_ids_reviewed": [
+        "past-07-24"
+      ],
+      "notes": [
+        "정의·모든 예시 보존"
+      ]
+    }
+  ]
+}
