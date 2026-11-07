@@ -1082,6 +1082,47 @@
       ],
       "human_listening": "미실시",
       "publication": "앱 연결·게시 필요"
+    },
+    {
+      "episode": "30",
+      "script": "30_구호의_의무와_동의_그리고_접근의_조건.md",
+      "script_sha256": "72ceacbbd091060a9bfb4a62778203ae4e07137679cde112ae238999e506932d",
+      "voice": "ko-KR-SunHiNeural",
+      "audio": "audio/.cache/ihl-preview/30/01.mp3",
+      "audio_sha256": "5585cb1dc23cde3259e9e1b0c13ba9b88f1dd7051b67fdf4b4abd1c974658232",
+      "bytes": 2560464,
+      "decoded_seconds": 426.74,
+      "marks": [
+        {
+          "t": 5.28,
+          "no": "1",
+          "label": "인도주의적 지원이 필요한 이유"
+        },
+        {
+          "t": 119.18,
+          "no": "2",
+          "label": "구호 활동을 수행할 의무와 동의"
+        },
+        {
+          "t": 251.81,
+          "no": "3",
+          "label": "구호품 제공의 조건"
+        },
+        {
+          "t": 301.63,
+          "no": "4",
+          "label": "인도적 개입과 관습법상의 구호 규칙"
+        }
+      ],
+      "checks": [
+        "Chrome 전체 MP3 디코딩",
+        "각 절 시작 후 20초 음성 신호",
+        "목차 길이·절 순서·시각·제목 일치",
+        "현재 대본 SHA-256 일치",
+        "15분 이내"
+      ],
+      "human_listening": "미실시",
+      "publication": "앱 연결·게시 필요"
     }
   ]
 }

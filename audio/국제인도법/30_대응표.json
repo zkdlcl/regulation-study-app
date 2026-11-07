@@ -1,0 +1,78 @@
+{
+  "status": "draft",
+  "script": "30_구호의_의무와_동의_그리고_접근의_조건.md",
+  "sources_ref": "자료/자료목록.json",
+  "review": "2026-11-07 최신 국문64~67쪽 이미지·수록본·연결기출 본문/근거DB·공식영문66~69쪽 대조. 청취 미실시. 앱 연결/게시 제외.",
+  "sections": [
+    {
+      "heading": "인도주의적 지원이 필요한 이유",
+      "article": "국제인도법:제15장 1)",
+      "pdf_page": 64,
+      "printed_page": 64,
+      "english_pdf_pages": [
+        66,
+        67,
+        68
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "국문64~66쪽·영문66~68쪽. 결핍원인열거·국가일차책임·불능또는의향없음/관련국동의·신속접근·조약관습·두규칙 유지."
+      ]
+    },
+    {
+      "heading": "구호 활동을 수행할 의무와 동의",
+      "article": "국제인도법:제15장 2)",
+      "pdf_page": 66,
+      "printed_page": 66,
+      "english_pdf_pages": [
+        68
+      ],
+      "exam_ids": [
+        "past-04-27",
+        "past-04-28"
+      ],
+      "exam_ids_reviewed": [
+        "past-04-27",
+        "past-04-28"
+      ],
+      "notes": [
+        "국문66쪽·영문68쪽. 착수의무와점령예외·국제/비국제/점령 세상황·자의보류금지·기아/기관개선확실시동의·영토국동의논쟁·점령국반입/일부주민/계획동의 모두 유지. past-04-27 일부확인 제1협약9 전문·체약회의·인원은 추가확정안함. past-04-28① 조문번호 미확인 유지."
+      ]
+    },
+    {
+      "heading": "구호품 제공의 조건",
+      "article": "국제인도법:제15장 3)",
+      "pdf_page": 66,
+      "printed_page": 66,
+      "english_pdf_pages": [
+        69
+      ],
+      "exam_ids": [],
+      "exam_ids_reviewed": [],
+      "notes": [
+        "국문66~67쪽·영문69쪽. 인도공평비차별/소속종교성별·통제/검사통과 기술조치 유지."
+      ]
+    },
+    {
+      "heading": "인도적 개입과 관습법상의 구호 규칙",
+      "article": "국제인도법:제15장 4)",
+      "pdf_page": 67,
+      "printed_page": 67,
+      "english_pdf_pages": [
+        69
+      ],
+      "exam_ids": [
+        "past-06-28",
+        "2026-23"
+      ],
+      "exam_ids_reviewed": [
+        "past-06-28",
+        "2026-23"
+      ],
+      "notes": [
+        "국문67쪽·영문69쪽 두박스 전부. 개입정당화는 개전법의 문제·보호책임 설명은 교재시점. 2005관습연구/양충돌/4규칙/긴급군사필요시만임시제한 유지. 번역차이: 관습구호통과 규칙의 영문 subject to their right of control은 국문 해당 박스에 없음. 대본은 국문을 유지하고 별도3절 통제 조건도 보존. 국문 그들지배하에서 vs 영문 civilians in need, subject to their right of control 배치차이."
+      ]
+    }
+  ]
+}
