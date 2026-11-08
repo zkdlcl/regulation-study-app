@@ -199,6 +199,8 @@ const OPStudy = (() => {
     const seg=document.querySelector('#r-today'); if(!seg||document.querySelector('[data-om-range]'))return;
     const b=document.createElement('button');b.type='button';b.setAttribute('data-om-range','');b.setAttribute('aria-label','이 범위 구조도 보기');b.title='이 범위 구조도';
     b.innerHTML=globalIcon+'<span>범위 구조도</span>';seg.after(b);
+    // '오늘 범위' 버튼은 범위 칩 줄과 겹쳐서 뺀다(사용자 요청)
+    seg.remove();
   }
   const today=renderers.today;
   renderers.today=function(){today.apply(this,arguments);attach();};
