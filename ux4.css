@@ -11,6 +11,10 @@
 .art.skip .art-h{margin-bottom:0}
 .art.skip .tt,.chap.skip{text-decoration:line-through}
 .rd-hide{display:none}
+/* 회독 버튼 길게 누르기 → 제외: 누르는 동안 빨간 띠가 차오른다 */
+.rc[data-hold]{position:relative;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.rc[data-hold]::after{content:'';position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--red);pointer-events:none}
+.rc[data-hold].holding::after{width:100%;transition:width var(--hold,3000ms) linear}
 #r-toc .toc-a.off{opacity:.55;text-decoration:line-through}
 #r-toc .toc-a.off .ck{color:var(--mute);font-weight:400;display:inline-block;text-decoration:none}
 

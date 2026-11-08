@@ -295,7 +295,11 @@ linkRefs = function(){
     const h = $('.art-h', el), key = el.id.slice(2), off = rdSkip(key); if (!h) return;
     el.classList.toggle('skip', off);
     if (off){ el.classList.remove('read'); $$('.rc', h).forEach(b => b.remove()); h.insertAdjacentHTML('beforeend', rcX(key, true)); }
-    else { const b = $('.rc', h); if (b) b.insertAdjacentHTML('beforebegin', rcX(key, false)); }
+    else {
+      /* ✕ 는 삭제·빈 조문에만. 그 밖은 회독 버튼을 길게 눌러 제외한다(rcHold) */
+      const b = $('.rc', h); if (b && artVoid(el, h)) b.insertAdjacentHTML('beforebegin', rcX(key, false));
+      $$('.rc', h).forEach(x => { x.dataset.hold = key; x.title = '길게 누르면 회독에서 제외'; });
+    }
   });
   $$('#r-body .chap').forEach(c => {
     const id = byeolIdOf(R.law, c.textContent); if (!id) return;
@@ -310,10 +314,12 @@ linkRefs = function(){
     }
     bAll++; if (n) bRead++;
     c.classList.toggle('read', n > 0);
-    c.insertAdjacentHTML('beforeend', `<span class="chap-rc">${rcX(key, false)}${n ? `<button class="rc minus" data-brc="${k}" data-d="-" aria-label="회독 1 줄이기">➖</button>` : ''}<button class="rc ${n ? 'has' : ''}" data-brc="${k}">${n ? '✅ ' + n + '회독 +1' : '회독 +1'}</button></span>`);
+    const ht = `data-hold="${k}" title="길게 누르면 회독에서 제외"`;
+    c.insertAdjacentHTML('beforeend', `<span class="chap-rc">${n ? `<button class="rc minus" data-brc="${k}" data-d="-" ${ht} aria-label="회독 1 줄이기">➖</button>` : ''}<button class="rc ${n ? 'has' : ''}" data-brc="${k}" ${ht}>${n ? '✅ ' + n + '회독 +1' : '회독 +1'}</button></span>`);
   });
   const nOff = Object.keys(S.rskip || {}).filter(k => k.startsWith(R.law + ':')).length;
   const pg = $('#r-prog'); if (pg && (bAll || nOff)) pg.textContent = pg.textContent.replace(/(1회독 이상 \d+\/\d+조)/, `$1${bAll ? ` · 별표 ${bRead}/${bAll}` : ''}${nOff ? ` · 제외 ${nOff}` : ''}`);
+  if (pg) pg.textContent = pg.textContent.replace('➖는 −1', '➖는 −1, 3초 누르면 제외');
   linkifyNodes($$('#r-body .ln, #r-body td'), () => R.law);
 };
 /* 별표 회독 버튼: '이어 읽기' 위치(setLast)는 조문 기준이므로 건드리지 않는다 */
@@ -329,6 +335,34 @@ document.addEventListener('click', e => {
   if (S.rskip[k]) delete S.rskip[k]; else S.rskip[k] = 1;
   saveRd(); drawRead(true);
 });
+/* 삭제 조문·빈 조문 판정: 제목에 '삭제' 이거나, 본문에서 <개정 …>·[…] 표기를 빼면 비었거나 '삭제'로 시작 */
+function artVoid(el, h){
+  if (/삭제/.test(($('.tt', h) || {}).textContent || '')) return true;
+  const t = [...el.children].filter(x => x !== h).map(x => x.textContent).join(' ')
+    .replace(/<[^>]*>|\[[^\]]*\]/g, '').replace(/\s+/g, '');
+  return !t || /^삭제/.test(t);
+}
+/* 회독 버튼 길게 누르기(3초) → 회독 제외. 누르는 동안 버튼이 차오르고, 끝나면 뒤따르는 click(+1/−1)은 막는다 */
+(() => {
+  const HOLD = 3000; let tm = 0, btn = null, fired = false;
+  const stop = () => { clearTimeout(tm); if (btn) btn.classList.remove('holding'); btn = null; };
+  document.addEventListener('pointerdown', e => {
+    fired = false;   /* 제외 후 버튼이 다시 그려지면 click 이 안 올 수 있으니 다음 누르기에서 반드시 푼다 */
+    const b = e.target.closest('[data-hold]'); if (!b || e.button > 0) return;
+    stop(); btn = b; b.style.setProperty('--hold', HOLD + 'ms'); b.classList.add('holding');
+    tm = setTimeout(() => {
+      const k = b.dataset.hold; stop(); fired = true;
+      S.rskip = S.rskip || {}; S.rskip[k] = 1; saveRd(); drawRead(true);
+      if (navigator.vibrate) try { navigator.vibrate(30); } catch (_) {}
+      toast('회독에서 제외했습니다. ↩ 로 되돌릴 수 있어요.');
+    }, HOLD);
+  });
+  ['pointerup', 'pointercancel'].forEach(t => document.addEventListener(t, stop, true));
+  document.addEventListener('pointerleave', e => { if (e.target === btn) stop(); }, true);
+  window.addEventListener('click', e => { if (fired){ fired = false; e.stopImmediatePropagation(); e.preventDefault(); } }, true);
+  document.addEventListener('keydown', () => { fired = false; }, true);
+  document.addEventListener('contextmenu', e => { if (e.target.closest('[data-hold]')) e.preventDefault(); });
+})();
 /* 아직 불러오지 않은 규정으로 이동할 때는 불러온 뒤에 이동 */
 const _goRef = goRef;
 goRef = async function(x){

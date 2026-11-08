@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer-core";
 
-/* 회독 제외 ✕: 삭제 조문·불필요한 별표를 회독 진도·이어 읽기에서 뺀다 */
+/* 회독 제외: 삭제·빈 조문은 ✕, 그 밖은 회독 버튼 3초 길게 누르기. 제외하면 회독 진도·이어 읽기에서 뺀다 */
 const URL = "http://localhost:8765/index.html";
 const browser = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new", args: ["--no-sandbox"] });
 const res = [], errors = [];
@@ -15,12 +15,22 @@ await page.reload({ waitUntil: "load" }); await sleep(600);
 const ev = (f, ...a) => page.evaluate(f, ...a);
 const LAW = "운영규정", AK = "운영규정:14", AEL = "a-운영규정:14", BK = "보수운영규정:별표2", BEL = "byeol-보수운영규정-2";
 const openLaw = async (law) => { await ev((l) => { R.law = l; R.topic = "0"; showTab("read"); drawRead(); }, law); await sleep(900); };
-const clickX = async (k) => { await ev((k) => document.querySelector(`#r-body [data-rskip="${k}"]`).click(), k); await sleep(150); };
+const clickX = async (k) => {
+  const has = await ev((k) => !!document.querySelector(`#r-body [data-rskip="${k}"]`), k);
+  if (has) { await ev((k) => document.querySelector(`#r-body [data-rskip="${k}"]`).click(), k); await sleep(150); return; }
+  const sel = `#r-body .rc[data-hold="${k}"]:not(.minus)`;
+  await page.waitForSelector(sel); await ev((s) => document.querySelector(s).scrollIntoView({ block: "center" }), sel); await sleep(200); const b = await page.$(sel); const box = await b.boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2); await page.mouse.down(); await sleep(3200); await page.mouse.up(); await sleep(200);
+};
 const prog = () => ev(() => document.getElementById("r-prog").textContent);
 const denom = (s) => +/1회독 이상 \d+\/(\d+)조/.exec(s)[1];
 
 await openLaw(LAW);
-ok("조문마다 ✕", await ev(() => document.querySelectorAll('#r-body .art[id^="a-"]').length === document.querySelectorAll("#r-body .art .rc-x").length));
+ok("일반 조문엔 ✕ 없음", await ev(() => document.querySelectorAll("#r-body .art .rc-x").length === 0));
+ok("회독 버튼에 길게 누르기", await ev((k) => !!document.querySelector(`#r-body .rc[data-hold="${k}"]`), AK));
+await ev((k) => { delete S.reads[k]; save(); drawRead(true); }, AK);
+{ const sel = `#r-body .rc[data-hold="${AK}"]:not(.minus)`; await page.click(sel); await sleep(200); }
+ok("짧게 누르면 +1", await ev((k) => S.reads[k] === 1 && !(S.rskip || {})[k], AK));
 const n0 = denom(await prog());
 await ev((k) => { S.reads[k] = 2; save(); drawRead(true); }, AK);
 await clickX(AK);
@@ -47,10 +57,12 @@ await clickX(AK);
 ok("해제하면 회독 수 복귀", await ev((k) => !S.rskip[k] && S.reads[k] === 2, AK));
 ok("해제하면 분모 복귀", denom(await prog()) === n0, await prog());
 ok("해제하면 회독 버튼 복귀", await ev((id) => !!document.getElementById(id).querySelector(".rc.has"), AEL));
-ok("해제 뒤 제외 표시 없음", !/제외/.test(await prog()));
+ok("해제 뒤 제외 표시 없음", !/제외 \d/.test(await prog()));
 
 await openLaw("보수운영규정");
-ok("별표에도 ✕", await ev(() => document.querySelectorAll("#r-body .chap[id] .rc-x").length) === 22);
+ok("별표엔 ✕ 없음", await ev(() => document.querySelectorAll("#r-body .chap[id] .rc-x").length) === 0);
+ok("별표 회독 버튼에 길게 누르기", await ev(() => document.querySelectorAll("#r-body .chap[id] .rc[data-hold]").length) >= 22);
+ok("삭제 조문엔 ✕", await ev(() => document.querySelectorAll("#r-body .art .rc-x").length) === 9);
 await clickX(BK);
 ok("별표 집계에서 빠짐", /별표 0\/21/.test(await prog()), await prog());
 ok("별표 표 접힘", await ev((id) => { let t = document.getElementById(id).nextElementSibling; while (t && !t.matches(".tw")) t = t.nextElementSibling; return !!t && getComputedStyle(t).display === "none"; }, BEL));
