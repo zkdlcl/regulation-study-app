@@ -74,10 +74,10 @@ ok("국제인도법 듣기 버튼", await vis("#tts-fab"));
 await page.click("#tts-fab"); await sleep(1500);
 ok("해설 재생 시작(머릿글 05편부터)", await ev(() => TTS.st.law === "국제인도법" && TTS.st.ti === 0 && !TTS.A.paused && TTS.A.currentTime > 0 && TTS.A.src.endsWith("/ihl/05.mp3")));
 await ev(() => { if (!TTS.st.list) TTS.act("list"); }); await sleep(100);
-const ORDER = ["05", "01", "02", "03", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"];
-ok("해설 칩만 18개(빈 묶음 숨김)", await ev(() => document.querySelectorAll("#tts-list .tts-chip").length === 18 && document.querySelectorAll("#tts-list .tts-g").length === 1 && document.querySelector("#tts-list .tts-g span").textContent === "해설"));
-ok("재생 순서 05→01→02→03→06~19, 파일 구분", await ev((o) => D.tts["국제인도법"].tracks.map((t) => t.file).join() === o.map((n) => `data/tts/ihl/${n}.mp3`).join(), ORDER));
-ok("SOURCE 작성분 64절만 목차", await ev(() => D.tts["국제인도법"].tracks.reduce((a, t) => a + t.marks.length, 0) === 64));
+const ORDER = ["05", "01", "02", "03", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41"];
+ok("해설 칩만 40개(빈 묶음 숨김)", await ev(() => document.querySelectorAll("#tts-list .tts-chip").length === 40 && document.querySelectorAll("#tts-list .tts-g").length === 1 && document.querySelector("#tts-list .tts-g span").textContent === "해설"));
+ok("재생 순서 05→01→02→03→06~41, 파일 구분", await ev((o) => D.tts["국제인도법"].tracks.map((t) => t.file).join() === o.map((n) => `data/tts/ihl/${n}.mp3`).join(), ORDER));
+ok("SOURCE 151절 전체 목차", await ev(() => D.tts["국제인도법"].tracks.reduce((a, t) => a + t.marks.length, 0) === 151));
 const ihl1 = ORDER.indexOf("01");
 ok("01편 목차 4구간 시간·제목 유지", JSON.stringify(await ev((i) => D.tts["국제인도법"].tracks[i].marks.map((m) => [m.t, m.label]), ihl1)) === JSON.stringify([[3.79, "국제인도법이 다루는 두 가지"], [176.47, "같은 법을 가리키는 이름들"], [221.11, "제네바법과 헤이그법"], [350.18, "군사적 필요와 인도"]]));
 await page.click('#tts-bar [data-t="here"]'); await sleep(300);
@@ -127,6 +127,7 @@ for (const [w, h, nm] of [[1180, 820, "tablet"], [820, 1180, "portrait"], [390, 
     await page.setViewport({ width: w, height: h }); await sleep(300);
     await ev(() => { if (!TTS.st.list) TTS.act("list"); }); await sleep(150);
     ok(`해설 목록 ${nm}·${th} 가로 넘침 없음`, await ev(() => document.querySelector("#tts-bar").scrollWidth <= innerWidth && document.documentElement.scrollWidth <= innerWidth));
+    ok(`해설 목록 ${nm}·${th} 마지막(41편) 칩까지 스크롤로 닿음`, await ev(() => { const L = document.querySelector("#tts-list"), c = [...L.querySelectorAll(".tts-chip")].pop(); L.scrollTop = L.scrollHeight; const r = c.getBoundingClientRect(), b = L.getBoundingClientRect(); const ok = r.bottom <= b.bottom + 1 && r.top >= b.top - 1 && r.bottom <= innerHeight; L.scrollTop = 0; return ok; }));
     await page.screenshot({ path: `tests/tts-ihl-${nm}-${th}.png` });
   }
 }
