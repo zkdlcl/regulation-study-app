@@ -67,6 +67,23 @@
   new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(n => n.nodeType === 1 && scan(n)))).observe(document.body, {childList: true, subtree: true});
   scan(document.body);
   const repaint = () => document.querySelectorAll('.art[data-ihx]').forEach(paint);
+  /* 회독 +1 처럼 제자리 다시 그리기(keepScroll)에서: 기준 drawRead 는 칩이 붙기 전의 짧은 문서에 scrollY 를 되돌리므로
+     몇 절 아래로 밀린다(칩 높이만큼 + 스크롤 앵커링). 칩을 바로 붙이고, 화면 맨 위 조문 기준으로 위치를 다시 맞춘다 */
+  const _drawRead = drawRead;
+  drawRead = function(keepScroll){
+    let id = '', top = 0;
+    if (keepScroll){
+      const head = (parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0);
+      for (const a of document.querySelectorAll('#r-body .art[id], #r-body .chap[id]')){
+        const r = a.getBoundingClientRect(); if (r.bottom > head){ id = a.id; top = r.top; break; }
+      }
+    }
+    const ret = _drawRead.apply(this, arguments);
+    const body = document.getElementById('r-body'); if (body) scan(body);
+    const el = id && document.getElementById(id);
+    if (el){ const d = el.getBoundingClientRect().top - top; if (Math.abs(d) > 1) window.scrollBy(0, d); }
+    return ret;
+  };
 
   document.addEventListener('click', ev => {
     const c = ev.target.closest('[data-ihxk]');
