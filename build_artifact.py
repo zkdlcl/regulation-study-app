@@ -104,6 +104,8 @@ body = body[:m.start(2)] + newdata + body[m.end(2):]
 rep("const nl = n => '제' + (String(n).includes('의') ? String(n).replace('의','조의') : n + '조');",
     "const nl = n => { const s = String(n); return /^\\d+(의\\d+)?$/.test(s) ? '제' + (s.includes('의') ? s.replace('의','조의') : s + '조') : s; };")
 rep("const inTopic = (a, t) =>", "let inTopic = (a, t) =>")
+# 회독 카드의 조 제목: 괄호를 벗겨 조 번호 옆 제목으로 강조한다(스타일은 ui7.css .art-h .tt)
+rep('<span class="tt">(${esc(a.title)})</span>', '<span class="tt">${esc(a.title)}</span>')
 rep("const FS = [", "let FS = [")
 rep("const tl = t =>", "let tl = t =>")
 rep("if (c._arts) return c._arts;", "if (c._arts) return c._arts; if (c.art) return (c._arts = [c.art]);")
