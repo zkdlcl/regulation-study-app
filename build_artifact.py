@@ -97,6 +97,33 @@ _ihl_nos = {a['no'] for a in json.load(open(P(os.path.join('site', 'data', 'laws
 _ihl_bad = [k for k in D['ihlStudy']['arts'] if k not in _ihl_nos] + [p for a in D['ihlStudy']['arts'].values() for p in a.get('pairs', []) if p not in D['ihlStudy']['pairs']] + [s for p in D['ihlStudy']['pairs'].values() for s in p['src'] if s not in _ihl_nos]
 if _ihl_bad: sys.exit(f'빌드 멈춤: kb/ihl_study.json 키 오류 {_ihl_bad}')
 print('국제인도법 이해 층:', len(D['ihlStudy']['arts']), '절,', len(D['ihlStudy']['pairs']), '비교쌍')
+# 국제인도법 조약·의정서 용어 사전(본문 링크 → 우측 참조 패널). 발췌는 수록본 원문 줄 그대로이므로 줄 번호·요약 문장·표기를 원문과 대조한다
+D['ihlTerms'] = json.load(open(P(os.path.join('kb', 'ihl_terms.json')), encoding='utf8'))['terms']
+def _ihl_terms_check():
+    import html as _h
+    arts = [a for a in json.load(open(P(os.path.join('site', 'data', 'laws', 'ihl.json')), encoding='utf8'))['articles'] if a['type'] == 'a']
+    plain = lambda h: re.sub(r'\s+', '', _h.unescape(re.sub(r'<[^>]+>', '', h)))
+    units = {a['no']: re.findall(r'<div class="ln[^"]*">.*?</div>|<tr>.*?</tr>', a['html'], flags=re.S) for a in arts}
+    text = {a['no']: plain(a['html']) for a in arts}
+    whole = ''.join(text.values())
+    bad, ids = [], set()
+    for t in D['ihlTerms']:
+        if t['id'] in ids: bad.append(t['id'] + ' 중복')
+        ids.add(t['id'])
+        for s in t.get('sum', []):
+            if re.sub(r'\s+', '', s) not in whole: bad.append(t['id'] + ' 요약이 원문에 없음: ' + s[:30])
+        for al in t['al']:
+            o = {'a': al} if isinstance(al, str) else al
+            k = re.sub(r'\s+', '', o['a'])
+            where = o.get('in') or list(text)
+            if [n for n in where if n not in text] or not any(k in text[n] for n in where): bad.append(t['id'] + ' 표기가 원문에 없음: ' + o['a'])
+        for no, idx in t['refs']:
+            if no not in units: bad.append(t['id'] + ' 절 없음: ' + no); continue
+            if idx != '*' and [i for i in idx if i >= len(units[no])]: bad.append(t['id'] + ' 줄 번호 범위 밖: ' + no)
+    return bad
+_it_bad = _ihl_terms_check()
+if _it_bad: sys.exit(f'빌드 멈춤: kb/ihl_terms.json 오류 {_it_bad}')
+print('국제인도법 용어 사전:', len(D['ihlTerms']), '개')
 newdata = json.dumps(D, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 body = body[:m.start(2)] + newdata + body[m.end(2):]
 
@@ -153,10 +180,10 @@ rep('<section class="pane" id="p-read"></section>', '<section class="pane" id="p
 rep("['read','📖 회독'],", "['read','📖 회독'],['bt','🕳 뻥뚫'],")
 rep("['cho','🔤 자음퀴즈'],", "")
 
-css = ''.join(rd(n) for n in ['rev-tab.css', 'ux-polish.css', 'ux2.css', 'ux4.css', 'ui7.css', 'ux8.css', 'op-study.css', 'card-review.css', 'case-bl.css', 'tts.css', 'wage.css', 'ihl-study.css'])
+css = ''.join(rd(n) for n in ['rev-tab.css', 'ux-polish.css', 'ux2.css', 'ux4.css', 'ui7.css', 'ux8.css', 'op-study.css', 'card-review.css', 'case-bl.css', 'tts.css', 'wage.css', 'ihl-study.css', 'ihl-terms.css'])
 k = body.index('</style>')
 body = body[:k] + css + '\n' + body[k:]
-js = ''.join(rd(n) for n in ['lawdata.js', 'rev-tab.js', 'ux-polish.js', 'ux2.js', 'ux3.js', 'plan-gen.js', 'ux4.js', 'ux5.js', 'ux6.js', 'ui7.js', 'kb-ui.js', 'ux8.js', 'op-study.js', 'card-review.js', 'case-bl.js', 'tts.js', 'table-cat.js', 'resume.js', 'ihl-study.js'])
+js = ''.join(rd(n) for n in ['lawdata.js', 'rev-tab.js', 'ux-polish.js', 'ux2.js', 'ux3.js', 'plan-gen.js', 'ux4.js', 'ux5.js', 'ux6.js', 'ui7.js', 'kb-ui.js', 'ux8.js', 'op-study.js', 'card-review.js', 'case-bl.js', 'tts.js', 'table-cat.js', 'resume.js', 'ihl-terms.js', 'ihl-study.js'])
 rep('/* 시작 */', js + '\n/* 시작 */')
 # ui7 디자인 층: 첫 화면을 그린 뒤 시작 (아이콘·칩·테마 전환)
 rep("|| 'today');\n</script>", "|| 'today');\nUI7.start();\n</script>")
