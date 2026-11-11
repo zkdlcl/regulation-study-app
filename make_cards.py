@@ -12,6 +12,8 @@
  2. 괄호 안 빈칸: 빈칸이 ( … ) 안에 있으면 쓰지 않는다. 괄호 속 보충 설명은 외울 거리가 아니고 문장도 어색해진다.
  3. 정답 노출: 같은 정답 낱말이 질문의 다른 곳에 그대로 있으면 쓰지 않는다.
  4. 긴 문장 자르기: 빈칸 위치를 표식으로 잡고 그 주변만 남긴다 (예전에는 빈칸을 못 찾아 빈칸 없는 카드 9장이 생겼음).
+ 5. 맥락 없는 줄: 글머리(• - 1) ㈎) 줄이나 표에서 이어진 줄은 그 줄만으로 무엇을 묻는지 알 수 없다 → 윗줄(목록을 이끄는 문장, 표 행의 첫 줄)을 붙인다
+    (2026-11 국제인도법 연혁 표 '- <( ? )> : 《국제적 무력충돌 피해자 보호》' 가 풀 수 없는 카드로 나왔음).
  마지막에 check() 가 모든 카드를 다시 검사하고, 하나라도 어기면 파일을 쓰지 않고 멈춘다.
 
 기출 함정 카드 (kb/exam_kb.json 의 points[].trap):
@@ -198,22 +200,57 @@ def trap_line(text, quote, orig):
     return (hits[0], lines[hits[0]].index(orig), lines) if len(hits) == 1 else None
 
 
+NUM_ITEM = re.compile(r'\d+\.|[가-하]\.')                 # 규정의 호·목
+BULLET = re.compile(r'(\d+\)|[㈎-㈛]|[•·]|[-–])\s*')        # 해설서(국제인도법)의 글머리: 1) ㈎ • -
+YEAR_ROW = re.compile(r'(○ )?\d{4}\s')                   # 연혁 표에서 행의 첫 줄 (연도로 시작)
+
+
+def item_kind(ln):
+    if NUM_ITEM.match(ln): return 'num'
+    m = BULLET.match(ln)
+    return None if not m else 'n)' if m.group(1)[0].isdigit() else '㈎' if '㈎' <= m.group(1) <= '㈛' else m.group(1)
+
+
+def cut_lead(up, n):
+    cut = up[:n]
+    if cut.count('(') > cut.count(')'): cut = cut[:cut.rindex('(')].rstrip()   # 자른 자리에 괄호가 열린 채 남지 않게
+    return cut + ('…' if len(up) > len(cut) else '')
+
+
+def trap_lead(lines, li):
+    """빈칸 줄만으로는 무엇을 묻는지 알 수 없을 때 앞에 붙일 맥락. (맥락, 맥락 없이도 되는가)
+    - 규정의 호·목: 위 항의 첫머리 (기존 규칙)
+    - 글머리(• - 1) ㈎) 줄: 그 목록을 이끄는 윗줄. 윗줄도 글머리면 한 단계 더 올라간다 ('- 민방위 조직' ← '• 제4협약 : 민간인, 예컨대')
+    - 연혁 표에서 한 칸이 여러 줄일 때: 그 행의 앞줄 전부 (연도와 문서 이름이 첫 줄에만 있다)"""
+    ln, kind = lines[li], item_kind(lines[li])
+    if kind == 'num':
+        up = next((x for x in reversed(lines[:li]) if not NUM_ITEM.match(x)), '')
+        return (cut_lead(up, 42) + ' ' if up else ''), False
+    if sum(1 for x in lines if YEAR_ROW.match(x)) >= 10 and not YEAR_ROW.match(ln):
+        st = next((k for k in range(li - 1, max(-1, li - 8), -1) if YEAR_ROW.match(lines[k])), None)
+        if st is not None: return ' '.join(x.strip() for x in lines[st:li]) + ' ', True
+    if kind is None: return '', False
+    ups, seen = [], {kind}
+    for k in range(li - 1, -1, -1):
+        kk = item_kind(lines[k])
+        if kk in seen: continue
+        ups.insert(0, cut_lead(lines[k].strip(), 70))
+        if kk is None or len(ups) == 2: break
+        seen.add(kk)
+    return (' '.join(ups) + ' ' if ups else ''), True
+
+
 def trap_sentence(lines, li, pos, orig):
-    """빈칸을 넣은 카드 문장 후보들. 호·목 줄은 위 항을 맥락으로 붙이고, 뒤로 갈수록 짧다 (정답 노출을 피하려고)."""
+    """빈칸을 넣은 카드 문장 후보들. 호·목·글머리·표의 이어진 줄은 윗줄을 맥락으로 붙이고, 뒤로 갈수록 짧다 (정답 노출을 피하려고)."""
     ln = lines[li]
     full = ln[:pos] + MARK + ln[pos + len(orig):]
-    lead = ''
-    if re.match(r'\d+\.|[가-하]\.', ln):
-        up = next((x for x in reversed(lines[:li]) if not re.match(r'\d+\.|[가-하]\.', x)), '')
-        cut = up[:42]
-        if cut.count('(') > cut.count(')'): cut = cut[:cut.rindex('(')].rstrip()
-        lead = cut + ('…' if len(up) > len(cut) else '') + ' ' if cut else ''
+    lead, bare_ok = trap_lead(lines, li)
     i = full.index(MARK)
     lo = full.rfind('. ', 0, i) + 2 if full.rfind('. ', 0, i) >= 0 else 0
     hi = full.find('. ', i)
     clause = full[lo:hi + 1 if hi >= 0 else len(full)]
     out = []
-    for t in (lead + full, lead + clause):
+    for t in (lead + full, lead + clause) + ((full, clause) if bare_ok else ()):
         if len(t) > MAX_LEN:
             k = t.index(MARK); a = max(0, k - 105); b = min(len(t), k + 125)
             t = ('…' if a else '') + t[a:b] + ('…' if b < len(t) else '')
@@ -283,6 +320,7 @@ def check(cards):
         if not a.strip(): probs.append('정답 비어 있음')
         reason = why_not(body.replace(Q, MARK), a, head, c['id'][0] == 't') if body.count(Q) == 1 else None
         if reason: probs.append(reason)
+        if BULLET.match(body) and len(body) < 45: probs.append('글머리 줄만 있음(윗줄 맥락 없음)')
         bad += [(c['id'], p + ' | ' + q[:70]) for p in probs]
     return bad
 
