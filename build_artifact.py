@@ -97,6 +97,24 @@ _ihl_nos = {a['no'] for a in json.load(open(P(os.path.join('site', 'data', 'laws
 _ihl_bad = [k for k in D['ihlStudy']['arts'] if k not in _ihl_nos] + [p for a in D['ihlStudy']['arts'].values() for p in a.get('pairs', []) if p not in D['ihlStudy']['pairs']] + [s for p in D['ihlStudy']['pairs'].values() for s in p['src'] if s not in _ihl_nos]
 if _ihl_bad: sys.exit(f'빌드 멈춤: kb/ihl_study.json 키 오류 {_ihl_bad}')
 print('국제인도법 이해 층:', len(D['ihlStudy']['arts']), '절,', len(D['ihlStudy']['pairs']), '비교쌍')
+# 국제인도법 원문 그림·박스 연결(kb/ihl_figs.json): 그림 파일은 페이지에 넣고, 절 번호·기준 글자·파일을 검사
+import base64 as _b64, re as _re
+_figs = json.load(open(P(os.path.join('kb', 'ihl_figs.json')), encoding='utf8'))
+_ihl_txt = {a['no']: _re.sub(r'<[^>]+>', '', a['html']) for a in json.load(open(P(os.path.join('site', 'data', 'laws', 'ihl.json')), encoding='utf8'))['articles'] if a['type'] == 'a'}
+_fig_bad, _fig_img = [], {}
+for _no, _items in _figs['arts'].items():
+    if _no not in _ihl_txt: _fig_bad.append(_no); continue
+    for _it in _items:
+        if _it.get('after') and _it['after'] not in _ihl_txt[_no]: _fig_bad.append(f"{_no}: '{_it['after']}' 없음")
+        for _b in _it.get('box', []):
+            if _b['no'] not in _ihl_txt or (_b.get('from') and _b['from'] not in _ihl_txt[_b['no']]): _fig_bad.append(f"{_no} → {_b}")
+        for _f in _it.get('imgs', []):
+            _p = P(os.path.join('kb', 'ihl_figs', _f))
+            if not os.path.exists(_p): _fig_bad.append(f'{_no}: {_f} 없음'); continue
+            _fig_img[_f] = 'data:image/png;base64,' + _b64.b64encode(open(_p, 'rb').read()).decode()
+if _fig_bad: sys.exit(f'빌드 멈춤: kb/ihl_figs.json 오류 {_fig_bad}')
+D['ihlFigs'] = {'img': _fig_img, 'arts': _figs['arts']}
+print('국제인도법 원문 그림:', len(_fig_img), '개,', len(_figs['arts']), '절')
 newdata = json.dumps(D, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 body = body[:m.start(2)] + newdata + body[m.end(2):]
 

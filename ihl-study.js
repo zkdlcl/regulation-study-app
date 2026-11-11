@@ -63,7 +63,43 @@
     h.after(box);
     paint(el);
   }
-  const scan = root => (root.matches && root.matches('.art[id^="a-"]') ? [root] : root.querySelectorAll ? root.querySelectorAll('.art[id^="a-"]') : []).forEach(attach);
+  /* ── 원문 그림·박스 (kb/ihl_figs.json → D.ihlFigs) ──
+     "(그림 2)"·"(박스 참조)" 처럼 원문이 그림·박스를 가리키는 줄 바로 아래에, 원문 그림과 박스 내용을 붙인다.
+     박스는 앱에서 따로 떨어진 절이라, 접어 두었다가 그 자리에서 펼친다(펼칠 때 채우고, 지금 가리기 단계를 따른다) */
+  const FG = D.ihlFigs;
+  const artOf = no => D.articles.find(x => x.type === 'a' && x.law === LAW && x.no === no);
+  const srcLines = no => { const t = document.createElement('div'), a = artOf(no); t.innerHTML = a ? a.html : ''; return [...t.querySelectorAll('.ln')]; };
+  function figBlock(it){
+    const w = document.createElement('div'); w.className = 'ihf';
+    let h = '';
+    if (it.imgs) h += `<figure class="ihf-fig"><div class="ihf-imgs">${it.imgs.map(f => `<img src="${FG.img[f]}" alt="${esc(it.cap || '원문 그림')}">`).join('')}</div><figcaption>${esc(it.cap || '')}<small>원문 ${it.p}쪽</small></figcaption></figure>`;
+    if (it.note) h += `<p class="ihf-note">${esc(it.note)}</p>`;
+    (it.box || []).forEach(b => { const a = artOf(b.no); h += `<details class="ihf-box" data-ihfbox="${esc(b.no)}" data-from="${esc(b.from || '')}"><summary><b>${it.note ? '보기' : '박스'}</b><span>${esc(b.label || (a ? a.title : b.no))}</span></summary><div class="ihf-bb"></div></details>`; });
+    w.innerHTML = h;
+    return w;
+  }
+  function figs(el){
+    if (!FG || el.dataset.ihf !== undefined) return;
+    const key = el.id.slice(2); if (!key.startsWith(LAW + ':')) return;
+    const no = key.slice(LAW.length + 1), list = FG.arts[no];
+    el.dataset.ihf = list ? '1' : ''; if (!list) return;
+    const src = srcLines(no), lns = [...el.querySelectorAll('.ln')], head = el.querySelector('.art-h');
+    /* 가리기 단계에 따라 줄 글자가 달라지므로, 넣을 자리는 원문 줄 번호로 찾는다. 뒤에서부터 넣어 순서를 지킨다 */
+    [...list].reverse().forEach(it => {
+      const i = it.after ? src.findIndex(l => l.textContent.includes(it.after)) : -1;
+      const at = it.after ? (lns.length === src.length && lns[i]) || lns[lns.length - 1] || head : head;
+      if (at) at.after(figBlock(it));
+    });
+  }
+  document.addEventListener('toggle', ev => {
+    const d = ev.target; if (!d.matches || !d.matches('.ihf-box')) return;
+    const bb = d.querySelector('.ihf-bb'); if (!d.open){ bb.innerHTML = ''; return; }
+    const a = artOf(d.dataset.ihfbox); if (!a) return;
+    bb.innerHTML = a.html;
+    if (d.dataset.from){ for (const l of [...bb.children]){ if (l.textContent.includes(d.dataset.from)) break; l.remove(); } }
+    try { if (R.mode === '2' || R.mode === '3') clozeIn(bb, +R.mode); } catch (e) { console.warn(e); }
+  }, true);
+  const scan = root => (root.matches && root.matches('.art[id^="a-"]') ? [root] : root.querySelectorAll ? root.querySelectorAll('.art[id^="a-"]') : []).forEach(el => { figs(el); attach(el); });
   new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(n => n.nodeType === 1 && scan(n)))).observe(document.body, {childList: true, subtree: true});
   scan(document.body);
   const repaint = () => document.querySelectorAll('.art[data-ihx]').forEach(paint);

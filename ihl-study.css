@@ -57,3 +57,20 @@
 .ihx-ti.war .ihx-td{font-style:italic}
 .ihx-tl.core-only .ihx-ti:not(.core){display:none}
 @media (max-width:560px){.ihx-tl::before{left:calc(3.4em + 11px)}.ihx-ti{grid-template-columns:3.4em minmax(0,1fr);gap:24px}.ihx-ti::before{left:calc(3.4em + 6px)}.ihx-ty{font-size:.78rem}}
+
+/* 원문 그림·박스 (kb/ihl_figs.json): 원문이 가리키는 줄 바로 아래에 붙는다 */
+.ihf{margin:8px 0 10px;display:grid;gap:8px;justify-items:start}
+.ihf-fig{margin:0;display:grid;gap:6px;max-width:100%}
+.ihf-imgs{display:flex;flex-wrap:wrap;gap:8px}
+.ihf-imgs img{display:block;height:84px;width:auto;max-width:100%;background:#fff;border:1px solid var(--line2,var(--line));border-radius:8px}
+.ihf-fig figcaption{font-size:.84rem;font-weight:700;color:var(--ink);line-height:1.5;word-break:keep-all}
+.ihf-fig figcaption small{margin-left:8px;font-weight:400;font-size:.74rem;color:var(--mute);white-space:nowrap}
+.ihf-note{margin:0;font-size:.82rem;color:var(--mute);line-height:1.6}
+.ihf-box{width:100%;border:1px solid var(--line);border-left:3px solid var(--red);border-radius:10px;background:var(--soft)}
+.ihf-box summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 12px;cursor:pointer;list-style:none;font-size:.9rem;font-weight:700;word-break:keep-all}
+.ihf-box summary::-webkit-details-marker{display:none}
+.ihf-box summary b{flex:none;font-size:.7rem;letter-spacing:.06em;color:var(--red-d);background:var(--red-bg);border-radius:6px;padding:2px 7px}
+.ihf-box summary::after{content:'';flex:none;margin-left:auto;width:8px;height:8px;border-right:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:rotate(45deg);transition:transform .15s}
+.ihf-box[open] summary::after{transform:rotate(-135deg)}
+.ihf-bb{padding:2px 14px 12px;line-height:1.8}
+@media (max-width:640px){ .ihf-imgs img{height:64px} }

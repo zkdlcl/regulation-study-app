@@ -112,6 +112,10 @@ main{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
   body.pk-split .fabs{right:calc(var(--pkw) + 12px)}
 }
 
+/* 범위·이동 칩: 지금 읽는 곳(data-cur) — 고른 칩(채움)과 구분되게 테두리와 밑줄로만 표시 */
+#r-chips .cs button[data-cur]{border-color:var(--red);box-shadow:inset 0 -3px 0 var(--red)}
+#r-chips .cs button[data-cur]:not([aria-pressed="true"]){color:var(--red-d,var(--red))}
+
 /* ═════ 참조 패널 도구줄: 아이콘만, 한 줄 ═════ */
 .pk-top{padding:6px 10px;gap:6px}
 .pk-ti{font-size:.98rem;line-height:1.3}

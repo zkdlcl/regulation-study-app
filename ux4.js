@@ -271,9 +271,51 @@ function tocSpy(){
   b.classList.add('on');
   const bt = b.offsetTop, bh = b.offsetHeight; if (bt < aside.scrollTop + 8) aside.scrollTop = bt - 40; else if (bt + bh > aside.scrollTop + aside.clientHeight - 8) aside.scrollTop = bt + bh - aside.clientHeight + 40;
 }
-addEventListener('scroll', () => { if (!tocRaf && $('#p-read').classList.contains('on')) tocRaf = requestAnimationFrame(tocSpy); }, {passive: true});
+/* ── 범위·이동 칩 줄이 지금 읽는 곳을 따라간다 ──
+   칩 줄은 본문 맨 위에 있어 읽는 동안에는 화면 밖이다. 그래서 '읽는 곳'은 칩 줄이 화면 밖일 때의 맨 위 조문으로 잡고,
+   칩을 보려고 위로 올라온 동안에는 그 자리를 그대로 둔다(올라오는 길의 조문으로 바뀌지 않게).
+   읽는 곳의 장(이동 줄)·주제(범위 줄) 칩에 표시(data-cur)를 하고, 그 칩이 보이게 줄을 옆으로 밀어 둔다 */
+const chipCur = {id: null};
+function chipIntoView(b){
+  const row = b.closest('.cs'); if (!row || !row.offsetParent) return;
+  const br = b.getBoundingClientRect(), rr = row.getBoundingClientRect();
+  if (br.left >= rr.left + 8 && br.right <= rr.right - 8) return;
+  /* 가운데로. 칩이 줄보다 길면 앞머리가 보이게 */
+  row.scrollLeft = Math.max(0, row.scrollLeft + (br.left - rr.left) - Math.max(8, (row.clientWidth - br.width) / 2));
+}
+function chipSpy(redraw){
+  const box = $('#r-chips'); if (!box) return;
+  const head = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 100;
+  const seen = box.getBoundingClientRect().bottom > head;   /* 칩 줄이 화면에 보이는 중 */
+  let id = chipCur.id && document.getElementById(chipCur.id) ? chipCur.id : '';
+  if (redraw ? !id : !seen){
+    const arts = $$('#r-body .art[id], #r-body .chap[id^="byeol-"]');
+    let cur = null;
+    if (seen){ const last = S.rd && S.rd.last && S.rd.last[R.law]; cur = (last && document.getElementById('a-' + last)) || arts[0] || null; }   /* 처음 열었을 때: 마지막으로 읽은 조문 */
+    else for (const a of arts){ if (cur && a.getBoundingClientRect().top > head + 40) break; cur = a; }
+    id = cur ? cur.id : '';
+  }
+  if (!redraw && id === chipCur.id) return;
+  chipCur.id = id;
+  /* 이동 줄: 그 조문이 든 장(묶음)의 칩 */
+  let jv = '';
+  if (id){ const o = [...$('#r-jump').options].find(o => o.value === id), g = o && o.parentElement; if (g && g.tagName === 'OPTGROUP') jv = g.querySelector('option').value; }
+  /* 범위 줄: 장 단위 규정은 그 장, 주제 단위 규정은 조문의 주제(여럿이면 모두 표시) */
+  let tv = [];
+  if (id.startsWith('a-')){
+    const a = D.articles.find(x => x.type === 'a' && x.law === R.law && artId(x) === id.slice(2));
+    if (a){ const has = v => !!box.querySelector(`[data-topic="${v}"]`); if (a.ch != null && has('c' + a.ch)) tv = ['c' + a.ch]; else tv = (a.topics || []).map(String).filter(has); }
+  }
+  const mark = (attr, vals) => { let first = null; $$(`#r-chips [${attr}]`).forEach(b => { const on = vals.includes(b.getAttribute(attr)); if (on) b.dataset.cur = '1'; else delete b.dataset.cur; if (on && !first) first = b; }); return first; };
+  const jb = mark('data-jump', jv ? [jv] : []), tb = mark('data-topic', tv);
+  if (jb) chipIntoView(jb);
+  /* 범위 줄은 읽는 곳 칩, 없으면 고른 칩이 보이게 */
+  const sel = box.querySelector('[data-topic][aria-pressed="true"]'), tgt = tb || (sel && sel.dataset.topic !== '0' ? sel : null);
+  if (tgt) chipIntoView(tgt);
+}
+addEventListener('scroll', () => { if (!tocRaf && $('#p-read').classList.contains('on')) tocRaf = requestAnimationFrame(() => { tocSpy(); try { chipSpy(); } catch(e){ console.warn(e); } }); }, {passive: true});
 const _syncChips = syncChips;
-syncChips = function(){ syncAppendixJump(); _syncChips(); try { syncToc(); } catch(e){ console.warn(e); } };
+syncChips = function(){ syncAppendixJump(); _syncChips(); try { syncToc(); chipSpy(true); } catch(e){ console.warn(e); } };
 
 /* ── 오늘 탭: 가로 화면에서 2단 (왼쪽: 일정·추천·밀린 일 / 오른쪽: 오늘 할 일) ── */
 function todayCols(){
