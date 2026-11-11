@@ -169,7 +169,9 @@ select.csel-src{display:none!important}
 .sc-h{border-left:0;background:transparent;border-bottom:1px solid var(--line);border-radius:0;padding:6px 2px}
 .sc-h .sc-no{color:var(--red-d);font-family:var(--f-mono);font-size:.74rem}
 #r-crumb{background:color-mix(in srgb,var(--card) 85%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid var(--line);color:var(--ink);box-shadow:var(--shadow);border-radius:999px;padding:5px 14px}
-.art-h .no{letter-spacing:-.02em}
+/* 조 제목은 그 조를 아우르는 이름이므로 본문보다 굵게: 번호는 강조색 꼬리표, 제목은 진한 글씨 */
+.art-h .no,.rv-h .no{letter-spacing:-.02em;color:var(--red-d)}
+.art-h .tt,.rv-h .tt{color:var(--ink);font-weight:700;font-size:1.04rem;letter-spacing:-.02em}
 #r-toc{border-radius:var(--r);box-shadow:var(--shadow)}
 #r-toc .toc-ch{color:var(--ink);font-size:.86rem}
 #r-toc .toc-a{color:var(--mute)}

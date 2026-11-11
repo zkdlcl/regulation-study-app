@@ -1,0 +1,15 @@
+
+/* ── 국제인도법 조약·의정서 용어 패널 (ihl-terms.js) ── */
+.itm-sum{margin:0 0 10px;padding:10px 14px;border-left:3px solid var(--red);background:var(--soft);border-radius:0 var(--r-sm) var(--r-sm) 0;font-weight:650;line-height:1.7}
+.itm-sec{margin:14px 0 0;padding-top:10px;border-top:1px solid var(--line)}
+.itm-sec:first-child{border-top:0;padding-top:0}
+.itm-src{margin-bottom:4px;font-size:.8rem;font-weight:700;letter-spacing:-.01em}
+.itm-src .xr{border-bottom:0;color:var(--mute)}
+.itm-src .xr::after{content:' ↗'}
+.itm-sec .ln{margin:.3em 0}
+.itm-sec .tw{margin:6px 0}
+.itm-more{margin-top:18px;padding-top:12px;border-top:1px dashed var(--line)}
+.itm-l{font-size:.74rem;font-weight:700;letter-spacing:.04em;color:var(--mute);margin-bottom:8px}
+.itm-chips{display:flex;flex-wrap:wrap;gap:6px}
+.itm-chip.xr{display:inline-flex;align-items:center;min-height:36px;padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font-size:.84rem;font-weight:600}
+.itm-chip.xr:hover{background:var(--soft)}
