@@ -1,6 +1,6 @@
 /* ═════ 국제인도법 이해 층: 해석 · 원어 · 팁 · 비교 · 연표 (kb/ihl_study.json → D.ihlStudy) ═════
    - 국제인도법 회독에서만, 데이터가 있는 절의 머리 밑에 아이콘 칩 줄을 붙인다
-   - 칩은 전역 모드(한 번 고르면 모든 절에 같은 층이 열림), 같은 칩을 다시 누르면 닫힘
+   - 칩은 절마다 따로 열린다(누른 절만 바뀌고 다른 절·화면 위치는 그대로), 같은 칩을 다시 누르면 닫힘
    - 해석은 원문을 쉬운 말로 옮긴 보조 설명이며 원문이 우선한다(표시로 구분) */
 (() => {
   const IS = D.ihlStudy; if (!IS) return;
@@ -17,7 +17,9 @@
   const NAME = {easy: '쉬운 해석', en: '원어(영문)', tip: '이해 팁', vs: '헷갈리는 쌍', tl: '연표'};
   const ls = {get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
               set: (k, v) => { try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch (e) {} }};
-  let mode = ls.get('ihx-mode') || '';
+  /* 절별로 열어 둔 층 {절 번호: 층}. 예전 전역 모드('ihx-mode')는 모든 절이 같이 바뀌어 화면이 밀렸으므로 쓰지 않는다 */
+  let open = {}; try { open = JSON.parse(ls.get('ihx-open') || '{}') || {}; } catch (e) { open = {}; }
+  ls.set('ihx-mode', '');
   let tlCore = ls.get('ihx-tl') !== 'all';
 
   const layers = a => ['easy', 'en', 'tip', 'vs', 'tl'].filter(k => k === 'easy' ? a.easy : k === 'en' ? a.en : k === 'tip' ? a.tip : k === 'vs' ? (a.pairs || []).length : a.timeline);
@@ -46,7 +48,7 @@
   }
   function paint(el){
     const a = IS.arts[el.dataset.ihx], box = el.querySelector('.ihx'); if (!a || !box) return;
-    const ks = layers(a), k = ks.includes(mode) ? mode : '';
+    const ks = layers(a), k = ks.includes(open[el.dataset.ihx]) ? open[el.dataset.ihx] : '';
     box.querySelectorAll('[data-ihxk]').forEach(b => { const on = b.dataset.ihxk === k; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
     const pane = box.querySelector('.ihx-pane');
     pane.hidden = !k;
@@ -124,10 +126,12 @@
   document.addEventListener('click', ev => {
     const c = ev.target.closest('[data-ihxk]');
     if (c){
-      const art = c.closest('.art'), top = art.getBoundingClientRect().top;
-      mode = mode === c.dataset.ihxk ? '' : c.dataset.ihxk; ls.set('ihx-mode', mode);
-      repaint();
-      window.scrollBy(0, art.getBoundingClientRect().top - top);   /* 누른 절이 제자리에 있게 */
+      const art = c.closest('.art[data-ihx]'); if (!art) return;
+      const no = art.dataset.ihx, top = c.getBoundingClientRect().top;
+      if (open[no] === c.dataset.ihxk) delete open[no]; else open[no] = c.dataset.ihxk;
+      ls.set('ihx-open', Object.keys(open).length ? JSON.stringify(open) : '');
+      paint(art);   /* 누른 절만 다시 그린다 */
+      const d = c.getBoundingClientRect().top - top; if (Math.abs(d) > 1) window.scrollBy(0, d);   /* 누른 칩이 제자리에 있게 */
       return;
     }
     const v = ev.target.closest('[data-ihxcover]');
@@ -135,5 +139,5 @@
     const t = ev.target.closest('[data-ihxtl]');
     if (t){ tlCore = t.dataset.ihxtl === 'core'; ls.set('ihx-tl', tlCore ? '' : 'all'); repaint(); }
   });
-  window.IHX = {paint, repaint, get mode(){ return mode; }};
+  window.IHX = {paint, repaint, get open(){ return open; }};
 })();

@@ -28,7 +28,7 @@ const ids = await ev(() => [...document.querySelectorAll('#r-body .art[id^="a-"]
 const pick = (re) => ids.find((i) => re.test(i));
 await check("인도법 뒤쪽 절", pick(/표장의 사용.*1\)/));
 await check("인도법 중간 절", ids[Math.floor(ids.length / 2)]);
-await ev(() => { localStorage.setItem("ihx-mode", "easy"); }); await page.reload({ waitUntil: "load" }); await sleep(800);
+await ev(() => { localStorage.setItem("ihx-open", JSON.stringify(Object.fromEntries(Object.entries(D.ihlStudy.arts).filter(([, a]) => a.easy).map(([k]) => [k, "easy"])))); }); await page.reload({ waitUntil: "load" }); await sleep(800);
 await openLaw("국제인도법");
 await check("인도법 해석 펼침", pick(/표장의 사용.*1\)/));
 await openLaw("운영규정");

@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer-core";
 
-/* 국제인도법 이해 층: 칩 표시 범위, 해석·원어·팁·비교·연표, 전역 모드 유지, 폰 넘침 */
+/* 국제인도법 이해 층: 칩 표시 범위, 해석·원어·팁·비교·연표, 절별 열림 유지, 폰 넘침 */
 const URL = "http://localhost:8765/index.html";
 const browser = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new", args: ["--no-sandbox"] });
 const res = [], errors = [];
@@ -27,10 +27,18 @@ ok("처음엔 닫힘", await ev((s) => document.querySelector(s + " .ihx-pane").
 await ev((s) => document.querySelector(s).scrollIntoView({ block: "center" }), A("제2장 1)"));
 await page.click(`${A("제2장 1)")} [data-ihxk="easy"]`); await sleep(200);
 ok("해석 열림", await ev((s) => { const p = document.querySelector(s + " .ihx-pane"); return !p.hidden && p.querySelectorAll(".ihx-easy li").length === 5; }, A("제2장 1)")));
-ok("전역 모드: 다른 절도 해석 열림", await ev((s) => !document.querySelector(s + " .ihx-pane").hidden && !!document.querySelector(s + " .ihx-easy"), A("제11장 2)")));
+ok("누른 절만 열림: 다른 절은 그대로 닫힘", await ev(() => document.querySelectorAll(".ihx-pane:not([hidden])").length === 1));
+{ /* 다른 절이 열려 있어도, 칩을 누를 때 그 절의 칩 위치와 다른 절 상태가 그대로여야 한다 */
+  await page.click(`${A("제11장 2)")} [data-ihxk]`); await sleep(150);
+  await ev((s) => document.querySelector(s).scrollIntoView({ block: "center" }), A("제2장 1)")); await sleep(150);
+  const sel = `${A("제2장 1)")} [data-ihxk="easy"]`, y = (q) => ev((q) => Math.round(document.querySelector(q).getBoundingClientRect().top), q);
+  const y0 = await y(sel); await page.click(sel); await sleep(150); const y1 = await y(sel);
+  ok("칩 눌러도 화면 위치 그대로", Math.abs(y1 - y0) <= 2, `${y0}→${y1}`);
+  ok("다른 절 열림 상태 유지", await ev((s) => !document.querySelector(s + " .ihx-pane").hidden, A("제11장 2)")));
+  await page.click(`${A("제11장 2)")} .ihx-c.on`); await sleep(150);
+}
 await page.click(`${A("제2장 1)")} [data-ihxk="en"]`); await sleep(200);
 ok("원어 jus ad bellum", await ev((s) => /jus ad bellum/.test(document.querySelector(s + " .ihx-en").textContent), A("제2장 1)")));
-ok("원어 없는 절은 닫힘(제4장 2)", await ev((s) => document.querySelector(s + " .ihx-pane").hidden, A("제4장 2)")));
 await page.click(`${A("제2장 1)")} [data-ihxk="vs"]`); await sleep(200);
 ok("비교 카드 두 칸", await ev((s) => document.querySelectorAll(s + " .ihx-side").length === 2, A("제2장 1)")));
 await page.click(`${A("제2장 1)")} [data-ihxcover="b"]`); await sleep(100);
@@ -51,7 +59,7 @@ ok("같은 칩 다시 누르면 닫힘", await ev((s) => document.querySelector(
 await page.click(`${A("제11장 2)")} [data-ihxk="tip"]`); await sleep(150);
 await page.reload({ waitUntil: "load" }); await sleep(600);
 await openLaw("국제인도법");
-ok("새로고침 뒤 모드 유지(팁)", await ev((s) => !document.querySelector(s + " .ihx-pane").hidden && !!document.querySelector(s + " .ihx-tip"), A("제11장 2)")));
+ok("새로고침 뒤 열어 둔 절 유지(팁)", await ev((s) => !document.querySelector(s + " .ihx-pane").hidden && !!document.querySelector(s + " .ihx-tip"), A("제11장 2)")));
 
 await ev(() => { document.documentElement.dataset.theme = "dark"; });
 await page.setViewport({ width: 390, height: 844 }); await sleep(300);
