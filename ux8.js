@@ -216,6 +216,19 @@ $('#p-today').addEventListener('click', e => { const b = e.target.closest('[data
 /* ── 스터디 3주차 문제 묶음(전권능) ── */
 if (!XG.some(g => g[0] === "st3")) XG.splice(2, 0, ["st3", "📕 스터디 3주차 · 운영규정 6~7장 문제"]);
 if (!XG.some(g => g[0] === "st4")) XG.splice(XG.findIndex(g => g[0] === "st3") + 1, 0, ["st4", "📕 스터디 4주차 · 보수운영규정 문제"]);
+if (!XG.some(g => g[0] === "st5")) XG.splice(XG.findIndex(g => g[0] === "st4") + 1, 0, ["st5", "📕 스터디 5주차 · 국제인도법 문제"]);
+
+/* 원본에 그림이 포함된 문제: 지문 아래 표시한다. 최초 답은 해설에서만 보인다. */
+const _drawXStudyImage = drawX;
+drawX = function(){
+  _drawXStudyImage();
+  const e = !X.done && X.queue[X.i], q = $('#p-exam .xq');
+  if (!e || !e.image || !q) return;
+  const img = document.createElement('img');
+  img.src = e.image; img.alt = e.imageAlt || '문제 원본 그림';
+  img.style.cssText = 'display:block;max-width:100%;height:auto;margin:12px 0';
+  q.after(img);
+};
 
 /* ── 헤더 통합 검색 (탭 목록의 검색 대신) ── */
 (function(){

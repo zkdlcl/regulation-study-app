@@ -34,7 +34,7 @@ const h = await page.evaluate(() => ({
 ok("섹션 구성(오답노트·법령별·기출 2종)", h.hs.length === 4, h.hs.join(" | "));
 ok("법령별 모아 풀기 11개(유관법령 등 문제 없는 것은 비활성)", h.law === 11, `비활성: ${h.lawDis.join(",")}`);
 ok("스터디 묶음 98개", h.sen === 98 && h.qi === 110, `${h.sen}/${h.qi}`);
-ok("원문 복원본 6묶음(스터디 1~4주차 + 사례형 + 2026) 유지", h.local === 6, String(h.local));
+ok("원문 복원본 7묶음(스터디 1~5주차 + 사례형 + 2026) 유지", h.local === 7, String(h.local));
 ok("모아 풀기 문제 수 칩", h.chips.length === 4, h.chips.join(","));
 ok("처음엔 문제 파일 요청 없음", reqs.length === 0);
 ok("가로 스크롤 없음", await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
