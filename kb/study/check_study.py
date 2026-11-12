@@ -89,7 +89,8 @@ def apply(exam, db=None):
     for x in db.get('add', []):   # 같은 묶음의 맨 뒤에 넣는다
         idx = [n for n, e in enumerate(exam) if e['grp'] == x['grp']]
         k = max(idx) + 1 if idx else len(exam)   # 새 묶음(st3 …)은 맨 뒤에서 시작
-        exam.insert(k, {f: x[f] for f in ('id', 'grp', 'no', 'kind', 'area', 'q', 'a', 'ex')})
+        fields = ('id', 'grp', 'no', 'kind', 'area', 'q', 'a', 'ex', 'my', 'image', 'imageAlt')
+        exam.insert(k, {f: x[f] for f in fields if f in x})
     import cases
     exam.extend(cases.build()[0])   # 사례형 묶음은 맨 뒤에 붙인다
     return fix

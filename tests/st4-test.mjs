@@ -19,7 +19,7 @@ const r = await page.evaluate(() => {
 });
 ok("4주차 56문항", r.n === 56, String(r.n));
 ok("8인 × 7문항", Object.keys(r.by).length === 8 && Object.values(r.by).every((v) => v === 7), JSON.stringify(r.by));
-ok("묶음 순서 st3 → st4 → case", /st3,st4,case/.test(r.xg), r.xg);
+ok("묶음 순서 st3 → st4 → st5 → case", /st3,st4,st5,case/.test(r.xg), r.xg);
 ok("답 확인(최강락-7 ③, 구현지-6 ⑤, 박준규-5 X, 전권능-1 ②, 신승현-6 ④)", r.a === "③,⑤,X,②,④", r.a);
 ok("구현지-6 에 ⑤ 0개 보기", r.five);
 await page.evaluate(() => showTab("exam")); await sleep(500);
